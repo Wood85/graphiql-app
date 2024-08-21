@@ -6,7 +6,7 @@
 - [ ] Bug Fix
 - [ ] Refactoring
 - [ ] Tests
-- [ ] Documentation Update
+- [ ] Documentation
 - [ ] Other
   
 ---
