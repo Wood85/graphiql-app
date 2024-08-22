@@ -24,7 +24,6 @@
   "rules": {
     "no-console": "error",
     "no-magic-numbers": ["error", { "ignoreArrayIndexes": true }],
-    "max-lines-per-function": ["error", { "max": 60, "skipBlankLines": true }],
     "max-len": ["error", { "code": 120, "ignoreStrings": true, "ignoreRegExpLiterals": true }],
     "linebreak-style": "off",
     "react/require-default-props": "off",
