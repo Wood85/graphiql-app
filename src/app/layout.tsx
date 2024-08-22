@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import localFont from 'next/font/local'
-import './../styles/globals.scss';
+import localFont from 'next/font/local';
+import '../styles/globals.scss';
 
 const ceraPro = localFont({
   src: [
@@ -15,20 +15,20 @@ const ceraPro = localFont({
       style: 'normal',
     },
   ],
-})
+});
 
 export const metadata: Metadata = {
-  title: "GraphiQL App",
-  description: "Application for using and building apis",
+  title: 'GraphiQL App',
+  description: 'Application for using and building apis',
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>): JSX.Element {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body className={ceraPro.className}>{children}</body>
     </html>
   );

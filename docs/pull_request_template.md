@@ -1,6 +1,6 @@
-### What type of PR is this? 
+### What type of PR is this?
 
-*Select all that apply*
+_Select all that apply_
 
 - [ ] New Feature
 - [ ] Bug Fix
@@ -8,30 +8,30 @@
 - [ ] Tests
 - [ ] Documentation
 - [ ] Other
-  
+
 ---
 
 ### Issue link
 
-*Describe the source of requirement, like related issue link*
+_Describe the source of requirement, like related issue link_
 
 ---
 
 ### Description
 
-*Add description of changes*
+_Add description of changes_
 
 ---
 
 ### Screenshots and recordings
 
-*If your change has a visual impact, provide a screenshot or a video of the work*
+_If your change has a visual impact, provide a screenshot or a video of the work_
 
 ---
 
 ### Did you have merge conflicts?
 
-*This information needs to check, if the previous merged features still work correctly*
+_This information needs to check, if the previous merged features still work correctly_
 
 - [ ] Yes
 - [ ] No
@@ -40,4 +40,4 @@
 
 ### Other information
 
-*Any other information you want to add*
+_Any other information you want to add_

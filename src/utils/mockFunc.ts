@@ -1,4 +1,4 @@
-function mockFunc() {
+function mockFunc(): boolean {
   return false;
 }
 
