@@ -9,7 +9,9 @@
     "lint": "next lint",
     "lint:fix": "npx eslint ./src --fix",
     "format": "npx prettier . --check",
-    "format:fix": "npx prettier . --write"
+    "format:fix": "npx prettier . --write",
+		"test": "next lint",
+    "prepare": "husky"
   },
   "dependencies": {
     "next": "14.2.5",
@@ -30,8 +32,14 @@
     "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-promise": "^6.6.0",
     "eslint-plugin-react": "^7.35.0",
+    "husky": "^9.1.5",
+    "lint-staged": "^15.2.9",
     "prettier": "^3.3.3",
     "sass": "^1.77.8",
     "typescript": "^5.5.4"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "npm run lint",
+    "*.{html,css,ts,tsx}": "npm run format:fix"
   }
 }
