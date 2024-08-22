@@ -1,5 +1,5 @@
 interface ICommonMock {
-  mock: boolean
+  mock: boolean;
 }
 
-export default ICommonMock
+export default ICommonMock;
