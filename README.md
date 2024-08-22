@@ -109,7 +109,7 @@ All the scripts that are part of this project are listed below:
     ```
 - 🚧 Any other scripts that may appear later on 🚧
 
-# Development Team 👦👧👦
+# Development team 👦👧👦
 
 ### **Aleksandr Krivoshein**
 
@@ -122,20 +122,20 @@ All the scripts that are part of this project are listed below:
 
 #
 
-### **Mikalai Shcharbakou**
-*Frontend development.*
-
-🚧There will be a photo of Mikalai🚧
-
-- [Mikalai's GitHub](https://github.com/doosterhere)
-- 🚧 Any other information 🚧
-
-#
-
 ### Ekaterina Kotliarenko ###
 *Frontend development.*
 
 🚧There will be a photo of Ekaterina🚧
 
 - [Ekaterina's GitHub](https://github.com/kagerka)
+- 🚧 Any other information 🚧
+
+#
+
+### **Mikalai Shcharbakou**
+*Frontend development.*
+
+🚧There will be a photo of Mikalai🚧
+
+- [Mikalai's GitHub](https://github.com/doosterhere)
 - 🚧 Any other information 🚧
