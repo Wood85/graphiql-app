@@ -10,6 +10,7 @@
     "lint:fix": "npx eslint ./src --fix",
     "format": "npx prettier . --check",
     "format:fix": "npx prettier . --write",
+		"test": "next lint",
     "prepare": "husky"
   },
   "dependencies": {
@@ -37,7 +38,7 @@
     "sass": "^1.77.8",
     "typescript": "^5.5.4"
   },
-	"lint-staged": {
+  "lint-staged": {
     "*.{ts,tsx}": "npm run lint",
     "*.{html,css,ts,tsx}": "npm run format:fix"
   }
