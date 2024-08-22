@@ -11,7 +11,7 @@
  - **It's not the space shuttle** - simple and intuitive interface.
  - **You want it, you got it** - you will get the API schema definition, if available.
 
-You can take a look and try our **GraphiQL App** here - 🚧 **[GraphiQL-app](http://URL-WILL-BE-SET-LATER)** [URL needs to be set later] 🚧 😊
+You can take a look and try our **GraphiQL App** here - **[GraphiQL-app](https://develop--graphiql-reactive.netlify.app/)** 😊
 
 ## Technology stack ⚙️ ##
 ### Developing: ###
@@ -115,7 +115,7 @@ All the scripts that are part of this project are listed below:
 
 *Team-lead. Frontend development.*
 
-🚧There will be a photo of Aleksandr🚧
+<img src="./src/assets/images/team/Aleksandr.png" alt="Aleksandr Krivoshein" width="300">
 
 - [Aleksandr's GitHub](https://github.com/wood85)
 - 🚧 Any other information 🚧
@@ -125,7 +125,7 @@ All the scripts that are part of this project are listed below:
 ### Ekaterina Kotliarenko ###
 *Frontend development.*
 
-🚧There will be a photo of Ekaterina🚧
+<img src="./src/assets/images/team/Ekaterina.png" alt="Ekaterina Kotliarenko" width="300">
 
 - [Ekaterina's GitHub](https://github.com/kagerka)
 - 🚧 Any other information 🚧
@@ -135,7 +135,7 @@ All the scripts that are part of this project are listed below:
 ### **Mikalai Shcharbakou**
 *Frontend development.*
 
-🚧There will be a photo of Mikalai🚧
+<img src="./src/assets/images/team/Mikalai.png" alt="Mikalai Shcharbakou" width="300">
 
 - [Mikalai's GitHub](https://github.com/doosterhere)
 - 🚧 Any other information 🚧
