@@ -1,5 +1,5 @@
-function mockFunc() {
-  return false;
+function mockFunc (): boolean {
+  return false
 }
 
-export default mockFunc;
+export default mockFunc
