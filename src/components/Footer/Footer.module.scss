@@ -2,8 +2,9 @@
 
 .footer {
   display: flex;
+  gap: 60px;
   min-height: 80px;
-  padding: 8px 60px;
+  padding: 10px 60px;
   align-items: center;
   justify-content: space-between;
 
@@ -30,6 +31,42 @@
 
   &:hover {
     color: $orange;
+  }
+}
+
+.year {
+  font-size: 20px;
+}
+
+.rss_link {
+  font-size: 0;
+}
+
+.rss_logo {
+  width: 64px;
+  height: 64px;
+}
+
+@media screen and (max-width: 834px) {
+  .developers {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+}
+
+@media screen and (max-width: 834px) {
+  .footer {
+    gap: 20px;
+    padding: 10px 30px;
+  }
+
+  .developer {
+    font-size: 16px;
+  }
+
+  .year {
+    font-size: 16px;
   }
 }
 

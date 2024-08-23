@@ -17,9 +17,11 @@ function Footer(): JSX.Element {
           kagerka
         </Link>
       </div>
-      <div>2024</div>
-      <Link href='https://rs.school/courses/reactjs' target='_blank'>
-        <Image src={rssLogo} width={64} height={64} alt='RSSchool' priority />
+
+      <div className={style.year}>2024</div>
+
+      <Link href='https://rs.school/courses/reactjs' target='_blank' className={style.rss_link}>
+        <Image src={rssLogo} className={style.rss_logo} alt='RSSchool' priority />
       </Link>
     </footer>
   );
