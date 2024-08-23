@@ -1,9 +1,15 @@
+import Footer from '@/components/Footer/Footer';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import '../styles/globals.scss';
 
 const ceraPro = localFont({
   src: [
+    {
+      path: './../assets/fonts/CeraPro-Light.woff2',
+      weight: '300',
+      style: 'normal',
+    },
     {
       path: './../assets/fonts/CeraPro-Regular.woff2',
       weight: '400',
@@ -29,7 +35,11 @@ export default function RootLayout({
 }>): JSX.Element {
   return (
     <html lang='en'>
-      <body className={ceraPro.className}>{children}</body>
+      <body className={`${ceraPro.className} body`}>
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
+

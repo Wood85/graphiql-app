@@ -1,0 +1,35 @@
+@import './../../styles/variables.scss';
+
+.footer {
+  display: flex;
+  min-height: 80px;
+  padding: 8px 60px;
+  align-items: center;
+  justify-content: space-between;
+
+  color: $white;
+  font-size: 20px;
+  font-weight: 300;
+
+  background-color: $dark-blue;
+}
+
+.developers {
+  display: flex;
+  gap: 30px;
+}
+
+.developer {
+  color: $white;
+  font-size: 20px;
+  font-weight: 300;
+  text-decoration: underline 1px;
+  text-underline-offset: 8px;
+
+  transition: color 0.3s ease-in;
+
+  &:hover {
+    color: $orange;
+  }
+}
+
