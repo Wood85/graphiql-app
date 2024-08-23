@@ -18,7 +18,9 @@ function Footer(): JSX.Element {
         </Link>
       </div>
       <div>2024</div>
-      <Image src={rssLogo} width={64} height={64} alt='RSSchool' priority />
+      <Link href='https://rs.school/courses/reactjs' target='_blank'>
+        <Image src={rssLogo} width={64} height={64} alt='RSSchool' priority />
+      </Link>
     </footer>
   );
 }
