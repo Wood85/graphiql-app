@@ -11,7 +11,7 @@
     "lint:fix": "npx eslint ./src --fix",
     "format": "npx prettier . --check",
     "format:fix": "npx prettier . --write",
-    "test": "vitest",
+    "test": "vitest --watch=false",
     "coverage": "vitest run --coverage",
     "prepare": "husky"
   },
