@@ -25,7 +25,7 @@ You can take a look and try our **GraphiQL App** here - **[GraphiQL-app](https:/
 
 ### Code quality:
 
-- 🚧 **[Vitest](https://vitest.dev/)** OR **[Jest](https://jestjs.io/)** 🚧 - a test runner.
+- **[Vitest](https://vitest.dev/)** - a test runner.
 - **[Testing Library](https://testing-library.com/)** - a library of React testing utilities.
 - **[ESLint](https://eslint.org/)** - a linter - a tool for writing better code.
 - **[Prettier](https://prettier.io/)** - a code formatter.
