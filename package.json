@@ -2,15 +2,17 @@
   "name": "graphiql-app",
   "version": "0.1.0",
   "private": true,
+	"type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint .",
     "lint:fix": "npx eslint ./src --fix",
     "format": "npx prettier . --check",
     "format:fix": "npx prettier . --write",
-		"test": "next lint",
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
     "prepare": "husky"
   },
   "dependencies": {
@@ -19,10 +21,14 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.0.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "@vitest/coverage-v8": "^2.0.5",
     "eslint": "^8.57.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "14.2.5",
@@ -33,10 +39,12 @@
     "eslint-plugin-promise": "^6.6.0",
     "eslint-plugin-react": "^7.35.0",
     "husky": "^9.1.5",
+    "jsdom": "^24.1.1",
     "lint-staged": "^15.2.9",
     "prettier": "^3.3.3",
     "sass": "^1.77.8",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
   },
   "lint-staged": {
     "*.{ts,tsx}": "npm run lint",

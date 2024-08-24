@@ -30,6 +30,8 @@
     "@typescript-eslint/no-explicit-any": "error",
     "react/prop-types": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
+		"@typescript-eslint/triple-slash-reference": "off",
+		"import/no-extraneous-dependencies": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
     "import/extensions": [
       "error",

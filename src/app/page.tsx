@@ -1,5 +1,9 @@
 import styles from './page.module.scss';
 
-export default function Home(): JSX.Element {
-  return <main className={styles.main}>GraphiQL</main>;
+export default function Page(): JSX.Element {
+  return (
+    <main className={styles.main}>
+      <h1>GraphiQL</h1>
+    </main>
+  );
 }
