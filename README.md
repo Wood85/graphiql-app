@@ -154,7 +154,7 @@ _Team-lead. Frontend development._
 
 #
 
-### Ekaterina Kotliarenko
+### **Ekaterina Kotliarenko**
 
 _Frontend development._
 
