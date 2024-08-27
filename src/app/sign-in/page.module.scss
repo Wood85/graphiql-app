@@ -1,0 +1,62 @@
+.page {
+  display: flex;
+  height: calc(100dvh - 84px);
+  padding-top: 60px;
+  justify-content: center;
+}
+
+.form {
+  width: 650px;
+  height: 489px;
+  border: 1px solid #6b99c3;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.title {
+  margin: 40px 0 0 0;
+
+  font-weight: 700;
+  font-size: 38px;
+}
+
+.emailInput,
+.passwordInput {
+  width: 484px;
+  height: 45px;
+  border: 1px solid #6b99c3;
+  border-radius: 4px;
+  padding-left: 10px;
+
+  font-size: 18px;
+}
+
+.label {
+	display: flex;
+	flex-direction: column;
+  height: 65px;
+
+  font-size: 18px;
+}
+
+.inputError {
+  height: 20px;
+}
+
+.signUpLink {
+  font-weight: 700;
+  font-size: 18px;
+  text-decoration: none;
+  color: #000000;
+}
+
+.signUpText {
+  font-size: 18px;
+}
+
+.submit {
+  margin-bottom: 40px;
+}

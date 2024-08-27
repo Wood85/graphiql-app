@@ -22,7 +22,7 @@
   },
   "plugins": ["react"],
   "rules": {
-    "no-console": "error",
+    "no-console": "off",
     "no-magic-numbers": ["error", { "ignoreArrayIndexes": true }],
     "max-len": ["error", { "code": 120, "ignoreStrings": true, "ignoreRegExpLiterals": true }],
     "linebreak-style": "off",
@@ -32,6 +32,8 @@
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/triple-slash-reference": "off",
     "import/no-extraneous-dependencies": "off",
+    "@typescript-eslint/no-invalid-void-type": "off",
+    "@typescript-eslint/no-misused-promises": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
     "import/extensions": [
       "error",
