@@ -1,9 +1,3 @@
 {
-  "cSpell.words": [
-		"cera",
-		"firestore",
-		"Graphi",
-		"graphiql",
-		"hookform"
-	]
+  "cSpell.words": ["cera", "clsx", "firestore", "Graphi", "graphiql", "hookform"]
 }
