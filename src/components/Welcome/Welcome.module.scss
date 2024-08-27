@@ -1,0 +1,40 @@
+@import '../../styles/variables.scss';
+
+.welcome {
+  width: 100%;
+  padding: 40px 0 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  border: 1px solid $light-blue;
+  border-radius: 8px;
+
+  .title {
+    margin: 0;
+
+    font-size: 38px;
+    color: $dark-blue;
+    line-height: 38px;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 40px;
+
+    .button {
+      min-width: 200px;
+      padding: 13px 0;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 4px;
+
+      font-size: 18px;
+      color: white;
+
+      background-color: $light-blue;
+      text-decoration: none;
+    }
+  }
+}

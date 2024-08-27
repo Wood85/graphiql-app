@@ -1,0 +1,69 @@
+@import '../../styles/variables.scss';
+
+.about {
+  padding: 40px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid $light-blue;
+  border-radius: 8px;
+
+  .title {
+    margin: 0;
+
+    font-size: 38px;
+    color: $dark-blue;
+    line-height: 38px;
+  }
+
+  .paragraph {
+    margin: 0;
+    margin-top: 30px;
+
+    font-size: 22px;
+    line-height: 38px;
+  }
+
+  .cards {
+    margin-top: 45px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .card {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 1px solid $light-blue;
+
+      text-align: center;
+      color: $dark-blue;
+
+      box-shadow: 4px 4px 8px $light-gray;
+
+      .name {
+        margin: 0;
+        margin-top: 20px;
+
+        font-size: 22px;
+        font-weight: bold;
+        line-height: 22px;
+      }
+
+      .roles {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+
+        .role {
+          margin: 0;
+
+          font-size: 22px;
+          line-height: 22px;
+        }
+      }
+    }
+  }
+}
