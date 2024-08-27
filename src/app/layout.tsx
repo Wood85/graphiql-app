@@ -1,7 +1,9 @@
-import Footer from '@/components/Footer/Footer';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import '../styles/globals.scss';
+
+import Header from '@/components/Header/Header';
+import Footer from '@/components/Footer/Footer';
+import '@/styles/globals.scss';
 
 const ceraPro = localFont({
   src: [
@@ -36,8 +38,11 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${ceraPro.className} body`}>
-        {children}
-        <Footer />
+        <div className='body-container'>
+          <Header />
+          <div className='body-content'>{children}</div>
+          <Footer />
+        </div>
       </body>
     </html>
   );
