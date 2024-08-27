@@ -25,7 +25,7 @@ You can take a look and try our **GraphiQL App** here - **[GraphiQL-app](https:/
 
 ### Code quality:
 
-- 🚧 **[Vitest](https://vitest.dev/)** OR **[Jest](https://jestjs.io/)** 🚧 - a test runner.
+- **[Vitest](https://vitest.dev/)** - a test runner.
 - **[Testing Library](https://testing-library.com/)** - a library of React testing utilities.
 - **[ESLint](https://eslint.org/)** - a linter - a tool for writing better code.
 - **[Prettier](https://prettier.io/)** - a code formatter.
@@ -121,13 +121,13 @@ All the scripts that are part of this project are listed below:
   npm run format:fix
   ```
 
-- 🚧Runs unit-tests with Vitest (OR Jest):🚧
+- Runs unit-tests with Vitest (without test coverage):
 
   ```
   npm run test
   ```
 
-- 🚧Runs unit-tests with Vitest (OR Jest) with coverage:🚧
+- Runs unit-tests with Vitest and shows test coverage:
 
   ```
   npm run coverage
@@ -138,8 +138,6 @@ All the scripts that are part of this project are listed below:
   ```
   npm run prepare
   ```
-
-- 🚧 Any other scripts that may appear later on 🚧
 
 # Development team 👦👧👦
 
