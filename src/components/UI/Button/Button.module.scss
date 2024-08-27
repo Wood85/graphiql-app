@@ -1,0 +1,19 @@
+@import '../../../styles/variables.scss';
+
+.button {
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid $light-blue;
+  border-radius: 4px;
+
+  color: $white;
+  font-size: 18px;
+
+  background-color: $light-blue;
+  text-decoration: none;
+  cursor: pointer;
+}
