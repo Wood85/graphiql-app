@@ -13,9 +13,9 @@ interface IAnchorProps extends PropsWithChildren<AnchorHTMLAttributes<HTMLAnchor
   className?: string;
 }
 
-type ButtonProps = (IButtonProps & { href: never }) | IAnchorProps;
+type TButtonProps = (IButtonProps & { href: never }) | IAnchorProps;
 
-function Button({ children, className, ...attributes }: ButtonProps): JSX.Element {
+function Button({ children, className, ...attributes }: TButtonProps): JSX.Element {
   const buttonStyle = clsx(style.button, className);
 
   if (typeof attributes.href === 'string') {
