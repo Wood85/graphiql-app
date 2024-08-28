@@ -9,7 +9,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import appLogo from '../../assets/images/app-logo.svg';
-import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import Button from '../UI/Button/Button';
 import style from './Header.module.scss';
 
@@ -31,7 +30,7 @@ function Header(): JSX.Element {
   const isSticky = (e: Event): void => {
     const scrollTop = window.scrollY;
     headerElement.current?.scrollIntoView({ behavior: 'smooth' });
-    const INITIAL_POSITION = 0;
+    const INITIAL_POSITION = 1;
     scrollTop > INITIAL_POSITION
       ? headerElement.current?.classList.add(style.sticked)
       : headerElement.current?.classList.remove(style.sticked);
@@ -88,7 +87,30 @@ function Header(): JSX.Element {
         </button>
       </header>
       <div ref={burgerMenu} className={style.burger_menu}>
-        <BurgerMenu />
+        <div className={style.burger_wrapper}>
+          <div className={style.lang_wrapper}>
+            <button type='button' className={`${style.lang} ${style.active}`} ref={enLang} onClick={getLang}>
+              En
+            </button>
+            <div className={style.lang_line} />
+            <button type='button' className={style.lang} ref={ruLang} onClick={getLang}>
+              Ru
+            </button>
+          </div>
+          <div className={style.auth_wrapper}>
+            <Button href='/sign-in' className={style.signin_button} onClick={openMenu}>
+              <SignInIcon className={style.signin_icon} /> Sign In
+            </Button>
+            <Button href='/sign-up' className={style.signup_button} onClick={openMenu}>
+              <SignUpIcon className={style.signup_icon} /> Sign Up
+            </Button>
+          </div>
+          <nav>
+            <Link href='/' className={style.nav_mobile} onClick={openMenu}>
+              <HomeIcon className={style.home_icon} /> Home
+            </Link>
+          </nav>
+        </div>
       </div>
     </>
   );

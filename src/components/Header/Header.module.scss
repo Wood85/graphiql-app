@@ -49,8 +49,8 @@
 }
 
 .app_logo {
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
 
   transition: all 0.3s ease-in;
 }
@@ -196,6 +196,21 @@
   transition: all 0.3s ease-in;
 }
 
+.burger_wrapper {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: $dark-blue;
+  overflow: hidden;
+  padding: 120px 30px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+}
+
 @media screen and (max-width: 834px) {
   .header {
     min-height: 80px;
@@ -215,6 +230,30 @@
     display: none;
   }
 
+  .nav_mobile {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    color: $white;
+    font-size: 22px;
+    text-decoration: none;
+
+    transition: all 0.3s ease-in;
+
+    .home_icon {
+      transition: all 0.3s ease-in;
+    }
+
+    &:hover {
+      color: $orange;
+
+      & .home_icon {
+        fill: $orange;
+      }
+    }
+  }
+
   .mobile_menu {
     display: block;
   }
@@ -231,3 +270,4 @@
     display: block;
   }
 }
+
