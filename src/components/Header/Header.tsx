@@ -16,6 +16,8 @@ function Header(): JSX.Element {
   const headerElement = useRef<HTMLElement | null>(null);
   const enLang = useRef<HTMLButtonElement | null>(null);
   const ruLang = useRef<HTMLButtonElement | null>(null);
+  const enLangMobile = useRef<HTMLButtonElement | null>(null);
+  const ruLangMobile = useRef<HTMLButtonElement | null>(null);
   const burgerMenu = useRef<HTMLDivElement | null>(null);
   const burgerIcon = useRef<HTMLDivElement | null>(null);
   const closeIcon = useRef<HTMLDivElement | null>(null);
@@ -39,6 +41,8 @@ function Header(): JSX.Element {
   const getLang = (): void => {
     enLang.current?.classList.toggle(style.active);
     ruLang.current?.classList.toggle(style.active);
+    enLangMobile.current?.classList.toggle(style.active);
+    ruLangMobile.current?.classList.toggle(style.active);
   };
 
   const openMenu = (): void => {
@@ -89,11 +93,11 @@ function Header(): JSX.Element {
       <div ref={burgerMenu} className={style.burger_menu}>
         <div className={style.burger_wrapper}>
           <div className={style.lang_wrapper}>
-            <button type='button' className={`${style.lang} ${style.active}`} ref={enLang} onClick={getLang}>
+            <button type='button' className={`${style.lang} ${style.active}`} ref={enLangMobile} onClick={getLang}>
               En
             </button>
             <div className={style.lang_line} />
-            <button type='button' className={style.lang} ref={ruLang} onClick={getLang}>
+            <button type='button' className={style.lang} ref={ruLangMobile} onClick={getLang}>
               Ru
             </button>
           </div>
