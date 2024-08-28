@@ -1,14 +1,32 @@
 @import '../../styles/variables.scss';
 
-.welcome {
+.absolute {
+  position: absolute;
+  top: 85px;
+
+  border: none;
+
+  color: $dark-blue;
+
+  background-color: $gray;
+}
+
+.wrapper {
   width: 100%;
-  padding: 40px 0 60px;
+  padding: 40px 20px 60px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   gap: 40px;
   border: 1px solid $light-blue;
   border-radius: 8px;
+
+  transition: all 0.3s ease-in;
+
+  @media screen and (max-width: 425px) {
+    padding-bottom: 30px;
+  }
 
   .title {
     margin: 0;
@@ -16,25 +34,77 @@
     font-size: 38px;
     color: $dark-blue;
     line-height: 38px;
+    text-align: center;
+
+    transition: all 0.3s ease-in;
+
+    @media screen and (max-width: 425px) {
+      font-size: 30px;
+    }
   }
 
-  .buttons {
+  .actions {
+    min-height: 50px;
     display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 40px;
+
+    transition: all 0.3s ease-in;
+
+    @media screen and (max-width: 767px) {
+      flex-direction: column;
+      gap: 30px;
+    }
 
     .button {
       min-width: 200px;
-      padding: 13px 0;
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      border-radius: 4px;
 
-      font-size: 18px;
-      color: white;
+      transition: all 0.3s ease-in;
 
-      background-color: $light-blue;
+      & .sign_in_icon,
+      & .sign_up_icon {
+        transition: all 0.3s ease-in;
+      }
+
+      &:hover,
+      &:active {
+        color: $dark-blue;
+
+        background-color: $light-blue;
+
+        & .sign_in_icon,
+        & .sign_up_icon {
+          fill: $dark-blue;
+        }
+      }
+
+      &:active {
+        background-color: $gray;
+      }
+    }
+
+    .link {
+      margin: 0 10px;
+      // border-bottom: 1px solid $dark-blue;
+
+      color: $dark-blue;
+      font-size: 22px;
+      border-bottom: 1px solid transparent;
+
       text-decoration: none;
+
+      transition: all 0.3s ease-in;
+
+      &:hover {
+        color: $orange;
+        border-color: $orange;
+        border-bottom: 1px solid $orange;
+      }
+
+      @media screen and (max-width: 767px) {
+        margin: 0;
+      }
     }
   }
 }
