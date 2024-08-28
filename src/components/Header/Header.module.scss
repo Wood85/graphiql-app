@@ -3,6 +3,7 @@
 .header {
   position: sticky;
   top: 0;
+  z-index: 2;
 
   display: flex;
   gap: 60px;
@@ -86,12 +87,13 @@
 .signin_button,
 .signup_button {
   display: flex;
+  gap: 5px;
   width: 120px;
   height: 50px;
-  border-radius: 4px;
   justify-content: center;
   align-items: center;
-  gap: 5px;
+
+  border-radius: 4px;
 
   font-size: 18px;
   color: $white;
@@ -165,5 +167,68 @@
 .options_wrapper {
   display: flex;
   gap: 60px;
+}
+
+.mobile_menu {
+  display: none;
+  border: none;
+
+  font-size: 0;
+
+  background-color: transparent;
+
+  transition: all 0.3s ease-in;
+}
+
+.burger_icon {
+  display: none;
+}
+
+.close_icon {
+  display: none;
+
+  transition: all 0.3s ease-in;
+}
+
+.burger_menu {
+  display: none;
+
+  transition: all 0.3s ease-in;
+}
+
+@media screen and (max-width: 834px) {
+  .header {
+    min-height: 80px;
+    padding: 10px 30px;
+  }
+
+  .app_logo {
+    width: 50px;
+    height: 50px;
+  }
+
+  .options_wrapper {
+    display: none;
+  }
+
+  .nav_link {
+    display: none;
+  }
+
+  .mobile_menu {
+    display: block;
+  }
+
+  .burger_menu.active {
+    display: block;
+  }
+
+  .burger_icon.active {
+    display: block;
+  }
+
+  .close_icon.active {
+    display: block;
+  }
 }
 

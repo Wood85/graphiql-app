@@ -1,5 +1,5 @@
 interface IProps {
-  className: string;
+  className?: string;
 }
 function HomeIcon({ className }: IProps): JSX.Element {
   return (
@@ -16,4 +16,3 @@ function HomeIcon({ className }: IProps): JSX.Element {
   );
 }
 export default HomeIcon;
-

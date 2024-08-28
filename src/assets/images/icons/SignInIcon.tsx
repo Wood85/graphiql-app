@@ -1,5 +1,5 @@
 interface IProps {
-  className: string;
+  className?: string;
 }
 
 function SignInIcon({ className }: IProps): JSX.Element {
@@ -17,4 +17,3 @@ function SignInIcon({ className }: IProps): JSX.Element {
   );
 }
 export default SignInIcon;
-
