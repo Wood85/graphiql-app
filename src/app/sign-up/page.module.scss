@@ -1,3 +1,5 @@
+@import '../../styles/variables.scss';
+
 .page {
   display: flex;
   height: calc(100dvh - 84px);
@@ -5,7 +7,7 @@
   justify-content: center;
 }
 
-.container {
+.form {
   width: 650px;
   height: 750px;
   border: 1px solid #6b99c3;
@@ -36,8 +38,11 @@
   font-size: 18px;
 }
 
-.inputTitle {
-  height: 20px;
+.label {
+  display: flex;
+  flex-direction: column;
+  height: 65px;
+
   font-size: 18px;
 }
 
@@ -58,4 +63,17 @@
 
 .submit {
   margin-bottom: 40px;
+  width: 200px;
+  height: 50px;
+}
+
+.inputError {
+  color: $red;
+}
+
+.error {
+  height: 20px;
+
+  font-size: 18px;
+  color: $red;
 }

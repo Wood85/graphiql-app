@@ -1,13 +1,6 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  sendPasswordResetEmail,
-  signOut,
-} from 'firebase/auth';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
-import type { UserCredential } from 'firebase/auth';
+import { getAuth, sendPasswordResetEmail, signOut } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
 const EMPTY_ARR_LENGTH = 0;
 
@@ -26,33 +19,6 @@ const auth = getAuth(app);
 
 const db = getFirestore(app);
 
-const logInWithEmailAndPassword = async (email: string, password: string): Promise<UserCredential | void> => {
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-const registerWithEmailAndPassword = async (
-  name: string,
-  email: string,
-  password: string,
-): Promise<UserCredential | void> => {
-  try {
-    const res = await createUserWithEmailAndPassword(auth, email, password);
-    const { user } = res;
-    await addDoc(collection(db, 'users'), {
-      uid: user.uid,
-      name,
-      authProvider: 'local',
-      email,
-    });
-  } catch (err) {
-    console.error(err);
-  }
-};
-
 const sendPasswordReset = async (email: string): Promise<void> => {
   try {
     await sendPasswordResetEmail(auth, email);
@@ -65,13 +31,4 @@ const logout = async (): Promise<void> => {
   await signOut(auth);
 };
 
-export {
-  app,
-  auth,
-  db,
-  signInWithEmailAndPassword,
-  logInWithEmailAndPassword,
-  registerWithEmailAndPassword,
-  sendPasswordReset,
-  logout,
-};
+export { app, auth, db, sendPasswordReset, logout };

@@ -1,3 +1,5 @@
+@import '../../styles/variables.scss';
+
 .page {
   display: flex;
   height: calc(100dvh - 84px);
@@ -54,9 +56,24 @@
 }
 
 .signUpText {
+  margin-top: -20px;
+
   font-size: 18px;
 }
 
 .submit {
   margin-bottom: 40px;
+  width: 200px;
+  height: 50px;
+}
+
+.inputError {
+  color: $red;
+}
+
+.error {
+  height: 20px;
+
+  font-size: 18px;
+  color: $red;
 }
