@@ -1,9 +1,15 @@
-import styles from './page.module.scss';
+import Welcome from '@/components/Welcome/Welcome';
+import About from '@/components/About/About';
+
+import style from './page.module.scss';
 
 export default function Page(): JSX.Element {
   return (
-    <main className={styles.main}>
-      <h1>GraphiQL</h1>
+    <main className={style.main}>
+      <div className={style.container}>
+        <Welcome />
+        <About />
+      </div>
     </main>
   );
 }
