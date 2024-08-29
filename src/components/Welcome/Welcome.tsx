@@ -29,12 +29,10 @@ function Welcome(): JSX.Element {
         {!isAuth && (
           <>
             <Button href='/sign-in' className={style.button}>
-              {/* <Image src={signInIcon} alt='Sign In' width={24} height={24} priority /> */}
               <SignInIcon className={style.sign_in_icon} />
               Sign In
             </Button>
             <Button href='/sign-up' className={style.button}>
-              {/* <Image src={signUpIcon} alt='Sign Up' width={24} height={24} priority /> */}
               <SignUpIcon className={style.sign_up_icon} />
               Sign Up
             </Button>
