@@ -7,13 +7,13 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
-  border: 1px solid $light-blue;
+  border: none;
   border-radius: 4px;
 
   color: $white;
   font-size: 18px;
 
-  background-color: $light-blue;
+  background-color: $blue;
   text-decoration: none;
   cursor: pointer;
 }

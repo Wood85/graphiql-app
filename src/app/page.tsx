@@ -7,7 +7,11 @@ import React from 'react';
 // import { query, collection, getDocs, where } from 'firebase/firestore';
 // import type { DocumentData } from 'firebase/firestore';
 // import { useRouter } from 'next/navigation';
-import styles from './page.module.scss';
+
+import Welcome from '@/components/Welcome/Welcome';
+import About from '@/components/About/About';
+
+import style from './page.module.scss';
 
 function Page(): JSX.Element {
   // const [user, loading] = useAuthState(auth);
@@ -31,8 +35,7 @@ function Page(): JSX.Element {
   // }, [user, loading, router]);
 
   return (
-    <div className={styles.page}>
-      <h1>GraphiQL</h1>
+    <main className={style.main}>
       {/* <div className={styles.container}>
         Logged in as
         <div>{name}</div>
@@ -41,7 +44,11 @@ function Page(): JSX.Element {
           Logout
         </button>
       </div> */}
-    </div>
+      <div className={style.container}>
+        <Welcome />
+        <About />
+      </div>
+    </main>
   );
 }
 export default Page;
