@@ -83,7 +83,7 @@ function SignUp(): JSX.Element {
     <div className={styles.page}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <h1 className={styles.title}>Sign Up</h1>
-        <div className={styles.inputContainer}>
+        <div className={styles.input_container}>
           <label htmlFor='name' className={styles.label}>
             Name
             <input
@@ -94,12 +94,12 @@ function SignUp(): JSX.Element {
               })}
               id='name'
               type='text'
-              className={styles.nameInput}
+              className={styles.name_input}
             />
           </label>
-          <div className={styles.inputError}>{errors.name?.message}</div>
+          <div className={styles.input_error}>{errors.name?.message}</div>
         </div>
-        <div className={styles.inputContainer}>
+        <div className={styles.input_container}>
           <label htmlFor='email' className={styles.label}>
             E-mail
             <input
@@ -110,13 +110,13 @@ function SignUp(): JSX.Element {
               })}
               id='email'
               type='text'
-              className={styles.emailInput}
+              className={styles.email_input}
             />
           </label>
-          <div className={styles.inputError}>{errors.email?.message}</div>
+          <div className={styles.input_error}>{errors.email?.message}</div>
         </div>
 
-        <div className={styles.inputContainer}>
+        <div className={styles.input_container}>
           <label htmlFor='password' className={styles.label}>
             Password
             <input
@@ -127,13 +127,13 @@ function SignUp(): JSX.Element {
               })}
               id='password'
               type='password'
-              className={styles.passwordInput}
+              className={styles.password_input}
             />
           </label>
-          <div className={styles.inputError}>{errors.password?.message}</div>
+          <div className={styles.input_error}>{errors.password?.message}</div>
         </div>
 
-        <div className={styles.inputContainer}>
+        <div className={styles.input_container}>
           <label htmlFor='confirmPassword' className={styles.label}>
             Confirm password
             <input
@@ -144,20 +144,20 @@ function SignUp(): JSX.Element {
               })}
               id='confirmPassword'
               type='password'
-              className={styles.confirmPasswordInput}
+              className={styles.confirm_password_input}
             />
           </label>
-          <div className={styles.inputError}>{errors.confirmPassword?.message}</div>
+          <div className={styles.input_error}>{errors.confirmPassword?.message}</div>
         </div>
 
         <div className={styles.error}>{error}</div>
 
-        <Button className={styles.submit} type='submit'>
+        <Button className={styles.submit} disabled={error !== ''} type='submit'>
           Submit
         </Button>
-        <div className={styles.signInText}>
+        <div className={styles.sign_in_text}>
           Already have an account?{' '}
-          <Link href='/sign-in' className={styles.signInLink}>
+          <Link href='/sign-in' className={styles.sign_in_link}>
             Sign In
           </Link>
         </div>

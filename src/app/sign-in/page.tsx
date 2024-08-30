@@ -56,7 +56,7 @@ function SignIn(): JSX.Element {
     <div className={styles.page}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
         <h1 className={styles.title}>Sign In</h1>
-        <div className={styles.inputContainer}>
+        <div className={styles.input_container}>
           <label htmlFor='email' className={styles.label}>
             E-mail
             <input
@@ -67,13 +67,13 @@ function SignIn(): JSX.Element {
               })}
               id='email'
               type='text'
-              className={styles.emailInput}
+              className={styles.email_input}
             />
           </label>
-          <div className={styles.inputError}>{errors.email?.message}</div>
+          <div className={styles.input_error}>{errors.email?.message}</div>
         </div>
 
-        <div className={styles.inputContainer}>
+        <div className={styles.input_container}>
           <label htmlFor='password' className={styles.label}>
             Password
             <input
@@ -84,21 +84,21 @@ function SignIn(): JSX.Element {
               })}
               id='password'
               type='password'
-              className={styles.passwordInput}
+              className={styles.password_input}
             />
           </label>
-          <div className={styles.inputError}>{errors.password?.message}</div>
+          <div className={styles.input_error}>{errors.password?.message}</div>
         </div>
 
         <div className={styles.error}>{error}</div>
 
-        <Button className={styles.submit} type='submit'>
+        <Button className={styles.submit} disabled={error !== ''} type='submit'>
           Submit
         </Button>
 
-        <div className={styles.signUpText}>
+        <div className={styles.sign_up_text}>
           {"Don't have an account?"}{' '}
-          <Link href='/sign-up' className={styles.signUpLink}>
+          <Link href='/sign-up' className={styles.sign_up_link}>
             Sign Up
           </Link>
         </div>

@@ -34,7 +34,8 @@
     }
 
     & .signin_button,
-    & .signup_button {
+    & .signup_button,
+    & .signout_button {
       width: 40px;
       height: 40px;
       gap: 0;
@@ -85,7 +86,8 @@
 }
 
 .signin_button,
-.signup_button {
+.signup_button,
+.signout_button {
   display: flex;
   gap: 5px;
   width: 120px;
@@ -104,7 +106,8 @@
   transition: all 0.3s ease-in;
 
   & .signin_icon,
-  & .signup_icon {
+  & .signup_icon,
+  & .signout_icon {
     transition: all 0.3s ease-in;
   }
 
@@ -114,7 +117,8 @@
     background-color: $light-blue;
 
     & .signin_icon,
-    & .signup_icon {
+    & .signup_icon,
+    & .signout_icon {
       fill: $dark-blue;
     }
   }
@@ -125,7 +129,8 @@
     background-color: $gray;
 
     & .signin_icon,
-    & .signup_icon {
+    & .signup_icon,
+    & .signout_icon {
       fill: $dark-blue;
     }
   }

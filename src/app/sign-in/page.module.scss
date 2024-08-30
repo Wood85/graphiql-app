@@ -2,9 +2,13 @@
 
 .page {
   display: flex;
-  height: calc(100dvh - 84px);
   padding-top: 60px;
   justify-content: center;
+  transition: all 0.3s ease-in;
+
+  @media screen and (max-width: 425px) {
+    padding: 20px 0;
+  }
 }
 
 .form {
@@ -16,6 +20,19 @@
   flex-direction: column;
   align-items: center;
   gap: 20px;
+
+  @media screen and (max-width: 710px) {
+    width: 100%;
+    margin: 0 30px;
+  }
+
+  @media screen and (max-width: 425px) {
+    margin: 0 20px;
+  }
+
+  @media screen and (max-width: 387px) {
+    height: 507px;
+  }
 }
 
 .title {
@@ -25,8 +42,15 @@
   font-size: 38px;
 }
 
-.emailInput,
-.passwordInput {
+.input_container {
+  @media screen and (max-width: 585px) {
+    width: 100%;
+    padding: 0 35px;
+  }
+}
+
+.email_input,
+.password_input {
   width: 484px;
   height: 45px;
   border: 1px solid #6b99c3;
@@ -34,6 +58,10 @@
   padding-left: 10px;
 
   font-size: 18px;
+
+  @media screen and (max-width: 585px) {
+    width: 100%;
+  }
 }
 
 .label {
@@ -42,32 +70,57 @@
   height: 65px;
 
   font-size: 18px;
+
+  @media screen and (max-width: 585px) {
+    width: 100%;
+  }
 }
 
-.inputError {
+.input_error {
   height: 20px;
 }
 
-.signUpLink {
+.sign_up_link {
   font-weight: 700;
   font-size: 18px;
   text-decoration: none;
   color: #000000;
 }
 
-.signUpText {
-  margin-top: -20px;
+.sign_up_text {
+  margin: -20px 20px 0 20px;
 
   font-size: 18px;
+
+  @media screen and (max-width: 387px) {
+    width: 200px;
+    text-align: center;
+  }
 }
 
 .submit {
   margin-bottom: 40px;
   width: 200px;
   height: 50px;
+  transition: all 0.3s ease-in;
+
+  &:hover {
+    color: $dark-blue;
+    background-color: $light-blue;
+    transition: all 0.3s ease-in;
+  }
+
+  &:disabled {
+    background-color: $dark-gray;
+    transition: all 0.3s ease-in;
+    cursor: default;
+    &:hover {
+      color: $white;
+    }
+  }
 }
 
-.inputError {
+.input_error {
   color: $red;
 }
 
