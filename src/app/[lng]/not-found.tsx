@@ -1,8 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-
+import notFoundImage from '../../assets/images/not-found.svg';
 import style from './not-found.module.scss';
-import notFoundImage from '../assets/images/not-found.svg';
 
 export default function NotFoundPage(): JSX.Element {
   return (

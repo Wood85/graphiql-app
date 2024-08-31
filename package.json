@@ -16,9 +16,12 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "accept-language": "^3.0.20",
     "clsx": "^2.1.1",
     "i18next": "^23.14.0",
+    "i18next-resources-to-backend": "^1.2.1",
     "next": "14.2.5",
+    "next-i18n-router": "^5.5.1",
     "react": "^18",
     "react-dom": "^18",
     "react-i18next": "^15.0.1"

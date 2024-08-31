@@ -156,11 +156,25 @@
 
   cursor: pointer;
 
+  .lang_link {
+    text-decoration: none;
+
+    &:visited {
+      color: $blue;
+    }
+  }
+
   &.active {
     color: $white;
 
     pointer-events: none;
     cursor: default;
+
+    .lang_link {
+      &:visited {
+        color: $white;
+      }
+    }
   }
 }
 
@@ -182,10 +196,12 @@
 
 .burger_icon {
   display: none;
+  cursor: pointer;
 }
 
 .close_icon {
   display: none;
+  cursor: pointer;
 
   transition: all 0.3s ease-in;
 }
@@ -270,3 +286,4 @@
     display: block;
   }
 }
+
