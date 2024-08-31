@@ -13,11 +13,18 @@ import { useEffect, useRef } from 'react';
 
 import style from './Header.module.scss';
 
-interface IProps {
-  lang: string;
+interface ITranslateProps {
+  translate: {
+    lang: string;
+    home: string;
+    en: string;
+    ru: string;
+    signIn: string;
+    signUp: string;
+  };
 }
 
-function Header(lang: IProps): JSX.Element {
+function Header({ translate }: ITranslateProps): JSX.Element {
   const headerElement = useRef<HTMLElement | null>(null);
   const enLang = useRef<HTMLButtonElement | null>(null);
   const ruLang = useRef<HTMLButtonElement | null>(null);
@@ -26,16 +33,16 @@ function Header(lang: IProps): JSX.Element {
   const burgerMenu = useRef<HTMLDivElement | null>(null);
   const burgerIcon = useRef<HTMLDivElement | null>(null);
   const closeIcon = useRef<HTMLDivElement | null>(null);
-  const language = lang;
+  const { lang } = translate;
 
   const applyLangStyles = (): void => {
-    if (language.lang === 'en') {
+    if (lang === 'en') {
       enLang.current?.classList.add(style.active);
       ruLang.current?.classList.remove(style.active);
       enLangMobile.current?.classList.add(style.active);
       ruLangMobile.current?.classList.remove(style.active);
     }
-    if (language.lang === 'ru') {
+    if (lang === 'ru') {
       ruLang.current?.classList.add(style.active);
       enLang.current?.classList.remove(style.active);
       ruLangMobile.current?.classList.add(style.active);
@@ -75,29 +82,29 @@ function Header(lang: IProps): JSX.Element {
         </Link>
         <nav>
           <Link href='/' className={style.nav_link}>
-            <HomeIcon className={style.home_icon} /> Home
+            <HomeIcon className={style.home_icon} /> {translate.home}
           </Link>
         </nav>
         <div className={style.options_wrapper}>
           <div className={style.lang_wrapper}>
             <button type='button' className={`${style.lang}`} ref={enLang}>
               <Link href='/en' className={style.lang_link}>
-                En
+                {translate.en}
               </Link>
             </button>
             <div className={style.lang_line} />
             <button type='button' className={style.lang} ref={ruLang}>
               <Link href='/ru' className={style.lang_link}>
-                Ru
+                {translate.ru}
               </Link>
             </button>
           </div>
           <div className={style.auth_wrapper}>
             <Button href='/sign-in' className={style.signin_button}>
-              <SignInIcon className={style.signin_icon} /> Sign In
+              <SignInIcon className={style.signin_icon} /> {translate.signIn}
             </Button>
             <Button href='/sign-up' className={style.signup_button}>
-              <SignUpIcon className={style.signup_icon} /> Sign Up
+              <SignUpIcon className={style.signup_icon} /> {translate.signUp}
             </Button>
           </div>
         </div>
@@ -115,27 +122,27 @@ function Header(lang: IProps): JSX.Element {
           <div className={style.lang_wrapper}>
             <button type='button' className={`${style.lang}`} ref={enLangMobile}>
               <Link href='/en' className={style.lang_link}>
-                En
+                {translate.en}
               </Link>
             </button>
             <div className={style.lang_line} />
             <button type='button' className={style.lang} ref={ruLangMobile}>
               <Link href='/ru' className={style.lang_link}>
-                Ru
+                {translate.ru}
               </Link>
             </button>
           </div>
           <div className={style.auth_wrapper}>
             <Button href='/sign-in' className={style.signin_button} onClick={openMenu}>
-              <SignInIcon className={style.signin_icon} /> Sign In
+              <SignInIcon className={style.signin_icon} /> {translate.signIn}
             </Button>
             <Button href='/sign-up' className={style.signup_button} onClick={openMenu}>
-              <SignUpIcon className={style.signup_icon} /> Sign Up
+              <SignUpIcon className={style.signup_icon} /> {translate.signUp}
             </Button>
           </div>
           <nav>
             <Link href='/' className={style.nav_mobile} onClick={openMenu}>
-              <HomeIcon className={style.home_icon} /> Home
+              <HomeIcon className={style.home_icon} /> {translate.home}
             </Link>
           </nav>
         </div>

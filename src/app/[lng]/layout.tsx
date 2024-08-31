@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
 import Footer from '@/components/Footer/Footer';
-// import Header from '@/components/Header/Header';
 import '@/styles/globals.scss';
 
 import Header from '@/components/Header/Header';
@@ -52,13 +51,20 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children, params: { lng } }: Readonly<IProps>): Promise<JSX.Element> {
   const { t } = await useTranslation(languages.includes(lng) ? lng : fallbackLng);
+  const translate = {
+    lang: lng,
+    home: t('home'),
+    en: t('en'),
+    ru: t('ru'),
+    signIn: t('signIn'),
+    signUp: t('signUp'),
+  };
   return (
     <html lang={lng} dir={dir(lng)}>
       <body className={`${ceraPro.className} body`}>
         <div className='body-container'>
-          <Header lang={lng} />
+          <Header translate={translate} />
           <div className='body-content'>{children}</div>
-          <div>{t('title')}</div>
           <Footer />
         </div>
       </body>

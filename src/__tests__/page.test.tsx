@@ -4,5 +4,10 @@ import Page from '../app/[lng]/page';
 
 test('Page', () => {
   render(<Page />);
-  expect(screen.getByRole('heading', { level: 1, name: 'GraphiQL' })).toBeDefined();
+
+  const welcome = screen.getByText(/welcome/i);
+  const about = screen.getByText(/about/i);
+
+  expect(welcome).toBeDefined();
+  expect(about).toBeDefined();
 });
