@@ -59,6 +59,8 @@ git clone https://github.com/Wood85/graphiql-app.git
 
 You can also download the zip file manually directly from the [repository](https://github.com/Wood85/graphiql-app.git) and unzip it.
 
+In the env_example.txt file, you can find an example of basic parameter settings for the .env.local file.
+
 After that, navigate into the project directory and run the following command:
 
 ```
