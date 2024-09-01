@@ -5,14 +5,19 @@ import CloseIcon from '@/assets/images/icons/CloseIcon';
 import HomeIcon from '@/assets/images/icons/HomeIcon';
 import SignInIcon from '@/assets/images/icons/SignInIcon';
 import SignUpIcon from '@/assets/images/icons/SignUpIcon';
+import SignOutIcon from '@/assets/images/icons/SignOutIcon';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth, logout } from '@/firebase/firebase';
 import appLogo from '../../assets/images/app-logo.svg';
 import Button from '../UI/Button/Button';
 import style from './Header.module.scss';
 
 function Header(): JSX.Element {
+  const [user] = useAuthState(auth);
+
   const headerElement = useRef<HTMLElement | null>(null);
   const enLang = useRef<HTMLButtonElement | null>(null);
   const ruLang = useRef<HTMLButtonElement | null>(null);
@@ -73,12 +78,20 @@ function Header(): JSX.Element {
             </button>
           </div>
           <div className={style.auth_wrapper}>
-            <Button href='/sign-in' className={style.signin_button}>
-              <SignInIcon className={style.signin_icon} /> Sign In
-            </Button>
-            <Button href='/sign-up' className={style.signup_button}>
-              <SignUpIcon className={style.signup_icon} /> Sign Up
-            </Button>
+            {user !== null && user !== undefined ? (
+              <Button className={style.signout_button} onClick={logout}>
+                <SignOutIcon className={style.signout_icon} /> Sign Out
+              </Button>
+            ) : (
+              <>
+                <Button href='/sign-in' className={style.signin_button}>
+                  <SignInIcon className={style.signin_icon} /> Sign In
+                </Button>
+                <Button href='/sign-up' className={style.signup_button}>
+                  <SignUpIcon className={style.signup_icon} /> Sign Up
+                </Button>
+              </>
+            )}
           </div>
         </div>
         <button type='button' onClick={openMenu} className={style.mobile_menu}>
@@ -102,12 +115,26 @@ function Header(): JSX.Element {
             </button>
           </div>
           <div className={style.auth_wrapper}>
-            <Button href='/sign-in' className={style.signin_button} onClick={openMenu}>
-              <SignInIcon className={style.signin_icon} /> Sign In
-            </Button>
-            <Button href='/sign-up' className={style.signup_button} onClick={openMenu}>
-              <SignUpIcon className={style.signup_icon} /> Sign Up
-            </Button>
+            {user !== null && user !== undefined ? (
+              <Button
+                className={style.signout_button}
+                onClick={() => {
+                  void logout();
+                  openMenu();
+                }}
+              >
+                <SignOutIcon className={style.signout_icon} /> Sign Out
+              </Button>
+            ) : (
+              <>
+                <Button href='/sign-in' className={style.signin_button} onClick={openMenu}>
+                  <SignInIcon className={style.signin_icon} /> Sign In
+                </Button>
+                <Button href='/sign-up' className={style.signup_button} onClick={openMenu}>
+                  <SignUpIcon className={style.signup_icon} /> Sign Up
+                </Button>
+              </>
+            )}
           </div>
           <nav>
             <Link href='/' className={style.nav_mobile} onClick={openMenu}>

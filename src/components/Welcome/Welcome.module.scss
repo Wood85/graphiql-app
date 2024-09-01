@@ -28,6 +28,29 @@
     padding-bottom: 30px;
   }
 
+  .mock_height {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 130px;
+
+    @media screen and (max-width: 767px) {
+      height: 210px;
+    }
+
+    @media screen and (max-width: 567px) {
+      height: 257px;
+    }
+
+    @media screen and (max-width: 425px) {
+      font-size: 219px;
+    }
+
+    @media screen and (max-width: 400px) {
+      font-size: 257px;
+    }
+  }
+
   .title {
     margin: 0;
 
