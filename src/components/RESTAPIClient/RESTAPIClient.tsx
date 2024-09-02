@@ -31,7 +31,7 @@ export default function RESTAPIClient(): JSX.Element {
     e.preventDefault();
 
     //  The replacement below is necessary because the atob method uses the '/' character when
-    //  encoding the string. This address string is misinterpreted during routing, so we use0
+    //  encoding the string. This address string is misinterpreted during routing, so we use
     //  the '+' character instead and reverse the substitution on the server side before encoding.
     const urlEncoded = btoa(url).replace(/\//g, '+');
     const bodyEncoded = isBodyApplicable(method) ? btoa(body.replace(/'+/g, '"')) : '';
