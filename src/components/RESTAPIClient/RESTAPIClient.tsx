@@ -57,6 +57,10 @@ export default function RESTAPIClient(): JSX.Element {
         method,
       });
 
+      if (!res.ok) {
+        throw new Error(res.statusText);
+      }
+
       if (method === TRequestMethod.HEAD) {
         setResponse({
           ok: true,
