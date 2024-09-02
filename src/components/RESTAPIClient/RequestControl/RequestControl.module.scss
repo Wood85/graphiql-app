@@ -1,0 +1,23 @@
+.request_control {
+  display: grid;
+  grid-template-columns: 15% 1fr 15%;
+
+  .method_selector,
+  .endpoint_input,
+  .button {
+    width: 100%;
+    padding: 10px;
+    border-color: blueviolet;
+
+    font-size: 14px;
+    color: black;
+
+    background-color: lightgray;
+
+    &:disabled {
+      border-color: gray;
+
+      color: gray;
+    }
+  }
+}

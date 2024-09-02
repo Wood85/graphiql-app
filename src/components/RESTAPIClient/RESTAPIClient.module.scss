@@ -1,0 +1,14 @@
+.container {
+  max-width: 100%;
+  margin: 0 auto;
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .hr {
+    margin: 10px 0;
+  }
+}

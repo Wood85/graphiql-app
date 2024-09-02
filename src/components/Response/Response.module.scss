@@ -1,0 +1,23 @@
+.response {
+  .response_body {
+    width: 100%;
+    padding: 10px;
+    border-color: blueviolet;
+
+    font-size: 14px;
+    color: black;
+
+    background-color: lightgray;
+  }
+
+  .response_code {
+    padding: 5px 0;
+    display: flex;
+    justify-content: flex-end;
+    box-sizing: border-box;
+
+    span {
+      margin-left: 0.2em;
+    }
+  }
+}
