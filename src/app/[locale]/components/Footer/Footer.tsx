@@ -1,6 +1,6 @@
+import rssLogo from '@/assets/images/rss-logo.svg';
 import Image from 'next/image';
 import Link from 'next/link';
-import rssLogo from '../../assets/images/rss-logo.svg';
 import style from './Footer.module.scss';
 
 function Footer(): JSX.Element {

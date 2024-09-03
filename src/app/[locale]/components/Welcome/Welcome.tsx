@@ -1,12 +1,11 @@
 'use client';
 
-import Link from 'next/link';
-
 import SignInIcon from '@/assets/images/icons/SignInIcon';
 import SignUpIcon from '@/assets/images/icons/SignUpIcon';
-import Button from '../UI/Button/Button';
-import Spinner from '../UI/Spinner/Spinner';
-
+import { Link } from '@/i18n/routing';
+import { useTranslations } from 'next-intl';
+import Button from '../../../../components/UI/Button/Button';
+import Spinner from '../../../../components/UI/Spinner/Spinner';
 import style from './Welcome.module.scss';
 
 interface IWelcomeProps {
@@ -16,6 +15,7 @@ interface IWelcomeProps {
 }
 
 function Welcome(props: IWelcomeProps): JSX.Element {
+  const t = useTranslations('Welcome');
   const { userName, isAuth, isLoading } = props;
 
   return (
@@ -26,17 +26,17 @@ function Welcome(props: IWelcomeProps): JSX.Element {
         </div>
       ) : (
         <>
-          <h2 className={style.title}>{isAuth ? `Welcome back, ${userName}!` : 'Welcome!'}</h2>
+          <h2 className={style.title}>{isAuth ? `${t('title')}, ${userName}!` : `${t('title')}!`}</h2>
           <div className={style.actions}>
             {!isAuth && (
               <>
                 <Button href='/sign-in' className={style.button}>
                   <SignInIcon className={style.sign_in_icon} />
-                  Sign In
+                  {t('signIn')}
                 </Button>
                 <Button href='/sign-up' className={style.button}>
                   <SignUpIcon className={style.sign_up_icon} />
-                  Sign Up
+                  {t('signUp')}
                 </Button>
               </>
             )}

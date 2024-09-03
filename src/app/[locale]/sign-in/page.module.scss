@@ -1,9 +1,8 @@
-@import '../../styles/variables.scss';
+@import '../../../styles/variables.scss';
 
 .page {
   display: flex;
   padding-top: 60px;
-  padding-bottom: 18px;
   justify-content: center;
   transition: all 0.3s ease-in;
 
@@ -14,7 +13,7 @@
 
 .form {
   width: 650px;
-  height: 750px;
+  height: 489px;
   border: 1px solid #6b99c3;
   border-radius: 8px;
   display: flex;
@@ -32,7 +31,7 @@
   }
 
   @media screen and (max-width: 387px) {
-    height: 810px;
+    height: 507px;
   }
 }
 
@@ -50,10 +49,8 @@
   }
 }
 
-.name_input,
 .email_input,
-.password_input,
-.confirm_password_input {
+.password_input {
   width: 484px;
   height: 45px;
   border: 1px solid #6b99c3;
@@ -83,18 +80,20 @@
   height: 20px;
 }
 
-.sign_in_link {
+.sign_up_link {
   font-weight: 700;
   font-size: 18px;
   text-decoration: none;
   color: #000000;
 }
 
-.sign_in_text {
+.sign_up_text {
+  margin: -20px 20px 0 20px;
+
   font-size: 18px;
 
   @media screen and (max-width: 387px) {
-    width: 223px;
+    width: 200px;
     text-align: center;
   }
 }
@@ -131,3 +130,4 @@
   font-size: 18px;
   color: $red;
 }
+

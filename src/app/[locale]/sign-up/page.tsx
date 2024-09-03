@@ -1,17 +1,19 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth, db } from '@/firebase/firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { collection, addDoc } from 'firebase/firestore';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import Button from '@/components/UI/Button/Button';
-import { PASSWORD_LENGTH, EMPTY_ARR_LENGTH, EMAIL_REGEXP } from '@/utils/constants';
+import { auth, db } from '@/firebase/firebase';
+import { EMAIL_REGEXP, EMPTY_ARR_LENGTH, PASSWORD_LENGTH } from '@/utils/constants';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { addDoc, collection } from 'firebase/firestore';
+import { useTranslations } from 'next-intl';
+
+import { Link } from '@/i18n/routing';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
 import styles from './page.module.scss';
 
 interface ISignUpForm {
@@ -22,26 +24,28 @@ interface ISignUpForm {
 }
 
 function SignUp(): JSX.Element {
+  const t = useTranslations('SignUp');
+
   const [error, setError] = useState('');
 
   const schema = yup.object().shape({
     name: yup
       .string()
-      .matches(/[A-Z]+|[А-Я]+/, 'The first letter must be uppercased')
-      .required('Enter your name'),
-    email: yup.string().matches(EMAIL_REGEXP, 'Invalid email').required('Enter your email'),
+      .matches(/[A-Z]+|[А-Я]+/, t('nameUppercase'))
+      .required(t('nameRequired')),
+    email: yup.string().matches(EMAIL_REGEXP, t('invalidEmail')).required(t('emailRequired')),
     password: yup
       .string()
-      .required('Enter your password')
-      .min(PASSWORD_LENGTH, 'Password must be at least 8 symbol')
-      .matches(/[0-9]/, 'Password must contain at least one number')
-      .matches(/[A-Z]/, 'Must contain at least one uppercase letter')
-      .matches(/[a-z]/, 'Must contain at least one lowercase letter')
-      .matches(/[!"#$%&()*^+,.{}<>|@]/, 'Must contain at least one special character'),
+      .required(t('enterPassword'))
+      .min(PASSWORD_LENGTH, t('passwordLength', { passwordLength: PASSWORD_LENGTH }))
+      .matches(/[0-9]/, t('passwordNumber'))
+      .matches(/[A-Z]/, t('passwordUppercase'))
+      .matches(/[a-z]/, t('passwordLowercase'))
+      .matches(/[!"#$%&()*^+,.{}<>|@]/, t('passwordSpecialChar')),
     confirmPassword: yup
       .string()
-      .oneOf([yup.ref('password')], 'Password must match')
-      .required('Confirm password is required'),
+      .oneOf([yup.ref('password')], t('passwordMatch'))
+      .required(t('passwordRequired')),
   });
 
   const {
@@ -64,9 +68,9 @@ function SignUp(): JSX.Element {
       .catch((err) => {
         const res: string[] = err.message.match(/auth\/email-already-in-use/);
         if (res.length > EMPTY_ARR_LENGTH) {
-          setError('A user with this email already exists');
+          setError(t('userAlreadyExist'));
         } else {
-          setError('Error! User was not created');
+          setError(t('userWasNotCreated'));
         }
       });
   };
@@ -82,10 +86,10 @@ function SignUp(): JSX.Element {
   return (
     <div className={styles.page}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <h1 className={styles.title}>Sign Up</h1>
+        <h1 className={styles.title}>{t('title')}</h1>
         <div className={styles.input_container}>
           <label htmlFor='name' className={styles.label}>
-            Name
+            {t('name')}
             <input
               {...register('name', {
                 onChange: () => {
@@ -101,7 +105,7 @@ function SignUp(): JSX.Element {
         </div>
         <div className={styles.input_container}>
           <label htmlFor='email' className={styles.label}>
-            E-mail
+            {t('email')}
             <input
               {...register('email', {
                 onChange: () => {
@@ -118,7 +122,7 @@ function SignUp(): JSX.Element {
 
         <div className={styles.input_container}>
           <label htmlFor='password' className={styles.label}>
-            Password
+            {t('password')}
             <input
               {...register('password', {
                 onChange: () => {
@@ -135,7 +139,7 @@ function SignUp(): JSX.Element {
 
         <div className={styles.input_container}>
           <label htmlFor='confirmPassword' className={styles.label}>
-            Confirm password
+            {t('confirmPassword')}
             <input
               {...register('confirmPassword', {
                 onChange: () => {
@@ -153,12 +157,12 @@ function SignUp(): JSX.Element {
         <div className={styles.error}>{error}</div>
 
         <Button className={styles.submit} disabled={error !== ''} type='submit'>
-          Submit
+          {t('submit')}
         </Button>
         <div className={styles.sign_in_text}>
-          Already have an account?{' '}
+          {`${t('description')}?`}{' '}
           <Link href='/sign-in' className={styles.sign_in_link}>
-            Sign In
+            {t('signIn')}
           </Link>
         </div>
       </form>

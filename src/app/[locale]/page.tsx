@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '@/firebase/firebase';
-import { query, collection, getDocs, where } from 'firebase/firestore';
 import type { DocumentData } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
-import Welcome from '@/components/Welcome/Welcome';
-import About from '@/components/About/About';
+import About from '@/app/[locale]/components/About/About';
+import Welcome from '@/app/[locale]/components/Welcome/Welcome';
 
 import style from './page.module.scss';
 

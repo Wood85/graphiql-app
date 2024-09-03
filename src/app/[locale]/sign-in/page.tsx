@@ -1,16 +1,18 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { auth } from '@/firebase/firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useAuthState } from 'react-firebase-hooks/auth';
 import Button from '@/components/UI/Button/Button';
-import { PASSWORD_LENGTH, EMAIL_REGEXP } from '@/utils/constants';
+import { auth } from '@/firebase/firebase';
+import { EMAIL_REGEXP, PASSWORD_LENGTH } from '@/utils/constants';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useTranslations } from 'next-intl';
+
+import { Link } from '@/i18n/routing';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
 import styles from './page.module.scss';
 
 interface ISignInForm {
@@ -19,18 +21,20 @@ interface ISignInForm {
 }
 
 function SignIn(): JSX.Element {
+  const t = useTranslations('SignIn');
+
   const [error, setError] = useState('');
 
   const schema = yup.object().shape({
-    email: yup.string().matches(EMAIL_REGEXP, 'Invalid email').required('Enter your email'),
+    email: yup.string().matches(EMAIL_REGEXP, t('invalidEmail')).required(t('emailRequired')),
     password: yup
       .string()
-      .required('Enter your password')
-      .min(PASSWORD_LENGTH, `Password must be at least ${PASSWORD_LENGTH} symbol`)
-      .matches(/[0-9]/, 'Password must contain at least one number')
-      .matches(/[A-Z]/, 'Must contain at least one uppercase letter')
-      .matches(/[a-z]/, 'Must contain at least one lowercase letter')
-      .matches(/[!"#$%&()*^+,.{}<>|@]/, 'Must contain at least one special character'),
+      .required(t('enterPassword'))
+      .min(PASSWORD_LENGTH, t('passwordLength', { passwordLength: PASSWORD_LENGTH }))
+      .matches(/[0-9]/, t('passwordNumber'))
+      .matches(/[A-Z]/, t('passwordUppercase'))
+      .matches(/[a-z]/, t('passwordLowercase'))
+      .matches(/[!"#$%&()*^+,.{}<>|@]/, t('passwordSpecialChar')),
   });
 
   const {
@@ -41,7 +45,7 @@ function SignIn(): JSX.Element {
 
   const onSubmit = (data: ISignInForm): void => {
     signInWithEmailAndPassword(auth, data.email, data.password).catch(() => {
-      setError('Invalid credential');
+      setError(t('invalidCredential'));
     });
   };
 
@@ -55,10 +59,10 @@ function SignIn(): JSX.Element {
   return (
     <div className={styles.page}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
-        <h1 className={styles.title}>Sign In</h1>
+        <h1 className={styles.title}>{t('title')}</h1>
         <div className={styles.input_container}>
           <label htmlFor='email' className={styles.label}>
-            E-mail
+            {t('email')}
             <input
               {...register('email', {
                 onChange: () => {
@@ -75,7 +79,7 @@ function SignIn(): JSX.Element {
 
         <div className={styles.input_container}>
           <label htmlFor='password' className={styles.label}>
-            Password
+            {t('password')}
             <input
               {...register('password', {
                 onChange: () => {
@@ -93,13 +97,13 @@ function SignIn(): JSX.Element {
         <div className={styles.error}>{error}</div>
 
         <Button className={styles.submit} disabled={error !== ''} type='submit'>
-          Submit
+          {t('submit')}
         </Button>
 
         <div className={styles.sign_up_text}>
-          {"Don't have an account?"}{' '}
+          {`${t('description')}?`}{' '}
           <Link href='/sign-up' className={styles.sign_up_link}>
-            Sign Up
+            {t('signUp')}
           </Link>
         </div>
       </form>

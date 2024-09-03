@@ -1,5 +1,5 @@
-import type { PropsWithChildren, ButtonHTMLAttributes, AnchorHTMLAttributes } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes, PropsWithChildren } from 'react';
 
 import clsx from 'clsx';
 

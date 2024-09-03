@@ -1,4 +1,4 @@
-@import './../../styles/variables.scss';
+@import '../../../../styles/variables.scss';
 
 .header {
   position: sticky;
@@ -37,10 +37,12 @@
     & .signup_button,
     & .signout_button {
       width: 40px;
+      min-width: 40px;
       height: 40px;
       gap: 0;
 
       font-size: 0;
+      padding: 0;
     }
   }
 }
@@ -90,7 +92,8 @@
 .signout_button {
   display: flex;
   gap: 5px;
-  width: 120px;
+  min-width: 120px;
+  padding: 0 15px;
   height: 50px;
   justify-content: center;
   align-items: center;
@@ -216,7 +219,7 @@
   gap: 60px;
 }
 
-@media screen and (max-width: 834px) {
+@media screen and (max-width: 900px) {
   .header {
     min-height: 80px;
     padding: 10px 30px;
@@ -269,9 +272,12 @@
 
   .burger_icon.active {
     display: block;
+    cursor: pointer;
   }
 
   .close_icon.active {
     display: block;
+    cursor: pointer;
   }
 }
+

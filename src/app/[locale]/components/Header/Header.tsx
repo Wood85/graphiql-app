@@ -1,22 +1,29 @@
 'use client';
 
+import appLogo from '@/assets/images/app-logo.svg';
 import BurgerMenuIcon from '@/assets/images/icons/BurgerMenuIcon';
 import CloseIcon from '@/assets/images/icons/CloseIcon';
 import HomeIcon from '@/assets/images/icons/HomeIcon';
 import SignInIcon from '@/assets/images/icons/SignInIcon';
-import SignUpIcon from '@/assets/images/icons/SignUpIcon';
 import SignOutIcon from '@/assets/images/icons/SignOutIcon';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useEffect, useRef } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import SignUpIcon from '@/assets/images/icons/SignUpIcon';
+import Button from '@/components/UI/Button/Button';
 import { auth, logout } from '@/firebase/firebase';
-import appLogo from '../../assets/images/app-logo.svg';
-import Button from '../UI/Button/Button';
+import { Link } from '@/i18n/routing';
+import { useLocale, useTranslations } from 'next-intl';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useEffect, useRef, useTransition } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import style from './Header.module.scss';
 
 function Header(): JSX.Element {
+  const t = useTranslations('Header');
+
   const [user] = useAuthState(auth);
+  const [, startTransition] = useTransition();
+  const router = useRouter();
+  const localActive = useLocale();
 
   const headerElement = useRef<HTMLElement | null>(null);
   const enLang = useRef<HTMLButtonElement | null>(null);
@@ -28,11 +35,27 @@ function Header(): JSX.Element {
   const closeIcon = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    const applyLangStyles = (): void => {
+      if (localActive === 'en') {
+        enLang.current?.classList.add(style.active);
+        ruLang.current?.classList.remove(style.active);
+        enLangMobile.current?.classList.add(style.active);
+        ruLangMobile.current?.classList.remove(style.active);
+      }
+      if (localActive === 'ru') {
+        ruLang.current?.classList.add(style.active);
+        enLang.current?.classList.remove(style.active);
+        ruLangMobile.current?.classList.add(style.active);
+        enLangMobile.current?.classList.remove(style.active);
+      }
+    };
+    applyLangStyles();
+
     window.addEventListener('scroll', isSticky);
     return () => {
       window.removeEventListener('scroll', isSticky);
     };
-  }, []);
+  }, [localActive]);
 
   const isSticky = (e: Event): void => {
     const scrollTop = window.scrollY;
@@ -43,11 +66,12 @@ function Header(): JSX.Element {
       : headerElement.current?.classList.remove(style.sticked);
   };
 
-  const getLang = (): void => {
-    enLang.current?.classList.toggle(style.active);
-    ruLang.current?.classList.toggle(style.active);
-    enLangMobile.current?.classList.toggle(style.active);
-    ruLangMobile.current?.classList.toggle(style.active);
+  const getLang = (lang: string): void => {
+    const path = window.location.pathname.replace(/^\/(ru|en)/, '/');
+
+    startTransition(() => {
+      router.replace(`/${lang}/${path}`);
+    });
   };
 
   const openMenu = (): void => {
@@ -64,31 +88,45 @@ function Header(): JSX.Element {
         </Link>
         <nav>
           <Link href='/' className={style.nav_link}>
-            <HomeIcon className={style.home_icon} /> Home
+            <HomeIcon className={style.home_icon} /> {t('home')}
           </Link>
         </nav>
         <div className={style.options_wrapper}>
           <div className={style.lang_wrapper}>
-            <button type='button' className={`${style.lang} ${style.active}`} ref={enLang} onClick={getLang}>
-              En
+            <button
+              type='button'
+              className={style.lang}
+              ref={enLang}
+              onClick={() => {
+                getLang('en');
+              }}
+            >
+              {t('en')}
             </button>
             <div className={style.lang_line} />
-            <button type='button' className={style.lang} ref={ruLang} onClick={getLang}>
-              Ru
+            <button
+              type='button'
+              className={style.lang}
+              ref={ruLang}
+              onClick={() => {
+                getLang('ru');
+              }}
+            >
+              {t('ru')}
             </button>
           </div>
           <div className={style.auth_wrapper}>
             {user !== null && user !== undefined ? (
               <Button className={style.signout_button} onClick={logout}>
-                <SignOutIcon className={style.signout_icon} /> Sign Out
+                <SignOutIcon className={style.signout_icon} /> {t('signOut')}
               </Button>
             ) : (
               <>
                 <Button href='/sign-in' className={style.signin_button}>
-                  <SignInIcon className={style.signin_icon} /> Sign In
+                  <SignInIcon className={style.signin_icon} /> {t('signIn')}
                 </Button>
                 <Button href='/sign-up' className={style.signup_button}>
-                  <SignUpIcon className={style.signup_icon} /> Sign Up
+                  <SignUpIcon className={style.signup_icon} /> {t('signUp')}
                 </Button>
               </>
             )}
@@ -106,12 +144,26 @@ function Header(): JSX.Element {
       <div ref={burgerMenu} className={style.burger_menu}>
         <div className={style.burger_wrapper}>
           <div className={style.lang_wrapper}>
-            <button type='button' className={`${style.lang} ${style.active}`} ref={enLangMobile} onClick={getLang}>
-              En
+            <button
+              type='button'
+              className={style.lang}
+              ref={enLangMobile}
+              onClick={() => {
+                getLang('en');
+              }}
+            >
+              {t('en')}
             </button>
             <div className={style.lang_line} />
-            <button type='button' className={style.lang} ref={ruLangMobile} onClick={getLang}>
-              Ru
+            <button
+              type='button'
+              className={style.lang}
+              ref={ruLangMobile}
+              onClick={() => {
+                getLang('ru');
+              }}
+            >
+              {t('ru')}
             </button>
           </div>
           <div className={style.auth_wrapper}>
@@ -123,22 +175,22 @@ function Header(): JSX.Element {
                   openMenu();
                 }}
               >
-                <SignOutIcon className={style.signout_icon} /> Sign Out
+                <SignOutIcon className={style.signout_icon} /> {t('signOut')}
               </Button>
             ) : (
               <>
                 <Button href='/sign-in' className={style.signin_button} onClick={openMenu}>
-                  <SignInIcon className={style.signin_icon} /> Sign In
+                  <SignInIcon className={style.signin_icon} /> {t('signIn')}
                 </Button>
                 <Button href='/sign-up' className={style.signup_button} onClick={openMenu}>
-                  <SignUpIcon className={style.signup_icon} /> Sign Up
+                  <SignUpIcon className={style.signup_icon} /> {t('signUp')}
                 </Button>
               </>
             )}
           </div>
           <nav>
             <Link href='/' className={style.nav_mobile} onClick={openMenu}>
-              <HomeIcon className={style.home_icon} /> Home
+              <HomeIcon className={style.home_icon} /> {t('home')}
             </Link>
           </nav>
         </div>

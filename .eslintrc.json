@@ -20,6 +20,7 @@
       "tsx": true
     }
   },
+  "ignorePatterns": ["next.config.mjs"],
   "plugins": ["react"],
   "rules": {
     "no-console": "off",
@@ -53,3 +54,4 @@
     "import/prefer-default-export": "off"
   }
 }
+

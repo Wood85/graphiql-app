@@ -1,8 +1,7 @@
-import React from 'react';
-import { expect, describe, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
 
-import Welcome from '@/components/Welcome/Welcome';
+import Welcome from '@/app/[locale]/components/Welcome/Welcome';
 
 describe('About', () => {
   it('should render correctly', () => {

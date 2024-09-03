@@ -1,7 +1,7 @@
-import { expect, describe, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
 
-import About from '@/components/About/About';
+import About from '@/app/[locale]/components/About/About';
 
 describe('About', () => {
   it('should render correctly', () => {
