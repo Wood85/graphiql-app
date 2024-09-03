@@ -107,7 +107,6 @@ export default function RESTAPIClient(): JSX.Element {
           setHeaderValue={setHeaderValue}
         />
       </form>
-      <hr className={style.hr} />
       {response?.status != null && <Response response={response} method={method} />}
     </div>
   );
