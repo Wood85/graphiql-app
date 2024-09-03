@@ -1,3 +1,4 @@
+import { ClientTop } from '@/components/ClientTop/ClientTop';
 import RestClient from '@/components/RESTAPIClient/RESTAPIClient';
 
 import style from './page.module.scss';
@@ -5,7 +6,10 @@ import style from './page.module.scss';
 export default function Restapi(): JSX.Element {
   return (
     <div className={style.client}>
-      <RestClient />
+      <div className={style.container}>
+        <ClientTop title='RESTful Client' />
+        <RestClient />
+      </div>
     </div>
   );
 }
