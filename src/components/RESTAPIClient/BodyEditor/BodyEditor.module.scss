@@ -1,10 +1,25 @@
+@import './../../../styles/variables.scss';
+
+.switcher {
+  display: flex;
+  gap: 5px;
+}
+
+.button {
+  background-color: $white;
+  color: $blue;
+  font-size: 20px;
+}
+
+.selected {
+  color: $dark-blue;
+}
+
 .editor {
   width: 100%;
-  padding: 10px;
-  border-color: blueviolet;
+  border: 1px solid $blue;
+  font-size: 20px;
+  border-radius: 4px;
 
-  font-size: 14px;
-  color: black;
-
-  background-color: lightgray;
+  // background-color: lightgray;
 }
