@@ -3,8 +3,9 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { auth } from '@/firebase/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+
+import { auth } from '@/firebase/firebase';
 
 interface IProps {
   children: React.ReactNode;
