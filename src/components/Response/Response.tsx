@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
 import type { IResponse } from '@/interfaces/Response';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
+import { createResponseStatus } from '@/utils/createResponseStatus';
 
 import style from './Response.module.scss';
 
@@ -20,9 +21,10 @@ function Response({ response, method }: IProps): JSX.Element {
   const [output, setOutput] = useState<string>('');
   const [outputType, setOutputType] = useState<'text' | 'image'>('text');
   const [imageUrl, setImageUrl] = useState<string>('');
+  const imageBodyRef = useRef<HTMLDivElement | null>(null);
 
   const prepareOutput = useCallback(() => {
-    if (response?.body === null) {
+    if (response !== null && response?.body === null) {
       setOutputType('text');
       setOutput('');
       return;
@@ -53,38 +55,16 @@ function Response({ response, method }: IProps): JSX.Element {
     setOutput('');
   }, [response]);
 
-  const makeStatus = (status: number, statusText: string): void => {
-    const STATUS_REDIRECT = 300;
-    const STATUS_ERROR = 400;
-    const STATUS_SERVER_ERROR = 500;
-    let color = 'red';
-    let substituteStatusText = '';
-
-    if (status < STATUS_REDIRECT) {
-      color = 'green';
-    }
-
-    if (status >= STATUS_REDIRECT && status < STATUS_ERROR) {
-      color = 'yellow';
-    }
-
-    if (statusText === '' && status >= STATUS_SERVER_ERROR) {
-      substituteStatusText = 'Internal Server Error';
-    }
-
-    setStatusString({ value: `${status} ${substituteStatusText === '' ? statusText : substituteStatusText}`, color });
-  };
-
   useEffect(() => {
     if (method === TRequestMethod.HEAD) {
       const statusOK = 200;
-      makeStatus(statusOK, 'OK');
+      setStatusString(createResponseStatus(statusOK, 'OK'));
     }
   }, [method]);
 
   useEffect(() => {
     if (response !== null) {
-      makeStatus(response.status, response.statusText);
+      setStatusString(createResponseStatus(response.status, response.statusText));
       prepareOutput();
     }
   }, [response, prepareOutput]);
@@ -97,8 +77,22 @@ function Response({ response, method }: IProps): JSX.Element {
       </div>
       {outputType === 'text' && <textarea className={style.response_body} value={output} readOnly />}
       {outputType === 'image' && (
-        <div className={style.image_body}>
-          <Image src={imageUrl} alt='Response image' width={999999} height={999999} className={style.image} />
+        <div className={style.image_container}>
+          <div className={style.image_body} ref={imageBodyRef}>
+            <Image
+              src={imageUrl}
+              alt='Response image'
+              className={style.image}
+              onLoad={(e) => {
+                const { naturalWidth, naturalHeight } = e.currentTarget;
+                if (imageBodyRef.current !== null) {
+                  imageBodyRef.current.style.width = `${naturalWidth}px`;
+                  imageBodyRef.current.style.height = `${naturalHeight}px`;
+                }
+              }}
+              fill
+            />
+          </div>
         </div>
       )}
     </div>
