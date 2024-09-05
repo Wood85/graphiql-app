@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import Image from 'next/image';
 
 import type { IResponse } from '@/interfaces/Response';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
@@ -16,18 +17,41 @@ function Response({ response, method }: IProps): JSX.Element {
     value: string;
     color: string;
   } | null>(null);
+  const [output, setOutput] = useState<string>('');
+  const [outputType, setOutputType] = useState<'text' | 'image'>('text');
+  const [imageUrl, setImageUrl] = useState<string>('');
 
-  useEffect(() => {
-    if (method === TRequestMethod.HEAD) {
-      const statusOK = 200;
-      makeStatus(statusOK, 'OK');
+  const prepareOutput = useCallback(() => {
+    if (response?.body === null) {
+      setOutputType('text');
+      setOutput('');
       return;
     }
 
-    if (response !== null) {
-      makeStatus(response.status, response.statusText);
+    if (response !== null && response.headers['content-type']?.includes('json')) {
+      setOutputType('text');
+      setOutput(JSON.stringify(response.body, null, INDENT));
+      return;
     }
-  }, [method, response]);
+
+    if (
+      response !== null &&
+      (response.headers['content-type']?.includes('text') || response.headers['content-type']?.includes('html'))
+    ) {
+      setOutputType('text');
+      Boolean(response.body) && setOutput((response.body as { text: string }).text.trim());
+      return;
+    }
+
+    if (response !== null && response.headers['content-type']?.includes('image')) {
+      setOutputType('image');
+      Boolean(response.body) && setImageUrl((response.body as { url: string }).url);
+      return;
+    }
+
+    setOutputType('text');
+    setOutput('');
+  }, [response]);
 
   const makeStatus = (status: number, statusText: string): void => {
     const statusRedirect = 300;
@@ -45,18 +69,32 @@ function Response({ response, method }: IProps): JSX.Element {
     setStatusString({ value: `${status} ${statusText}`, color });
   };
 
+  useEffect(() => {
+    if (method === TRequestMethod.HEAD) {
+      const statusOK = 200;
+      makeStatus(statusOK, 'OK');
+    }
+  }, [method]);
+
+  useEffect(() => {
+    if (response !== null) {
+      makeStatus(response.status, response.statusText);
+      prepareOutput();
+    }
+  }, [response, prepareOutput]);
+
   return (
     <div className={style.response}>
       <div className={style.response_code}>
         Response code:
         <span style={{ color: statusString?.color ?? 'gray' }}>{statusString?.value ?? ''}</span>
       </div>
-      <textarea
-        className={style.response_body}
-        value={response !== null && Boolean(response.data) ? JSON.stringify(response.data, null, INDENT) : ''}
-        rows={20}
-        readOnly
-      />
+      {outputType === 'text' && <textarea className={style.response_body} value={output} readOnly />}
+      {outputType === 'image' && (
+        <div className={style.image_body}>
+          <Image src={imageUrl} alt='Response image' width={999999} height={999999} className={style.image} />
+        </div>
+      )}
     </div>
   );
 }
