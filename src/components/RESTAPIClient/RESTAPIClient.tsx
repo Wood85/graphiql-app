@@ -63,8 +63,7 @@ export default function RESTAPIClient(): JSX.Element {
 
       if (method === TRequestMethod.HEAD) {
         setResponse({
-          ok: true,
-          data: null,
+          body: null,
           status: 200,
           statusText: 'OK',
           headers: Object.fromEntries(res.headers.entries()),
@@ -74,13 +73,13 @@ export default function RESTAPIClient(): JSX.Element {
       }
 
       const data = await res.json();
+
       if (data !== null) {
         setResponse(data as IResponse);
       }
     } catch (error) {
       setResponse({
-        ok: false,
-        data: null,
+        body: null,
         status: 500,
         statusText: (error as Error).message,
         headers: {},

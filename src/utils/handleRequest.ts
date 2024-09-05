@@ -2,7 +2,9 @@ import { NextResponse } from 'next/server';
 
 import type { IUrlRouteParams } from '@/interfaces/UrlRouteParams';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
+import type { IResponse } from '../interfaces/Response';
 import processingParams from './processingParams';
+import { isContentImage, isContentJSON, isContentTextOrHTML } from './responseHelpers';
 
 export default async function handleRequest(request: Request, { params }: IUrlRouteParams): Promise<NextResponse> {
   const { method, url, params: body } = params;
@@ -21,23 +23,54 @@ export default async function handleRequest(request: Request, { params }: IUrlRo
       body: encodedBody,
     });
 
-    const data = method !== TRequestMethod.HEAD && method !== TRequestMethod.OPTIONS ? await response.json() : null;
+    if (method === TRequestMethod.HEAD) {
+      return NextResponse.json(
+        {},
+        {
+          status: 200,
+          headers: response.headers,
+        },
+      );
+    }
+
+    let data = null;
+
+    if (isContentTextOrHTML(response)) {
+      const text = await response.text();
+      data = {
+        text,
+      };
+    }
+
+    if (isContentJSON(response)) {
+      data = await response.json();
+    }
+
+    if (isContentImage(response)) {
+      data = {
+        url: response.url,
+      };
+    }
+
+    if (method === TRequestMethod.OPTIONS) {
+      data = null;
+    }
 
     const plainHeaders = Object.fromEntries(response.headers.entries());
 
-    return NextResponse.json(
-      method === TRequestMethod.HEAD
-        ? { data }
-        : {
-            ok: response.ok,
-            data,
-            status: response.status,
-            statusText: response.statusText,
-            headers: plainHeaders,
-          },
-      method === TRequestMethod.HEAD ? { status: 200, headers: response.headers } : {},
+    return NextResponse.json<IResponse>(
+      {
+        body: data,
+        status: response.status,
+        statusText: response.statusText,
+        headers: plainHeaders,
+      },
+      {
+        headers: { 'Content-type': 'application/json' },
+      },
     );
   } catch (e) {
-    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
+    const error = (e as Error).message === '' ? 'Internal Server Error' : (e as Error).message;
+    return NextResponse.json({ error }, { status: 500 });
   }
 }
