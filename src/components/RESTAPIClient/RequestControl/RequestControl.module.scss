@@ -10,7 +10,8 @@
     width: 100%;
     padding: 10px;
     border: 1px solid $blue;
-    border-right: transparent;
+    border-right: 1px solid transparent;
+    box-sizing: border-box;
     outline: none;
 
     font-size: 20px;
@@ -18,18 +19,16 @@
 
     background-color: $white;
 
-    cursor: pointer;
-    option[value=''][disabled] {
-      display: none;
-    }
+    transition: all 0.3s ease-in;
+
     &:focus {
       border: 1px solid $dark-blue;
     }
 
     &:disabled {
-      border-color: gray;
+      border-color: $gray;
 
-      color: gray;
+      color: $gray;
     }
 
     &::placeholder {
@@ -38,18 +37,64 @@
   }
 
   .method_selector {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    padding-right: 20px;
     border-radius: 4px 0 0 4px;
+
+    background: url(../../../assets/images/select-arrow.svg) no-repeat 98% center;
+
+    cursor: pointer;
+
+    &::-ms-expand {
+      display: none;
+    }
   }
 
   .button {
-    background-color: $blue;
+    border-radius: 0 4px 4px 0;
+    border: 1px solid $blue;
+
     color: $white;
 
+    background-color: $blue;
+
+    cursor: pointer;
+
     &:disabled {
-      background-color: $gray;
       border: 1px solid $blue;
-      border-radius: 0 4px 4px 0;
+
       color: $dark-gray;
+
+      background-color: $gray;
+
+      cursor: default;
+    }
+
+    &:not(:disabled):hover {
+      color: $dark-blue;
+
+      background-color: $light-blue;
+
+      & .signin_icon,
+      & .signup_icon,
+      & .signout_icon {
+        fill: $dark-blue;
+      }
+    }
+
+    &:not(:disabled):active {
+      color: $dark-blue;
+
+      background-color: $gray;
+
+      & .signin_icon,
+      & .signup_icon,
+      & .signout_icon {
+        fill: $dark-blue;
+      }
     }
   }
 }
+

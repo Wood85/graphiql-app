@@ -1,5 +1,7 @@
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 
+import { selectedMethod } from '@/store/reducers/restFullSlice';
+import { useDispatch } from 'react-redux';
 import style from './RequestControl.module.scss';
 
 interface IProps {
@@ -10,6 +12,8 @@ interface IProps {
 }
 
 function RequestControl({ method, setMethod, url, setUrl }: IProps): JSX.Element {
+  const dispatch = useDispatch();
+
   return (
     <div className={style.request_control}>
       <select
@@ -17,11 +21,9 @@ function RequestControl({ method, setMethod, url, setUrl }: IProps): JSX.Element
         value={method}
         onChange={(e) => {
           setMethod(e.target.value as TRequestMethod);
+          dispatch(selectedMethod(e.target.value as TRequestMethod));
         }}
       >
-        <option defaultValue='' disabled>
-          Method
-        </option>
         <option value={TRequestMethod.GET}>{TRequestMethod.GET}</option>
         <option value={TRequestMethod.POST}>{TRequestMethod.POST}</option>
         <option value={TRequestMethod.PUT}>{TRequestMethod.PUT}</option>
