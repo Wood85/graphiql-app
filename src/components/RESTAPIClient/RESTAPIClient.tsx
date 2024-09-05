@@ -1,13 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 import type { IResponse } from '@/interfaces/Response';
-import { RequestControl } from './RequestControl/RequestControl';
-import { BodyEditor } from './BodyEditor/BodyEditor';
-import { TableEditor } from './TableEditor/TableEditor';
 import { Response } from '../Response/Response';
+import { BodyEditor } from './BodyEditor/BodyEditor';
+import { RequestControl } from './RequestControl/RequestControl';
+import { TableEditor } from './TableEditor/TableEditor';
 
 import style from './RESTAPIClient.module.scss';
 
@@ -19,20 +19,7 @@ export default function RESTAPIClient(): JSX.Element {
   const [headerKey, setHeaderKey] = useState('');
   const [headerValue, setHeaderValue] = useState('');
 
-  /** START OF DIAGNOSTIC SECTION. WILL BE REMOVE LATER **/
-  useEffect(() => {
-    if (response !== null) {
-      console.log('response =>', response);
-    }
-  }, [response]);
-  /** END OF DIAGNOSTIC SECTION **/
-
-  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
-    e.preventDefault();
-
-    //  The replacement below is necessary because the atob method uses the '/' character when
-    //  encoding the string. This address string is misinterpreted during routing, so we use
-    //  the '+' character instead and reverse the substitution on the server side before encoding.
+  const replaceURL = useCallback(async (): Promise<string> => {
     const urlEncoded = btoa(url).replace(/\//g, '+');
     const bodyEncoded = isBodyApplicable(method) ? btoa(body.replace(/'+/g, '"')) : '';
     const queryParams =
@@ -42,15 +29,36 @@ export default function RESTAPIClient(): JSX.Element {
           }).toString()
         : '';
 
-    const { origin } = window.location;
-
     const baseUrl = `${method}/${urlEncoded}${isBodyApplicable(method) ? `/${bodyEncoded}` : ''}${headerKey !== '' ? `?${queryParams}` : ''}`;
-
-    const apiUrl = `${origin}/api/${baseUrl}`;
 
     const match = window.location.pathname.match(/^\/[^/]+/);
     const currentRoute = match?.[0] ?? '';
     const routerUrl = `${currentRoute}/${baseUrl}`;
+
+    window.history.replaceState(null, '', routerUrl);
+
+    return baseUrl;
+  }, [body, headerKey, headerValue, method, url]);
+
+  /** START OF DIAGNOSTIC SECTION. WILL BE REMOVE LATER **/
+  useEffect(() => {
+    if (response !== null) {
+      console.log('response =>', response);
+    }
+
+    replaceURL().catch(console.error);
+  }, [response, url, replaceURL]);
+  /** END OF DIAGNOSTIC SECTION **/
+
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
+    e.preventDefault();
+
+    //  The replacement below is necessary because the atob method uses the '/' character when
+    //  encoding the string. This address string is misinterpreted during routing, so we use
+    //  the '+' character instead and reverse the substitution on the server side before encoding.
+    const baseUrl = await replaceURL();
+    const { origin } = window.location;
+    const apiUrl = `${origin}/api/${baseUrl}`;
 
     try {
       const res = await fetch(apiUrl, {
@@ -85,8 +93,6 @@ export default function RESTAPIClient(): JSX.Element {
         statusText: (error as Error).message,
         headers: {},
       });
-    } finally {
-      window.history.replaceState(null, '', routerUrl);
     }
   };
 
