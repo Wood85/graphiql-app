@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 
-import type { IResponse } from '@/interfaces/Response';
+import type { IImageBody, IResponse, ITextBody } from '@/interfaces/Response';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 import { createResponseStatus } from '@/utils/createResponseStatus';
 
@@ -21,7 +21,7 @@ function Response({ response, method }: IProps): JSX.Element {
   const [output, setOutput] = useState<string>('');
   const [outputType, setOutputType] = useState<'text' | 'image'>('text');
   const [imageUrl, setImageUrl] = useState<string>('');
-  const imageBodyRef = useRef<HTMLDivElement | null>(null);
+  const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
 
   const prepareOutput = useCallback(() => {
     if (response !== null && response?.body === null) {
@@ -41,13 +41,15 @@ function Response({ response, method }: IProps): JSX.Element {
       (response.headers['content-type']?.includes('text') || response.headers['content-type']?.includes('html'))
     ) {
       setOutputType('text');
-      Boolean(response.body) && setOutput((response.body as { text: string }).text.trim());
+      Boolean(response.body) && setOutput((response.body as ITextBody).text.trim());
       return;
     }
 
     if (response !== null && response.headers['content-type']?.includes('image')) {
       setOutputType('image');
-      Boolean(response.body) && setImageUrl((response.body as { url: string }).url);
+      const { url, width, height } = response.body as IImageBody;
+      Boolean(response.body) && setImageUrl(url);
+      setImageSize({ width, height });
       return;
     }
 
@@ -78,21 +80,7 @@ function Response({ response, method }: IProps): JSX.Element {
       {outputType === 'text' && <textarea className={style.response_body} value={output} readOnly />}
       {outputType === 'image' && (
         <div className={style.image_container}>
-          <div className={style.image_body} ref={imageBodyRef}>
-            <Image
-              src={imageUrl}
-              alt='Response image'
-              className={style.image}
-              onLoad={(e) => {
-                const { naturalWidth, naturalHeight } = e.currentTarget;
-                if (imageBodyRef.current !== null) {
-                  imageBodyRef.current.style.width = `${naturalWidth}px`;
-                  imageBodyRef.current.style.height = `${naturalHeight}px`;
-                }
-              }}
-              fill
-            />
-          </div>
+          <Image src={imageUrl} alt='Image' width={imageSize.width} height={imageSize.height} />
         </div>
       )}
     </div>
