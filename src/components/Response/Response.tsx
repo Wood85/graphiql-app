@@ -54,19 +54,25 @@ function Response({ response, method }: IProps): JSX.Element {
   }, [response]);
 
   const makeStatus = (status: number, statusText: string): void => {
-    const statusRedirect = 300;
-    const statusError = 400;
+    const STATUS_REDIRECT = 300;
+    const STATUS_ERROR = 400;
+    const STATUS_SERVER_ERROR = 500;
     let color = 'red';
+    let substituteStatusText = '';
 
-    if (status < statusRedirect) {
+    if (status < STATUS_REDIRECT) {
       color = 'green';
     }
 
-    if (status >= statusRedirect && status < statusError) {
+    if (status >= STATUS_REDIRECT && status < STATUS_ERROR) {
       color = 'yellow';
     }
 
-    setStatusString({ value: `${status} ${statusText}`, color });
+    if (statusText === '' && status >= STATUS_SERVER_ERROR) {
+      substituteStatusText = 'Internal Server Error';
+    }
+
+    setStatusString({ value: `${status} ${substituteStatusText === '' ? statusText : substituteStatusText}`, color });
   };
 
   useEffect(() => {
