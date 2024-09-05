@@ -16,9 +16,7 @@ function BodyEditor({ body, setBody }: IProps): JSX.Element {
   const [select, setSelect] = useState<TSelect>('headers');
 
   function handleEditorChange(value: string | undefined): void {
-    if (value !== undefined) {
-      setBody(value);
-    }
+    console.log('here is the current model value:', value);
   }
   return (
     <div className={styles.container}>
@@ -52,7 +50,7 @@ function BodyEditor({ body, setBody }: IProps): JSX.Element {
       {select === 'body' && (
         <Editor
           height='280px'
-          defaultValue='{}'
+          defaultValue='// some comment'
           defaultLanguage='javascript'
           theme='vs-light'
           options={{
@@ -70,6 +68,15 @@ function BodyEditor({ body, setBody }: IProps): JSX.Element {
           className={styles.editor}
           onChange={handleEditorChange}
         />
+        // 	<textarea
+        //   className={styles.editor}
+        //   placeholder='Request Body (JSON)'
+        //   value={body}
+        //   rows={10}
+        //   onChange={(e) => {
+        //     setBody(e.target.value);
+        //   }}
+        // />
       )}
     </div>
   );
