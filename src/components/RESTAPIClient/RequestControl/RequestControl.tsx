@@ -19,6 +19,9 @@ function RequestControl({ method, setMethod, url, setUrl }: IProps): JSX.Element
           setMethod(e.target.value as TRequestMethod);
         }}
       >
+        <option defaultValue='' disabled>
+          Method
+        </option>
         <option value={TRequestMethod.GET}>{TRequestMethod.GET}</option>
         <option value={TRequestMethod.POST}>{TRequestMethod.POST}</option>
         <option value={TRequestMethod.PUT}>{TRequestMethod.PUT}</option>
@@ -30,7 +33,7 @@ function RequestControl({ method, setMethod, url, setUrl }: IProps): JSX.Element
       <input
         type='text'
         className={style.endpoint_input}
-        placeholder='API URL'
+        placeholder='Endpoint URL'
         value={url}
         onChange={(e) => {
           setUrl(e.target.value);
