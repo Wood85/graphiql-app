@@ -50,7 +50,7 @@ function BodyEditor({ body, setBody }: IProps): JSX.Element {
       {select === 'body' && (
         <Editor
           height='280px'
-          defaultValue='// some comment'
+          defaultValue='{}'
           defaultLanguage='javascript'
           theme='vs-light'
           options={{
