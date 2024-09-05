@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+import sizeOf from 'image-size';
+
 import type { IUrlRouteParams } from '@/interfaces/UrlRouteParams';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 import type { IResponse } from '../interfaces/Response';
@@ -47,8 +49,13 @@ export default async function handleRequest(request: Request, { params }: IUrlRo
     }
 
     if (isContentImage(response)) {
+      const buffer = await response.arrayBuffer();
+      const dimensions = sizeOf(Buffer.from(buffer));
+      console.log(dimensions);
       data = {
         url: response.url,
+        width: dimensions.width,
+        height: dimensions.height,
       };
     }
 
