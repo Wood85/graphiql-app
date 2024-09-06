@@ -1,4 +1,5 @@
 import Row from '@/components/Row/Row';
+import RowEditor from '@/components/RowEditor/RowEditor';
 import { headers } from '@/store/reducers/restFullSlice';
 import type THeaders from '@/interfaces/Headers';
 import { useAppSelector, useAppDispatch } from '@/hooks/redux';
@@ -15,7 +16,9 @@ import styles from './TableEditor.module.scss';
 function TableEditor(): JSX.Element {
   // { headerKey, setHeaderKey, headerValue, setHeaderValue }: IProps
   const headersSelector = useAppSelector((state) => state.rest.headers);
+
   const dispatch = useAppDispatch();
+
   const updateRowState = (checked: boolean, key: string): void => {
     const copyHeaders: THeaders = JSON.parse(JSON.stringify(headersSelector));
     const copyKey: string = key;
@@ -31,9 +34,10 @@ function TableEditor(): JSX.Element {
     }
     dispatch(headers(newHeaders));
   };
+
   return (
     <div className={styles.container}>
-      <table className={styles.table}>
+      <table className={styles.table} role='grid'>
         <thead>
           <tr key={crypto.randomUUID()}>
             <td className={`${styles.td} ${styles.td_1}`} />
@@ -45,12 +49,10 @@ function TableEditor(): JSX.Element {
           {headersSelector.map((header) => (
             <Row key={crypto.randomUUID()} header={header} updateRowState={updateRowState} />
           ))}
-          <tr key={crypto.randomUUID()}>
-            <td className={`${styles.td} ${styles.td_1}`} />
-            <td className={`${styles.td} ${styles.td_2}`} />
-            <td className={`${styles.td} ${styles.td_3}`} />
-          </tr>
         </tbody>
+        <tfoot>
+          <RowEditor />
+        </tfoot>
       </table>
     </div>
     // <div className={style.table}>

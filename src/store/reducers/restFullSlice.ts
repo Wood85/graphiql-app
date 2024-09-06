@@ -6,6 +6,8 @@ import { TRequestMethod } from '@/interfaces/RequestMethod';
 export interface IState {
   headers: THeaders;
   selectedMethod: TRequestMethod;
+  focusCellKey: boolean;
+  focusCellValue: boolean;
 }
 
 const initialState: IState = {
@@ -15,6 +17,8 @@ const initialState: IState = {
     { checked: true, key: 'Connection', value: 'keep-alive' },
   ],
   selectedMethod: TRequestMethod.GET,
+  focusCellKey: false,
+  focusCellValue: false,
 };
 
 export const restFullSlice = createSlice({
@@ -29,9 +33,17 @@ export const restFullSlice = createSlice({
       const currentState = state;
       currentState.selectedMethod = action.payload;
     },
+    focusCellKey: (state, action: PayloadAction<boolean>) => {
+      const currentState = state;
+      currentState.focusCellKey = action.payload;
+    },
+    focusCellValue: (state, action: PayloadAction<boolean>) => {
+      const currentState = state;
+      currentState.focusCellValue = action.payload;
+    },
   },
 });
 
-export const { headers, selectedMethod } = restFullSlice.actions;
+export const { headers, selectedMethod, focusCellKey, focusCellValue } = restFullSlice.actions;
 
 export default restFullSlice.reducer;
