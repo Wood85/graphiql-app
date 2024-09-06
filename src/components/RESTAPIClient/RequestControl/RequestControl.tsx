@@ -1,5 +1,8 @@
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 
+import Button from '@/components/UI/Button/Button';
+import { selectedMethod } from '@/store/reducers/restFullSlice';
+import { useDispatch } from 'react-redux';
 import style from './RequestControl.module.scss';
 
 interface IProps {
@@ -10,6 +13,8 @@ interface IProps {
 }
 
 function RequestControl({ method, setMethod, url, setUrl }: IProps): JSX.Element {
+  const dispatch = useDispatch();
+
   return (
     <div className={style.request_control}>
       <select
@@ -17,6 +22,7 @@ function RequestControl({ method, setMethod, url, setUrl }: IProps): JSX.Element
         value={method}
         onChange={(e) => {
           setMethod(e.target.value as TRequestMethod);
+          dispatch(selectedMethod(e.target.value as TRequestMethod));
         }}
       >
         <option value={TRequestMethod.GET}>{TRequestMethod.GET}</option>
@@ -30,15 +36,15 @@ function RequestControl({ method, setMethod, url, setUrl }: IProps): JSX.Element
       <input
         type='text'
         className={style.endpoint_input}
-        placeholder='API URL'
+        placeholder='Endpoint URL'
         value={url}
         onChange={(e) => {
           setUrl(e.target.value);
         }}
       />
-      <button type='submit' className={style.button} disabled={url === ''}>
-        Send Request
-      </button>
+      <Button type='submit' className={style.button} disabled={url === ''}>
+        Send
+      </Button>
     </div>
   );
 }

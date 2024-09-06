@@ -57,16 +57,5 @@
     border: 1px solid blueviolet;
 
     overflow: auto;
-
-    .image_body {
-      position: relative;
-      width: 200vw;
-      height: 200vh;
-
-      .image {
-        object-fit: fill;
-        object-position: left;
-      }
-    }
   }
 }

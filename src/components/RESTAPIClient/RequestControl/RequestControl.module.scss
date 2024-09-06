@@ -1,3 +1,5 @@
+@import '../../../styles/variables.scss';
+
 .request_control {
   display: grid;
   grid-template-columns: 15% 1fr 15%;
@@ -7,17 +9,65 @@
   .button {
     width: 100%;
     padding: 10px;
-    border-color: blueviolet;
+    border: 1px solid $blue;
+    border-right: 1px solid transparent;
+    box-sizing: border-box;
+    outline: none;
 
-    font-size: 14px;
-    color: black;
+    font-size: 20px;
+    color: $dark-blue;
 
-    background-color: lightgray;
+    background-color: $white;
+
+    transition: all 0.3s ease-in;
+
+    &:focus {
+      border: 1px solid $dark-blue;
+    }
 
     &:disabled {
-      border-color: gray;
+      border-color: $gray;
 
-      color: gray;
+      color: $gray;
+    }
+
+    &::placeholder {
+      color: $blue;
+    }
+  }
+
+  .method_selector {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    padding-right: 20px;
+    border-radius: 4px 0 0 4px;
+
+    background: url(../../../assets/images/select-arrow.svg) no-repeat 98% center;
+
+    cursor: pointer;
+
+    &::-ms-expand {
+      display: none;
+    }
+  }
+
+  .button {
+    border-radius: 0 4px 4px 0;
+    border: 1px solid $blue;
+
+    color: $white;
+
+    background-color: $blue;
+
+    &:disabled {
+      border: 1px solid $blue;
+
+      color: $dark-gray;
+
+      background-color: $gray;
+
+      cursor: default;
     }
   }
 }
