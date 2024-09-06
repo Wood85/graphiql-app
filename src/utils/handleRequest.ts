@@ -51,7 +51,6 @@ export default async function handleRequest(request: Request, { params }: IUrlRo
     if (isContentImage(response)) {
       const buffer = await response.arrayBuffer();
       const dimensions = sizeOf(Buffer.from(buffer));
-      console.log(dimensions);
       data = {
         url: response.url,
         width: dimensions.width,
