@@ -1,4 +1,44 @@
+@import '../../styles/variables.scss';
+
 .response {
+  .response_status_wrapper {
+    padding: 5px 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    box-sizing: border-box;
+
+    font-size: 16px;
+    color: $dark-blue;
+
+    @media screen and (max-width: 425px) {
+      font-size: 14px;
+    }
+
+    .response_status {
+      padding: 3px 9px;
+      border-radius: 4px;
+
+      &.red {
+        background-color: $pink;
+      }
+
+      &.green {
+        color: $dark-green;
+
+        background-color: $light-green;
+      }
+
+      &.yellow {
+        background-color: $light-yellow;
+      }
+
+      &.gray {
+        background-color: $gray;
+      }
+    }
+  }
+
   .response_body {
     width: 100%;
     height: 320px;
@@ -19,16 +59,5 @@
     border: 1px solid blueviolet;
 
     overflow: auto;
-  }
-
-  .response_code {
-    padding: 5px 0;
-    display: flex;
-    justify-content: flex-end;
-    box-sizing: border-box;
-
-    span {
-      margin-left: 0.2em;
-    }
   }
 }
