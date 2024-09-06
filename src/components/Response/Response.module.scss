@@ -19,8 +19,6 @@
       padding: 3px 9px;
       border-radius: 4px;
 
-      background-color: $gray;
-
       &.red {
         background-color: $pink;
       }
@@ -33,6 +31,10 @@
 
       &.yellow {
         background-color: $light-yellow;
+      }
+
+      &.gray {
+        background-color: $gray;
       }
     }
   }
