@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
+import clsx from 'clsx';
+
 import type { IResponse } from '@/interfaces/Response';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 import { createResponseStatus } from '@/utils/createResponseStatus';
@@ -71,9 +73,10 @@ function Response({ response, method }: IProps): JSX.Element {
 
   return (
     <div className={style.response}>
-      <div className={style.response_code}>
-        Response code:
-        <span style={{ color: statusString?.color ?? 'gray' }}>{statusString?.value ?? ''}</span>
+      <div className={style.response_status_wrapper}>
+        <span className={clsx(style.response_status, style[statusString?.color ?? 'gray'])}>
+          {statusString?.value ?? ''}
+        </span>
       </div>
       {outputType === 'text' && <textarea className={style.response_body} value={output} readOnly />}
       {outputType === 'image' && (
