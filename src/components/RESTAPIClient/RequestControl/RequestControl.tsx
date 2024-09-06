@@ -1,5 +1,6 @@
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 
+import Button from '@/components/UI/Button/Button';
 import { selectedMethod } from '@/store/reducers/restFullSlice';
 import { useDispatch } from 'react-redux';
 import style from './RequestControl.module.scss';
@@ -41,9 +42,9 @@ function RequestControl({ method, setMethod, url, setUrl }: IProps): JSX.Element
           setUrl(e.target.value);
         }}
       />
-      <button type='submit' className={style.button} disabled={url === ''}>
-        Send Request
-      </button>
+      <Button type='submit' className={style.button} disabled={url === ''}>
+        Send
+      </Button>
     </div>
   );
 }
