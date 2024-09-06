@@ -19,13 +19,15 @@ export default function usePrepareOutput(response: IResponse | null, method: TRe
   const [outputType, setOutputType] = useState<'text' | 'image'>('text');
   const [outputLanguage, setOutputLanguage] = useState<'json' | 'html' | 'css' | 'text'>('text');
   const [imageUrl, setImageUrl] = useState<string>('');
-  const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
+  const [imageSize, setImageSize] = useState<{ width: number; height: number }>({ width: 0, height: 0 });
   const [statusString, setStatusString] = useState<{
     value: string;
     color: string;
   } | null>(null);
 
   const prepareOutput = useCallback(() => {
+    const contentIs = (type: string): boolean => response !== null && response.headers['content-type']?.includes(type);
+
     if (response !== null && response?.body === null) {
       setOutputType('text');
       setOutputLanguage('text');
@@ -33,35 +35,35 @@ export default function usePrepareOutput(response: IResponse | null, method: TRe
       return;
     }
 
-    if (response !== null && response.headers['content-type']?.includes('json')) {
+    if (response !== null && contentIs('json')) {
       setOutputType('text');
       setOutputLanguage('json');
       setOutput(JSON.stringify(response.body, null, INDENT));
       return;
     }
 
-    if (response !== null && response.headers['content-type']?.includes('html')) {
+    if (response !== null && contentIs('html')) {
       setOutputType('text');
       setOutputLanguage('html');
       Boolean(response.body) && setOutput((response.body as ITextBody).text.trim());
       return;
     }
 
-    if (response !== null && response.headers['content-type']?.includes('css')) {
+    if (response !== null && contentIs('css')) {
       setOutputType('text');
       setOutputLanguage('css');
       Boolean(response.body) && setOutput((response.body as ITextBody).text.trim());
       return;
     }
 
-    if (response !== null && response.headers['content-type']?.includes('text')) {
+    if (response !== null && contentIs('text')) {
       setOutputType('text');
       setOutputLanguage('text');
       Boolean(response.body) && setOutput((response.body as ITextBody).text.trim());
       return;
     }
 
-    if (response !== null && response.headers['content-type']?.includes('image')) {
+    if (response !== null && contentIs('image')) {
       setOutputType('image');
       setOutputLanguage('text');
       const { url, width, height } = response.body as IImageBody;
