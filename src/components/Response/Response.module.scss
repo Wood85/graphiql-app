@@ -1,13 +1,13 @@
 @import '../../styles/variables.scss';
 
 .response {
-  .response_controls {
+  .response_header {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
 
-    .response_body_control {
+    .response_tabs {
       padding: 1px;
       display: flex;
       flex-direction: row;
@@ -15,38 +15,25 @@
 
       .button {
         height: auto;
-        padding: 3px 9px;
 
-        color: $dark-blue;
+        color: $blue;
         font-size: 16px;
 
-        background-color: $gray;
+        background-color: transparent;
 
         transition: all 0.3s ease-in;
 
-        &:first-child {
-          border-top-right-radius: 0;
-          border-bottom-right-radius: 0;
-        }
-
-        &:last-child {
-          border-top-left-radius: 0;
-          border-bottom-left-radius: 0;
-        }
-
         &.active {
-          color: $white;
-
-          background-color: $blue;
+          color: $dark-blue;
         }
 
         &:hover:not(.active) {
-          background-color: $light-blue;
+          color: $orange;
         }
 
         &:active,
         &:not(:disabled):active {
-          background-color: $gray;
+          color: $gray;
         }
       }
     }
@@ -94,38 +81,94 @@
   .output_container {
     height: 320px;
     padding: 2px;
+
     border: 1px solid $blue;
     border-radius: 4px;
 
-    &:has(.image_container) {
-      padding: 0;
-      border: none;
-      border-radius: none;
+    .response_body_tab {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+
+      &:has(.image_container) {
+        padding: 0;
+        border: none;
+        border-radius: none;
+      }
+
+      .response_body_control {
+        padding: 2px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .button {
+          height: auto;
+          padding: 3px 9px;
+
+          color: $dark-blue;
+          font-size: 16px;
+
+          background-color: $gray;
+
+          transition: all 0.3s ease-in;
+
+          &:first-child {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+
+          &:last-child {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+          }
+
+          &.active {
+            color: $white;
+
+            background-color: $blue;
+          }
+
+          &:hover:not(.active) {
+            background-color: $light-blue;
+          }
+
+          &:active,
+          &:not(:disabled):active {
+            background-color: $gray;
+          }
+        }
+      }
+
+      .response_body_editor {
+        height: 100%;
+      }
+
+      .response_body_raw {
+        width: 100%;
+        height: 100%;
+        padding: 5px;
+
+        font-size: 16px;
+        color: $dark-blue;
+        border-color: transparent;
+
+        background-color: transparent;
+        outline: none;
+        resize: none;
+      }
+
+      .image_container {
+        width: 100%;
+        height: 100%;
+
+        overflow: auto;
+      }
     }
 
-    .response_body_editor {
+    .response_headers_tab {
       height: 100%;
-    }
-
-    .response_body_raw {
-      width: 100%;
-      height: 100%;
-      padding: 5px;
-
-      font-size: 16px;
-      color: $dark-blue;
-      border-color: transparent;
-
-      background-color: transparent;
-      outline: none;
-      resize: none;
-    }
-
-    .image_container {
-      width: 100%;
-      height: 100%;
-
-      overflow: auto;
     }
   }
 }
