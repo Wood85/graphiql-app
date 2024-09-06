@@ -1,19 +1,8 @@
-@import './../../../styles/variables.scss';
-
-.table {
-  border-collapse: collapse;
-  width: 100%;
-}
-
-.table,
+@import './../../styles/variables.scss';
 .td {
   border: 1px solid $blue;
   height: 35px;
   color: $dark-blue;
-}
-
-.td.td_title {
-  font-weight: 700;
 }
 
 .td.td_1 {

@@ -100,12 +100,12 @@ export default function RESTAPIClient(): JSX.Element {
       <form className={style.form} onSubmit={handleSubmit}>
         <RequestControl method={method} setMethod={setMethod} url={url} setUrl={setUrl} />
         <BodyEditor body={body} setBody={setBody} />
-        <TableEditor
+        {/* <TableEditor
           headerKey={headerKey}
           setHeaderKey={setHeaderKey}
           headerValue={headerValue}
           setHeaderValue={setHeaderValue}
-        />
+        /> */}
       </form>
       {response?.status != null && <Response response={response} method={method} />}
     </div>

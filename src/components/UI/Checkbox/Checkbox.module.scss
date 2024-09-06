@@ -1,0 +1,22 @@
+@import './../../../styles/variables.scss';
+
+.checkbox_hide {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.checkbox {
+  height: 22px;
+  width: 22px;
+  background-image: url('./../../../assets/images/checkbox.svg');
+  cursor: pointer;
+}
+
+.checkbox_active {
+  background-image: url('./../../../assets/images/checkbox-checked.svg');
+}

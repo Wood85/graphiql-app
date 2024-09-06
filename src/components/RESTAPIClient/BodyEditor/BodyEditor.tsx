@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Editor from '@monaco-editor/react';
 import Button from '@/components/UI/Button/Button';
 import styles from './BodyEditor.module.scss';
+import { TableEditor } from '../TableEditor/TableEditor';
 
 interface IProps {
   body: string;
@@ -46,7 +47,7 @@ function BodyEditor({ body, setBody }: IProps): JSX.Element {
           Variables
         </Button>
       </div>
-      {select === 'headers' && <div>Headers</div>}
+      {select === 'headers' && <TableEditor />}
       {select === 'body' && (
         <Editor
           height='280px'
