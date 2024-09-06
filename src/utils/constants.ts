@@ -11,3 +11,6 @@ export const ROUTES = {
   SIGN_UP: '/sign-up',
 };
 export const STEP_SIZE = 1;
+export const STATUS_REDIRECT = 300;
+export const STATUS_ERROR = 400;
+export const STATUS_SERVER_ERROR = 500;

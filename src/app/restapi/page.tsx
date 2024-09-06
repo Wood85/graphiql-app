@@ -1,11 +1,10 @@
 'use client';
 
-import { Provider } from 'react-redux';
-import { store } from '@/store/store';
-import { ProtectedRouteWrapper } from '@/components/ProtectedRouteWrapper';
 import { ClientTop } from '@/components/ClientTop/ClientTop';
+import { ProtectedRouteWrapper } from '@/components/ProtectedRouteWrapper';
 import RestClient from '@/components/RESTAPIClient/RESTAPIClient';
-
+import { store } from '@/store/store';
+import { Provider } from 'react-redux';
 import style from './page.module.scss';
 
 export default function Restapi(): JSX.Element {
