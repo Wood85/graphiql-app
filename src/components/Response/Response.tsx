@@ -27,7 +27,7 @@ function Response({ response, method }: IProps): JSX.Element {
   const [activeTab, setActiveTab] = useState<TTabs>(TTabs.BODY);
 
   return (
-    <div className={style.response}>
+    <div className={style.wrapper}>
       <div className={style.response_header}>
         <div className={style.response_tabs}>
           <Button
