@@ -22,7 +22,7 @@ enum TTabs {
 }
 
 function Response({ response, method }: IProps): JSX.Element {
-  const { output, outputType, outputLanguage, imageUrl, imageSize, statusString } = usePrepareOutput(response, method);
+  const { outputData, imageData, statusString } = usePrepareOutput(response, method);
   const [isPretty, setIsPretty] = useState(true);
   const [activeTab, setActiveTab] = useState<TTabs>(TTabs.BODY);
 
@@ -56,7 +56,7 @@ function Response({ response, method }: IProps): JSX.Element {
       <div className={style.output_container}>
         {activeTab === TTabs.BODY && (
           <div className={style.response_body_tab}>
-            {outputType === 'text' && (
+            {outputData.type === 'text' && (
               <div className={style.response_body_control}>
                 <Button
                   className={clsx(style.button, isPretty ? style.active : '')}
@@ -76,14 +76,14 @@ function Response({ response, method }: IProps): JSX.Element {
                 </Button>
               </div>
             )}
-            {outputType === 'text' && !isPretty && (
-              <textarea className={style.response_body_raw} value={output} readOnly />
+            {outputData.type === 'text' && !isPretty && (
+              <textarea className={style.response_body_raw} value={outputData.content} readOnly />
             )}
-            {outputType === 'text' && isPretty && (
+            {outputData.type === 'text' && isPretty && (
               <Editor
                 className={style.response_body_editor}
-                language={outputLanguage}
-                value={output}
+                language={outputData.language}
+                value={outputData.content}
                 options={{
                   fontFamily: '"Cera Pro"',
                   fontSize: 16,
@@ -98,9 +98,9 @@ function Response({ response, method }: IProps): JSX.Element {
                 }}
               />
             )}
-            {outputType === 'image' && (
+            {outputData.type === 'image' && (
               <div className={style.image_container}>
-                <Image src={imageUrl} alt='Image' width={imageSize.width} height={imageSize.height} />
+                <Image src={imageData.url} alt='Image' width={imageData.width} height={imageData.height} />
               </div>
             )}
           </div>
