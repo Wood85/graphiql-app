@@ -5,7 +5,7 @@ export const EMAIL_REGEXP =
 export const ROUTES = {
   HOME: '/',
   RESTAPI: '/restapi',
-  GRAPHQL: '/graphql',
+  GRAPHQL: '/graphiql',
   HISTORY: '/history',
   SIGN_IN: '/sign-in',
   SIGN_UP: '/sign-up',

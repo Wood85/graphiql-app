@@ -5,9 +5,9 @@ import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 
 import DocsIcon from '@/assets/images/icons/DocsIcon';
+import GraphqlIcon from '@/assets/images/icons/GraphqlIcon';
 import HistoryIcon from '@/assets/images/icons/HistoryIcon';
 import RestapiIcon from '@/assets/images/icons/RestapiIcon';
-import GraphqlIcon from '@/assets/images/icons/GraphqlIcon';
 import { ROUTES } from '@/utils/constants';
 import Button from '../UI/Button/Button';
 
@@ -15,11 +15,11 @@ import style from './ClientTop.module.scss';
 
 interface IProps {
   title: string;
-  graphqlDocsOpeningToggler?: () => void;
-  graphqlDocsIsOpen?: boolean;
+  setGraphqlDocsIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  graphqlDocsIsOpen: boolean;
 }
 
-function ClientTop({ title, graphqlDocsOpeningToggler, graphqlDocsIsOpen }: IProps): JSX.Element {
+function ClientTop({ title, setGraphqlDocsIsOpen, graphqlDocsIsOpen }: IProps): JSX.Element {
   const pathname = usePathname();
 
   return (
@@ -27,8 +27,10 @@ function ClientTop({ title, graphqlDocsOpeningToggler, graphqlDocsIsOpen }: IPro
       <div className={style.graphql_docs}>
         {pathname.startsWith(ROUTES.GRAPHQL) && (
           <Button
-            className={clsx(style.button, graphqlDocsIsOpen === true && style.docs_open)}
-            onClick={graphqlDocsOpeningToggler}
+            className={clsx(style.button, graphqlDocsIsOpen && style.docs_open)}
+            onClick={() => {
+              setGraphqlDocsIsOpen(!graphqlDocsIsOpen);
+            }}
           >
             <DocsIcon className={style.icon} />
           </Button>
