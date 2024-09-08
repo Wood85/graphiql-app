@@ -1,7 +1,6 @@
 import ClearIcon from '@/assets/images/icons/ClearIcon';
 import CopyIcon from '@/assets/images/icons/CopyIcon';
 import PrettifyIcon from '@/assets/images/icons/PrettifyIcon';
-import SendButtonIcon from '@/assets/images/icons/SendButtonIcon';
 import Button from '@/components/UI/Button/Button';
 import style from './QueryEditor.module.scss';
 
@@ -22,9 +21,6 @@ function QueryEditor({ query, setQuery }: IProps): JSX.Element {
         }}
       />
       <div className={style.buttons}>
-        <Button className={style.send_button_icon}>
-          <SendButtonIcon />
-        </Button>
         <Button className={style.prettify_icon}>
           <PrettifyIcon />
         </Button>
