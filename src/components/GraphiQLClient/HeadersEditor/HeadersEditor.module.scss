@@ -1,0 +1,64 @@
+@import '../../../styles/variables.scss';
+
+.table {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $blue;
+  border-radius: 0 4px 4px;
+
+  .table_heading {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    color: $dark-blue;
+
+    & * {
+      padding: 13px;
+
+      &:first-child {
+        border-right: 1px solid $blue;
+      }
+    }
+  }
+
+  .table_row {
+    display: flex;
+    flex-direction: row;
+
+    .input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid transparent;
+      border-top: 1px solid $blue;
+      outline: none;
+      box-sizing: border-box;
+
+      font-size: 14px;
+      color: $dark-blue;
+
+      &:first-child {
+        border-right: 1px solid $blue;
+      }
+
+      &:focus {
+        border: 1px solid $dark-blue;
+      }
+    }
+
+    &:last-child {
+      border-radius: 0 0 4px 4px;
+
+      & *:first-child {
+        border-radius: 0 0 0 4px;
+      }
+
+      & *:last-child {
+        border-radius: 0 0 4px 0;
+      }
+    }
+  }
+}
