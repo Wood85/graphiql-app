@@ -27,7 +27,7 @@ function ClientTop({ title, setGraphqlDocsIsOpen, graphqlDocsIsOpen }: IProps): 
       <div className={style.graphql_docs}>
         {pathname.startsWith(ROUTES.GRAPHQL) && (
           <Button
-            className={clsx(style.button, graphqlDocsIsOpen !== undefined && style.docs_open)}
+            className={clsx(style.button, graphqlDocsIsOpen === true && style.docs_open)}
             onClick={() => {
               if (setGraphqlDocsIsOpen !== undefined && graphqlDocsIsOpen !== undefined)
                 setGraphqlDocsIsOpen(!graphqlDocsIsOpen);
