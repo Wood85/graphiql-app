@@ -15,8 +15,8 @@ import style from './ClientTop.module.scss';
 
 interface IProps {
   title: string;
-  setGraphqlDocsIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  graphqlDocsIsOpen: boolean;
+  setGraphqlDocsIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  graphqlDocsIsOpen?: boolean;
 }
 
 function ClientTop({ title, setGraphqlDocsIsOpen, graphqlDocsIsOpen }: IProps): JSX.Element {
@@ -27,9 +27,10 @@ function ClientTop({ title, setGraphqlDocsIsOpen, graphqlDocsIsOpen }: IProps): 
       <div className={style.graphql_docs}>
         {pathname.startsWith(ROUTES.GRAPHQL) && (
           <Button
-            className={clsx(style.button, graphqlDocsIsOpen && style.docs_open)}
+            className={clsx(style.button, graphqlDocsIsOpen !== undefined && style.docs_open)}
             onClick={() => {
-              setGraphqlDocsIsOpen(!graphqlDocsIsOpen);
+              if (setGraphqlDocsIsOpen !== undefined && graphqlDocsIsOpen !== undefined)
+                setGraphqlDocsIsOpen(!graphqlDocsIsOpen);
             }}
           >
             <DocsIcon className={style.icon} />

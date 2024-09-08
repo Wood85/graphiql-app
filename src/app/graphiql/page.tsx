@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { Provider } from 'react-redux';
 import style from './page.module.scss';
 
-export default function Restapi(): JSX.Element {
+export default function Graphiql(): JSX.Element {
   const [graphqlDocsIsOpen, setGraphqlDocsIsOpen] = useState(false);
 
   return (
