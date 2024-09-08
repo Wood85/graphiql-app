@@ -43,15 +43,16 @@ function TableEditor(): JSX.Element {
             <td className={`${styles.td} ${styles.td_1}`} />
             <td className={`${styles.td} ${styles.td_2} ${styles.td_title}`}>Key</td>
             <td className={`${styles.td} ${styles.td_3} ${styles.td_title}`}>Value</td>
+            <td className={`${styles.td} ${styles.td_4} ${styles.td_title}`} />
           </tr>
         </thead>
         <tbody>
           {headersSelector.map((header) => (
-            <Row key={crypto.randomUUID()} header={header} updateRowState={updateRowState} />
+            <Row type='headers' key={crypto.randomUUID()} row={header} updateRowState={updateRowState} />
           ))}
         </tbody>
         <tfoot>
-          <RowEditor />
+          <RowEditor type='headers' />
         </tfoot>
       </table>
     </div>

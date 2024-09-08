@@ -9,6 +9,10 @@
   background-color: $white;
   color: $blue;
   font-size: 20px;
+  &:not(:disabled):hover {
+    color: $dark-blue;
+    background-color: $white;
+  }
 }
 
 .selected {
@@ -19,7 +23,4 @@
   width: 100%;
   border: 1px solid $blue;
   font-size: 20px;
-  border-radius: 4px;
-
-  // background-color: lightgray;
 }

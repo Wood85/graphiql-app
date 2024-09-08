@@ -5,6 +5,7 @@ import Editor from '@monaco-editor/react';
 import Button from '@/components/UI/Button/Button';
 import styles from './BodyEditor.module.scss';
 import { TableEditor } from '../TableEditor/TableEditor';
+import VariablesEditor from '../VariablesEditor/VariablesEditor';
 
 interface IProps {
   body: string;
@@ -69,16 +70,8 @@ function BodyEditor({ body, setBody }: IProps): JSX.Element {
           className={styles.editor}
           onChange={handleEditorChange}
         />
-        // 	<textarea
-        //   className={styles.editor}
-        //   placeholder='Request Body (JSON)'
-        //   value={body}
-        //   rows={10}
-        //   onChange={(e) => {
-        //     setBody(e.target.value);
-        //   }}
-        // />
       )}
+      {select === 'variables' && <VariablesEditor />}
     </div>
   );
 }

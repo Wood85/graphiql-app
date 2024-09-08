@@ -22,4 +22,46 @@
 
 .td.td_3 {
   padding-left: 5px;
+  border-right: none;
+}
+
+.td.td_4 {
+  width: 50px;
+  border-left: none;
+}
+
+.input {
+  width: 289px;
+  height: 25px;
+  border: none;
+  outline-color: $blue;
+}
+
+.save_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  border: none;
+  background-color: $white;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+  border-radius: 4px;
+
+  &:hover {
+    transition: all 0.3s ease-in;
+    background-color: $gray;
+    .save_icon {
+      transition: all 0.3s ease-in;
+      stroke: $blue;
+    }
+  }
+}
+
+.save_icon {
+  width: 19px;
+  height: 19px;
+  stroke: $dark-gray;
+  transition: all 0.3s ease-in;
 }

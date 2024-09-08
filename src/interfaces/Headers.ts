@@ -5,6 +5,7 @@ export interface IHeader {
 
 export interface IHeaderWithCheckbox extends IHeader {
   checked: boolean;
+  userDefined?: boolean;
 }
 
 type THeaders = IHeaderWithCheckbox[];

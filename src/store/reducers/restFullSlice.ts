@@ -8,17 +8,23 @@ export interface IState {
   selectedMethod: TRequestMethod;
   focusCellKey: boolean;
   focusCellValue: boolean;
+  variables: THeaders;
+  focusCellVariable: boolean;
+  focusCellCurrentValue: boolean;
 }
 
 const initialState: IState = {
   headers: [
     { checked: true, key: 'Accept', value: '*/*' },
-    { checked: false, key: 'Accept-Encoding', value: 'gzip, deflate, br' },
+    { checked: true, key: 'Accept-Encoding', value: 'gzip, deflate, br' },
     { checked: true, key: 'Connection', value: 'keep-alive' },
   ],
   selectedMethod: TRequestMethod.GET,
   focusCellKey: false,
   focusCellValue: false,
+  variables: [],
+  focusCellVariable: false,
+  focusCellCurrentValue: false,
 };
 
 export const restFullSlice = createSlice({
@@ -41,9 +47,29 @@ export const restFullSlice = createSlice({
       const currentState = state;
       currentState.focusCellValue = action.payload;
     },
+    variables: (state, action: PayloadAction<THeaders>) => {
+      const currentState = state;
+      currentState.variables = action.payload;
+    },
+    focusCellVariable: (state, action: PayloadAction<boolean>) => {
+      const currentState = state;
+      currentState.focusCellVariable = action.payload;
+    },
+    focusCellCurrentValue: (state, action: PayloadAction<boolean>) => {
+      const currentState = state;
+      currentState.focusCellCurrentValue = action.payload;
+    },
   },
 });
 
-export const { headers, selectedMethod, focusCellKey, focusCellValue } = restFullSlice.actions;
+export const {
+  headers,
+  selectedMethod,
+  focusCellKey,
+  focusCellValue,
+  variables,
+  focusCellVariable,
+  focusCellCurrentValue,
+} = restFullSlice.actions;
 
 export default restFullSlice.reducer;
