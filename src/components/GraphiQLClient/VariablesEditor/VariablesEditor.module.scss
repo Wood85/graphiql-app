@@ -8,7 +8,7 @@
   width: 100%;
   min-height: 150px;
   padding: 10px;
-  border-radius: 4px;
+  border-radius: 0 4px 4px 4px;
   border: 1px solid $blue;
   outline: none;
   resize: vertical;
@@ -37,6 +37,7 @@
 
   .select_arrow_icon {
     background-color: $white;
+
     transition: all 0.3s ease-in;
 
     &:hover {
@@ -48,3 +49,4 @@
     }
   }
 }
+

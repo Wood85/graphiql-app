@@ -1,16 +1,16 @@
-import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useCallback, useEffect, useState } from 'react';
 
 import clsx from 'clsx';
 
-import type { IImageBody, IResponse, ITextBody } from '@/interfaces/Response';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
+import type { IImageBody, IResponse, ITextBody } from '@/interfaces/Response';
 import { createResponseStatus } from '@/utils/createResponseStatus';
 
 import style from './Response.module.scss';
 
 interface IProps {
-  method: TRequestMethod;
+  method?: TRequestMethod;
   response: IResponse | null;
 }
 

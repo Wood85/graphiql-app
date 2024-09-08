@@ -5,7 +5,8 @@
   flex-direction: column;
   gap: 10px;
 
-  .sdl_control {
+  .sdl_control,
+  .url_control {
     display: grid;
     grid-template-columns: 1fr 15%;
   }
@@ -42,7 +43,8 @@
     }
   }
 
-  .sdl_input {
+  .sdl_input,
+  .endpoint_input {
     border-radius: 4px 0 0 4px;
     border-right: 1px solid transparent;
   }
@@ -66,3 +68,4 @@
     }
   }
 }
+

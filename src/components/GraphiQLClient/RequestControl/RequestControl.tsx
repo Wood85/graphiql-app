@@ -11,15 +11,20 @@ interface IProps {
 function RequestControl({ url, setUrl, sdlUrl, setSdlUrl }: IProps): JSX.Element {
   return (
     <div className={style.request_control}>
-      <input
-        type='text'
-        className={style.endpoint_input}
-        placeholder='Endpoint URL'
-        value={url}
-        onChange={(e) => {
-          setUrl(e.target.value);
-        }}
-      />
+      <div className={style.url_control}>
+        <input
+          type='text'
+          className={style.endpoint_input}
+          placeholder='Endpoint URL'
+          value={url}
+          onChange={(e) => {
+            setUrl(e.target.value);
+          }}
+        />
+        <Button type='submit' className={style.button} disabled={url === ''}>
+          Send
+        </Button>
+      </div>
       <div className={style.sdl_control}>
         <input
           type='text'
@@ -30,7 +35,7 @@ function RequestControl({ url, setUrl, sdlUrl, setSdlUrl }: IProps): JSX.Element
             setSdlUrl(e.target.value);
           }}
         />
-        <Button type='submit' className={style.button} disabled={sdlUrl === ''}>
+        <Button type='button' className={style.button} disabled={sdlUrl === ''}>
           Set
         </Button>
       </div>

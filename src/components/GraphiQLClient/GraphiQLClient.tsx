@@ -1,18 +1,27 @@
 'use client';
 
+import SelectArrowBottomIcon from '@/assets/images/icons/SelectArrowBottomIcon';
+import SelectArrowTopIcon from '@/assets/images/icons/SelectArrowTopIcon';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 import type { IResponse } from '@/interfaces/Response';
+import clsx from 'clsx';
 import { useCallback, useEffect, useState } from 'react';
 import { Response } from '../Response/Response';
+import Button from '../UI/Button/Button';
 import { Docs } from './Docs/Docs';
 import style from './GraphiQLClient.module.scss';
+import { HeadersEditor } from './HeadersEditor/HeadersEditor';
 import { QueryEditor } from './QueryEditor/QueryEditor';
 import { RequestControl } from './RequestControl/RequestControl';
-import { TableEditor } from './TableEditor/TableEditor';
 import { VariablesEditor } from './VariablesEditor/VariablesEditor';
 
 interface IProps {
   graphqlDocsIsOpen?: boolean;
+}
+
+enum TTabs {
+  HEADERS = 'HEADERS',
+  VARIABLES = 'VARIABLES',
 }
 
 export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Element {
@@ -24,6 +33,8 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
   const [variables, setVariables] = useState(JSON.stringify({}));
   const [headerKey, setHeaderKey] = useState('');
   const [headerValue, setHeaderValue] = useState('');
+  const [activeTab, setActiveTab] = useState<TTabs>(TTabs.VARIABLES);
+  const [isOptionsOpen, setIsOptionsOpen] = useState(false);
 
   const replaceURL = useCallback(async (): Promise<string> => {
     const urlEncoded = btoa(url).replace(/\//g, '+');
@@ -103,7 +114,6 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
   };
 
   const isBodyApplicable = (requestMethod: TRequestMethod): boolean => requestMethod === TRequestMethod.POST;
-  console.log(graphqlDocsIsOpen);
 
   return (
     <div className={style.wrapper}>
@@ -112,14 +122,55 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
       <div className={style.container}>
         <form className={style.form} onSubmit={handleSubmit}>
           <RequestControl url={url} setUrl={setUrl} sdlUrl={sdlUrl} setSdlUrl={setSdlUrl} />
-          <TableEditor
-            headerKey={headerKey}
-            setHeaderKey={setHeaderKey}
-            headerValue={headerValue}
-            setHeaderValue={setHeaderValue}
-          />
           <QueryEditor query={query} setQuery={setQuery} />
-          <VariablesEditor variables={variables} setVariables={setVariables} />
+          <div className={style.options}>
+            <div className={style.tabs_line}>
+              <div className={style.tabs}>
+                <Button
+                  className={clsx(style.button, activeTab === TTabs.VARIABLES ? style.active : '')}
+                  onClick={() => {
+                    setActiveTab(TTabs.VARIABLES);
+                  }}
+                >
+                  Variables
+                </Button>
+                <Button
+                  className={clsx(style.button, activeTab === TTabs.HEADERS ? style.active : '')}
+                  onClick={() => {
+                    setActiveTab(TTabs.HEADERS);
+                  }}
+                >
+                  Headers
+                </Button>
+              </div>
+            </div>
+            {isOptionsOpen && (
+              <div>
+                {activeTab === TTabs.VARIABLES && <VariablesEditor variables={variables} setVariables={setVariables} />}
+                {activeTab === TTabs.HEADERS && (
+                  <HeadersEditor
+                    headerKey={headerKey}
+                    setHeaderKey={setHeaderKey}
+                    headerValue={headerValue}
+                    setHeaderValue={setHeaderValue}
+                  />
+                )}
+              </div>
+            )}
+            {!isOptionsOpen && <div className={style.options_closed} />}
+
+            <div className={style.buttons}>
+              <Button
+                className={style.select_arrow_icon}
+                onClick={() => {
+                  setIsOptionsOpen(!isOptionsOpen);
+                }}
+              >
+                {isOptionsOpen && <SelectArrowTopIcon />}
+                {!isOptionsOpen && <SelectArrowBottomIcon />}
+              </Button>
+            </div>
+          </div>
         </form>
         {response?.status != null && <Response response={response} />}
       </div>
