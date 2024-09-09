@@ -10,9 +10,18 @@ import {
 } from '@/store/reducers/restFullSlice';
 import Checkbox from '@/components/UI/Checkbox/Checkbox';
 import SaveIcon from '@/assets/images/icons/SaveIcon';
+import {
+  AMOUNT_OF_BRACKETS,
+  EMPTY_ARR_LENGTH,
+  STEP_SIZE,
+  TOTAL_AMOUNT_OF_BRACKETS,
+  VAR_REGEXP,
+} from '@/utils/constants';
 import type THeaders from '@/interfaces/Headers';
 import type { IHeaderWithCheckbox } from '@/interfaces/Headers';
 import styles from './RowEditor.module.scss';
+
+type TVar = [string, number];
 
 type TTypeTable = 'headers' | 'variables';
 interface IProps {
@@ -133,7 +142,7 @@ function RowEditor(props: IProps): JSX.Element {
             className={styles.save_btn}
             type='button'
             aria-label='save'
-            onClick={(e) => {
+            onClick={async (e) => {
               e.preventDefault();
               if (type === 'headers') {
                 const copyHeaders: THeaders = JSON.parse(JSON.stringify(headersSelector));

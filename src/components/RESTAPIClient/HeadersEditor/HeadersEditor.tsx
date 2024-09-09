@@ -4,7 +4,7 @@ import { headers } from '@/store/reducers/restFullSlice';
 import type THeaders from '@/interfaces/Headers';
 import { useAppSelector, useAppDispatch } from '@/hooks/redux';
 import { STEP_SIZE } from '@/utils/constants';
-import styles from './TableEditor.module.scss';
+import styles from './HeadersEditor.module.scss';
 
 // interface IProps {
 //   headerKey: string;
@@ -13,7 +13,7 @@ import styles from './TableEditor.module.scss';
 //   setHeaderValue: React.Dispatch<React.SetStateAction<string>>;
 // }
 
-function TableEditor(): JSX.Element {
+function HeadersEditor(): JSX.Element {
   // { headerKey, setHeaderKey, headerValue, setHeaderValue }: IProps
   const headersSelector = useAppSelector((state) => state.rest.headers);
 
@@ -79,4 +79,4 @@ function TableEditor(): JSX.Element {
   );
 }
 
-export { TableEditor };
+export default HeadersEditor;

@@ -1,7 +1,10 @@
 export const PASSWORD_LENGTH = 8;
 export const EMPTY_ARR_LENGTH = 0;
+export const AMOUNT_OF_BRACKETS = 2;
+export const TOTAL_AMOUNT_OF_BRACKETS = 4;
 export const EMAIL_REGEXP =
   /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu;
+export const VAR_REGEXP = /{{[\s\S[^{{}}]]*}}/gi;
 export const ROUTES = {
   HOME: '/',
   RESTAPI: '/restapi',
