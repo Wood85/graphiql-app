@@ -18,7 +18,12 @@ function RequestControl({ url, setUrl, sdlUrl, setSdlUrl }: IProps): JSX.Element
           placeholder='Endpoint URL'
           value={url}
           onChange={(e) => {
-            setUrl(e.target.value);
+            if (url === sdlUrl.replace(/\?sdl$/, '')) {
+              setUrl(e.target.value);
+              setSdlUrl(`${e.target.value}?sdl`);
+            } else {
+              setUrl(e.target.value);
+            }
           }}
         />
         <Button type='submit' className={style.button} disabled={url === ''}>
