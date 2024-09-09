@@ -1,6 +1,6 @@
 import { useAppSelector, useAppDispatch } from '@/hooks/redux';
-import type { IHeaderWithCheckbox } from '@/interfaces/Headers';
-import type THeaders from '@/interfaces/Headers';
+import type { IRowWithCheckbox } from '@/interfaces/Rows';
+import type TRows from '@/interfaces/Rows';
 import { headers, variables } from '@/store/reducers/restFullSlice';
 import { STEP_SIZE } from '@/utils/constants';
 import CleanIcon from '@/assets/images/icons/CleanIcon';
@@ -11,7 +11,7 @@ type TRowType = 'headers' | 'variables';
 
 interface IProps {
   type: TRowType;
-  row: IHeaderWithCheckbox;
+  row: IRowWithCheckbox;
   updateRowState: (checked: boolean, key: string) => void;
 }
 
@@ -31,8 +31,8 @@ function Row(props: IProps): JSX.Element {
   function clickHandler(e: React.MouseEvent<HTMLButtonElement>): void {
     e.preventDefault();
     if (type === 'headers') {
-      const copyHeaders: THeaders = JSON.parse(JSON.stringify(headersSelector));
-      const newHeaders: THeaders = [];
+      const copyHeaders: TRows = JSON.parse(JSON.stringify(headersSelector));
+      const newHeaders: TRows = [];
       for (let i = 0; i < copyHeaders.length; i += STEP_SIZE) {
         if (copyHeaders[i].key !== row.key) {
           newHeaders.push(copyHeaders[i]);
@@ -41,8 +41,8 @@ function Row(props: IProps): JSX.Element {
       dispatch(headers(newHeaders));
     }
     if (type === 'variables') {
-      const copyVariables: THeaders = JSON.parse(JSON.stringify(variablesSelector));
-      const newVariables: THeaders = [];
+      const copyVariables: TRows = JSON.parse(JSON.stringify(variablesSelector));
+      const newVariables: TRows = [];
       for (let i = 0; i < copyVariables.length; i += STEP_SIZE) {
         if (copyVariables[i].key !== row.key) {
           newVariables.push(copyVariables[i]);

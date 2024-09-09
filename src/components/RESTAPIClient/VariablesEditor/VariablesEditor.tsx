@@ -1,7 +1,7 @@
 import Row from '@/components/Row/Row';
 import RowEditor from '@/components/RowEditor/RowEditor';
 import { variables } from '@/store/reducers/restFullSlice';
-import type THeaders from '@/interfaces/Headers';
+import type TRows from '@/interfaces/Rows';
 import { useAppSelector, useAppDispatch } from '@/hooks/redux';
 import { STEP_SIZE } from '@/utils/constants';
 import styles from './VariablesEditor.module.scss';
@@ -12,10 +12,10 @@ function VariablesEditor(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const updateRowState = (checked: boolean, key: string): void => {
-    const copyVariables: THeaders = JSON.parse(JSON.stringify(variablesSelector));
+    const copyVariables: TRows = JSON.parse(JSON.stringify(variablesSelector));
     const copyKey: string = key;
     const copyChecked: boolean = checked;
-    const newVariables: THeaders = [];
+    const newVariables: TRows = [];
     for (let i = 0; i < copyVariables.length; i += STEP_SIZE) {
       if (copyVariables[i].key === copyKey) {
         copyVariables[i].checked = copyChecked;

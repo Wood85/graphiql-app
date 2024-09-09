@@ -1,14 +1,14 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-import type THeaders from '@/interfaces/Headers';
+import type TRows from '@/interfaces/Rows';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 
 export interface IState {
-  headers: THeaders;
+  headers: TRows;
   selectedMethod: TRequestMethod;
   focusCellKey: boolean;
   focusCellValue: boolean;
-  variables: THeaders;
+  variables: TRows;
   focusCellVariable: boolean;
   focusCellCurrentValue: boolean;
 }
@@ -31,7 +31,7 @@ export const restFullSlice = createSlice({
   name: 'restFull',
   initialState,
   reducers: {
-    headers: (state, action: PayloadAction<THeaders>) => {
+    headers: (state, action: PayloadAction<TRows>) => {
       const currentState = state;
       currentState.headers = action.payload;
     },
@@ -47,7 +47,7 @@ export const restFullSlice = createSlice({
       const currentState = state;
       currentState.focusCellValue = action.payload;
     },
-    variables: (state, action: PayloadAction<THeaders>) => {
+    variables: (state, action: PayloadAction<TRows>) => {
       const currentState = state;
       currentState.variables = action.payload;
     },

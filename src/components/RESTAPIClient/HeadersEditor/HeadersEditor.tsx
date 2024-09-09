@@ -1,7 +1,7 @@
 import Row from '@/components/Row/Row';
 import RowEditor from '@/components/RowEditor/RowEditor';
 import { headers } from '@/store/reducers/restFullSlice';
-import type THeaders from '@/interfaces/Headers';
+import type TRows from '@/interfaces/Rows';
 import { useAppSelector, useAppDispatch } from '@/hooks/redux';
 import { STEP_SIZE } from '@/utils/constants';
 import styles from './HeadersEditor.module.scss';
@@ -20,10 +20,10 @@ function HeadersEditor(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const updateRowState = (checked: boolean, key: string): void => {
-    const copyHeaders: THeaders = JSON.parse(JSON.stringify(headersSelector));
+    const copyHeaders: TRows = JSON.parse(JSON.stringify(headersSelector));
     const copyKey: string = key;
     const copyChecked: boolean = checked;
-    const newHeaders: THeaders = [];
+    const newHeaders: TRows = [];
     for (let i = 0; i < copyHeaders.length; i += STEP_SIZE) {
       if (copyHeaders[i].key === copyKey) {
         copyHeaders[i].checked = copyChecked;

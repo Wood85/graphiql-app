@@ -10,18 +10,9 @@ import {
 } from '@/store/reducers/restFullSlice';
 import Checkbox from '@/components/UI/Checkbox/Checkbox';
 import SaveIcon from '@/assets/images/icons/SaveIcon';
-import {
-  AMOUNT_OF_BRACKETS,
-  EMPTY_ARR_LENGTH,
-  STEP_SIZE,
-  TOTAL_AMOUNT_OF_BRACKETS,
-  VAR_REGEXP,
-} from '@/utils/constants';
-import type THeaders from '@/interfaces/Headers';
-import type { IHeaderWithCheckbox } from '@/interfaces/Headers';
+import type TRows from '@/interfaces/Rows';
+import type { IRowWithCheckbox } from '@/interfaces/Rows';
 import styles from './RowEditor.module.scss';
-
-type TVar = [string, number];
 
 type TTypeTable = 'headers' | 'variables';
 interface IProps {
@@ -145,8 +136,8 @@ function RowEditor(props: IProps): JSX.Element {
             onClick={async (e) => {
               e.preventDefault();
               if (type === 'headers') {
-                const copyHeaders: THeaders = JSON.parse(JSON.stringify(headersSelector));
-                const newHeader: IHeaderWithCheckbox = {
+                const copyHeaders: TRows = JSON.parse(JSON.stringify(headersSelector));
+                const newHeader: IRowWithCheckbox = {
                   checked: isCurrentChecked,
                   key: keyInputValue,
                   value: valueInputValue,
@@ -160,8 +151,8 @@ function RowEditor(props: IProps): JSX.Element {
                 dispatch(headers(copyHeaders));
               }
               if (type === 'variables') {
-                const copyVariables: THeaders = JSON.parse(JSON.stringify(variablesSelector));
-                const newVariables: IHeaderWithCheckbox = {
+                const copyVariables: TRows = JSON.parse(JSON.stringify(variablesSelector));
+                const newVariables: IRowWithCheckbox = {
                   checked: isCurrentChecked,
                   key: keyInputValue,
                   value: valueInputValue,

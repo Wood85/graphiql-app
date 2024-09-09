@@ -1,7 +1,7 @@
-import type THeaders from '@/interfaces/Headers';
+import type TRows from '@/interfaces/Rows';
 import { VAR_REGEXP, STEP_SIZE, AMOUNT_OF_BRACKETS } from './constants';
 
-function substitution(str: string, variables: THeaders): string {
+function substitution(str: string, variables: TRows): string {
   const matchAll = str.matchAll(VAR_REGEXP);
   const allMatch = Array.from(matchAll);
   let copyStr = str;
