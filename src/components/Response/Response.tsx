@@ -34,6 +34,17 @@ function Response({ response, method }: IProps): JSX.Element {
   const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
   const { formattedCode, formatCode } = useFormatCode({ editorRef, content: outputData.content });
 
+  const onEditorMountHandler = async (editor: editor.IStandaloneCodeEditor): Promise<void> => {
+    editorRef.current = editor;
+    editor.onDidContentSizeChange(() => {
+      formatCode();
+    });
+  };
+
+  const onImageLoadHandler = (): void => {
+    dispatcher(loadingFinished());
+  };
+
   return (
     <div className={style.wrapper}>
       <div className={style.response_header}>
@@ -108,12 +119,7 @@ function Response({ response, method }: IProps): JSX.Element {
                   wrappingIndent: 'deepIndent',
                   wrappingStrategy: 'advanced',
                 }}
-                onMount={async (editor) => {
-                  editorRef.current = editor;
-                  editor.onDidContentSizeChange(() => {
-                    formatCode();
-                  });
-                }}
+                onMount={onEditorMountHandler}
               />
             )}
             {outputData.type === 'image' && (
@@ -124,9 +130,7 @@ function Response({ response, method }: IProps): JSX.Element {
                   width={imageData.width}
                   height={imageData.height}
                   priority
-                  onLoad={() => {
-                    dispatcher(loadingFinished());
-                  }}
+                  onLoad={onImageLoadHandler}
                 />
               </div>
             )}
