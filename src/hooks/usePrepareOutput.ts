@@ -5,7 +5,7 @@ import { TRequestMethod } from '@/interfaces/RequestMethod';
 import { createResponseStatus } from '@/utils/createResponseStatus';
 
 type TOutputType = 'text' | 'image';
-type TOutputLanguage = 'json' | 'html' | 'css' | 'text';
+type TOutputLanguage = 'json' | 'html' | 'css' | 'text' | 'javascript' | 'xml';
 interface IOutput {
   content: string;
   type: TOutputType;
@@ -63,6 +63,20 @@ export default function usePrepareOutput(response: IResponse | null, method: TRe
       return;
     }
 
+    if (responseAndBodyNotNull && contentIs('javascript')) {
+      const content = (response.body as ITextBody).text.trim();
+      setOutputData({ content, type: 'text', language: 'javascript' });
+
+      return;
+    }
+
+    if (responseAndBodyNotNull && (contentIs('text/xml') || contentIs('application/xml'))) {
+      const content = (response.body as ITextBody).text.trim();
+      setOutputData({ content, type: 'text', language: 'xml' });
+
+      return;
+    }
+
     if (responseAndBodyNotNull && contentIs('text')) {
       const content = (response.body as ITextBody).text.trim();
       setOutputData({ content, type: 'text', language: 'text' });
@@ -82,18 +96,15 @@ export default function usePrepareOutput(response: IResponse | null, method: TRe
   }, [response]);
 
   useEffect(() => {
-    if (method === TRequestMethod.HEAD) {
-      const statusOK = 200;
-      setStatusString(createResponseStatus(statusOK, 'OK'));
+    if (response !== null && method === TRequestMethod.HEAD) {
+      setStatusString(createResponseStatus(response.status, 'OK'));
     }
-  }, [method]);
 
-  useEffect(() => {
     if (response !== null) {
       setStatusString(createResponseStatus(response.status, response.statusText));
       prepareOutput();
     }
-  }, [response, prepareOutput]);
+  }, [response, prepareOutput, method]);
 
   return { outputData, imageData, statusString };
 }
