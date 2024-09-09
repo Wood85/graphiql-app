@@ -1,12 +1,16 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 
 import Editor from '@monaco-editor/react';
+import type { editor } from 'monaco-editor/esm/vs/editor/editor.api';
 import clsx from 'clsx';
 
+import { selectLoadingState, loadingFinished } from '@/store/reducers/loadingStateSlice';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import usePrepareOutput from '@/hooks/usePrepareOutput';
+import useFormatCode from '@/hooks/useFormatCode';
 import type { IResponse } from '@/interfaces/Response';
 import type { TRequestMethod } from '@/interfaces/RequestMethod';
-import usePrepareOutput from '@/hooks/usePrepareOutput';
 import Button from '../UI/Button/Button';
 
 import style from './Response.module.scss';
@@ -25,6 +29,10 @@ function Response({ response, method }: IProps): JSX.Element {
   const { outputData, imageData, statusString } = usePrepareOutput(response, method);
   const [isPretty, setIsPretty] = useState(true);
   const [activeTab, setActiveTab] = useState<TTabs>(TTabs.BODY);
+  const dispatcher = useAppDispatch();
+  const isLoading = useAppSelector(selectLoadingState);
+  const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
+  const { formattedCode, formatCode } = useFormatCode({ editorRef, content: outputData.content });
 
   return (
     <div className={style.wrapper}>
@@ -56,6 +64,7 @@ function Response({ response, method }: IProps): JSX.Element {
       <div className={style.output_container}>
         {activeTab === TTabs.BODY && (
           <div className={style.response_body_tab}>
+            {isLoading && <div className={style.sending_status}>Request sending...</div>}
             {outputData.type === 'text' && (
               <div className={style.response_body_control}>
                 <Button
@@ -83,24 +92,42 @@ function Response({ response, method }: IProps): JSX.Element {
               <Editor
                 className={style.response_body_editor}
                 language={outputData.language}
-                value={outputData.content}
+                value={formattedCode ?? outputData.content}
                 options={{
+                  detectIndentation: false,
                   fontFamily: '"Cera Pro"',
                   fontSize: 16,
+                  formatOnPaste: true,
                   minimap: { enabled: false },
                   padding: { top: 5, bottom: 5 },
                   readOnly: true,
                   renderLineHighlight: 'none',
                   scrollBeyondLastLine: false,
+                  tabSize: 6,
                   wordWrap: 'on',
                   wrappingIndent: 'deepIndent',
                   wrappingStrategy: 'advanced',
+                }}
+                onMount={async (editor) => {
+                  editorRef.current = editor;
+                  editor.onDidContentSizeChange(() => {
+                    formatCode();
+                  });
                 }}
               />
             )}
             {outputData.type === 'image' && (
               <div className={style.image_container}>
-                <Image src={imageData.url} alt='Image' width={imageData.width} height={imageData.height} />
+                <Image
+                  src={imageData.url}
+                  alt='Image'
+                  width={imageData.width}
+                  height={imageData.height}
+                  priority
+                  onLoad={() => {
+                    dispatcher(loadingFinished());
+                  }}
+                />
               </div>
             )}
           </div>
