@@ -18,6 +18,10 @@
   display: flex;
   align-items: center;
   margin-right: 6px;
+
+  @media screen and (max-width: 500px) {
+    margin-right: 0;
+  }
 }
 
 .format_button {
@@ -30,6 +34,10 @@
   background-color: $gray;
 
   transition: all 0.3s ease-in;
+
+  @media screen and (max-width: 340px) {
+    padding: 0 3px;
+  }
 
   &:hover {
     transition: all 0.3s ease-in;
@@ -52,8 +60,9 @@
 
 .format_button.selected_format,
 .format_button.selected_format:hover {
-  background-color: $blue;
   color: $white;
+
+  background-color: $blue;
   cursor: default;
 
   transition: all 0.3s ease-in;
@@ -61,12 +70,23 @@
 
 .button {
   background-color: $white;
+
   color: $blue;
   font-size: 20px;
+
   transition: all 0.3s ease-in;
+
+  @media screen and (max-width: 500px) {
+    padding: 0;
+
+    font-size: 16px;
+  }
+
   &:not(:disabled):hover {
     color: $dark-blue;
+
     background-color: $white;
+
     transition: all 0.3s ease-in;
   }
 }
@@ -78,5 +98,6 @@
 .editor {
   width: 100%;
   border: 1px solid $blue;
+
   font-size: 20px;
 }

@@ -1,8 +1,10 @@
 @import './../../../styles/variables.scss';
 
 .container {
-  height: 281px;
   overflow-y: auto;
+
+  height: 281px;
+
   scrollbar-color: $dark-blue $blue;
   scrollbar-width: thin;
 }
@@ -10,6 +12,7 @@
 .container::-webkit-scrollbar {
   width: 8px;
   height: 8px;
+
   background-color: $blue;
 }
 
@@ -54,6 +57,7 @@
 .td {
   border: 1px solid $blue;
   height: 35px;
+
   color: $dark-blue;
 }
 

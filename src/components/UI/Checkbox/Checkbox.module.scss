@@ -1,18 +1,21 @@
 @import './../../../styles/variables.scss';
 
 .checkbox_hide {
+  overflow: hidden;
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
   position: absolute;
-  white-space: nowrap;
+
+  height: 1px;
   width: 1px;
+
+  white-space: nowrap;
 }
 
 .checkbox {
   height: 22px;
   width: 22px;
+
   background-image: url('./../../../assets/images/checkbox.svg');
   cursor: pointer;
 }

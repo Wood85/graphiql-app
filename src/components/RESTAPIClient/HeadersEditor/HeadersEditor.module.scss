@@ -1,21 +1,31 @@
 @import './../../../styles/variables.scss';
 
 .container {
-  height: 281px;
   overflow-y: auto;
+
+  height: 281px;
+
   scrollbar-color: $dark-blue $blue;
   scrollbar-width: thin;
+
+  @media screen and (max-width: 500px) {
+    padding: 0;
+
+    font-size: 14px;
+  }
 }
 
 .container::-webkit-scrollbar {
   width: 8px;
   height: 8px;
+
   background-color: $blue;
 }
 
 .container::-webkit-scrollbar-thumb {
-  background-color: $dark-blue;
   border-radius: 4px;
+
+  background-color: $dark-blue;
 }
 
 .container::-webkit-scrollbar-button:vertical:start:decrement {
@@ -46,14 +56,16 @@
 }
 
 .table {
-  border-collapse: collapse;
   width: 100%;
+
+  border-collapse: collapse;
 }
 
 .table,
 .td {
   border: 1px solid $blue;
   height: 35px;
+
   color: $dark-blue;
 }
 

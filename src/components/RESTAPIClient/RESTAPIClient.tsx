@@ -51,22 +51,9 @@ export default function RESTAPIClient(): JSX.Element {
     return baseUrl;
   }, [body, method, url, headersSelector, variablesSelector]);
 
-  /** START OF DIAGNOSTIC SECTION. WILL BE REMOVE LATER **/
-  useEffect(() => {
-    if (response !== null) {
-      console.log('response =>', response);
-    }
-
-    replaceURL().catch(console.error);
-  }, [response, url, replaceURL]);
-  /** END OF DIAGNOSTIC SECTION **/
-
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
 
-    //  The replacement below is necessary because the atob method uses the '/' character when
-    //  encoding the string. This address string is misinterpreted during routing, so we use
-    //  the '+' character instead and reverse the substitution on the server side before encoding.
     const baseUrl = await replaceURL();
     const { origin } = window.location;
     const apiUrl = `${origin}/api/${baseUrl}`;
