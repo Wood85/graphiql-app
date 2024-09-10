@@ -97,7 +97,7 @@ export default function usePrepareOutput(response: IResponse | null, method: TRe
 
   useEffect(() => {
     if (response !== null && method === TRequestMethod.HEAD) {
-      setStatusString(createResponseStatus(response.status, 'OK'));
+      setStatusString(createResponseStatus(response.status, response.statusText));
     }
 
     if (response !== null) {
