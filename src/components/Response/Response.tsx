@@ -33,7 +33,7 @@ function Response({ response, method }: IProps): JSX.Element {
   const dispatcher = useAppDispatch();
   const isLoading = useAppSelector(selectLoadingState);
   const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
-  const { formattedCode, formatCode } = useFormatCode({ editorRef, content: outputData.content });
+  const { formattedCode, formatCode } = useFormatCode(editorRef, outputData.content);
 
   const onEditorMountHandler = async (editor: editor.IStandaloneCodeEditor): Promise<void> => {
     editorRef.current = editor;

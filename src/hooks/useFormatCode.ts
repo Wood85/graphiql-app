@@ -2,14 +2,15 @@ import { useEffect, useState } from 'react';
 
 import type { editor } from 'monaco-editor/esm/vs/editor/editor.api';
 
-interface IParams {
-  editorRef: React.MutableRefObject<editor.IStandaloneCodeEditor | null>;
-  content: string;
-}
-export default function useFormatCode({ editorRef, content }: IParams): {
+interface IFormatCodeReturnType {
   formattedCode: string | null;
   formatCode: () => void;
-} {
+}
+
+export default function useFormatCode(
+  editorRef: React.MutableRefObject<editor.IStandaloneCodeEditor | null>,
+  content: string,
+): IFormatCodeReturnType {
   const [formattedCode, setFormattedCode] = useState<string | null>(null);
 
   const formatCode = async (): Promise<void> => {
