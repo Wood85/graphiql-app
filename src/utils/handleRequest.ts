@@ -6,7 +6,7 @@ import type { IUrlRouteParams } from '@/interfaces/UrlRouteParams';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 import type { IResponse } from '../interfaces/Response';
 import processingParams from './processingParams';
-import { isContentImage, isContentJSON, isContentTextOrHTML } from './responseHelpers';
+import { contentIsJSON, contentIsImage, contentIsText } from './responseHelpers';
 
 export default async function handleRequest(request: Request, { params }: IUrlRouteParams): Promise<NextResponse> {
   const { method, url, params: body } = params;
@@ -37,21 +37,20 @@ export default async function handleRequest(request: Request, { params }: IUrlRo
 
     let data = null;
 
-    if (isContentTextOrHTML(response)) {
+    if (contentIsText(response)) {
       const text = await response.text();
       data = {
         text,
       };
     }
 
-    if (isContentJSON(response)) {
+    if (contentIsJSON(response)) {
       data = await response.json();
     }
 
-    if (isContentImage(response)) {
+    if (contentIsImage(response)) {
       const buffer = await response.arrayBuffer();
       const dimensions = sizeOf(Buffer.from(buffer));
-      console.log(dimensions);
       data = {
         url: response.url,
         width: dimensions.width,

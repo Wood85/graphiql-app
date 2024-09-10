@@ -1,16 +1,20 @@
-export function isContentJSON(response: Response): boolean {
+export function contentIsJSON(response: Response): boolean {
   const header = new Headers(response.headers).get('Content-Type') ?? '';
 
   return header.toLowerCase().includes('json');
 }
 
-export function isContentTextOrHTML(response: Response): boolean {
+export function contentIsText(response: Response): boolean {
   const header = new Headers(response.headers).get('Content-Type') ?? '';
 
-  return header.toLowerCase().includes('text') || header.toLowerCase().includes('html');
+  return (
+    header.toLowerCase().includes('text') ||
+    header.toLowerCase().includes('javascript') ||
+    header.toLowerCase().includes('html')
+  );
 }
 
-export function isContentImage(response: Response): boolean {
+export function contentIsImage(response: Response): boolean {
   const header = new Headers(response.headers).get('Content-Type') ?? '';
 
   return header.toLowerCase().includes('image');
