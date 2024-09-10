@@ -12,6 +12,7 @@ import useFormatCode from '@/hooks/useFormatCode';
 import type { IResponse } from '@/interfaces/Response';
 import type { TRequestMethod } from '@/interfaces/RequestMethod';
 import Button from '../UI/Button/Button';
+import { Table } from './Table/Table';
 
 import style from './Response.module.scss';
 
@@ -75,7 +76,7 @@ function Response({ response, method }: IProps): JSX.Element {
       <div className={style.output_container}>
         {activeTab === TTabs.BODY && (
           <div className={style.response_body_tab}>
-            {isLoading && <div className={style.sending_status}>Request sending...</div>}
+            {isLoading && <div className={style.sending_status}>Sending request...</div>}
             {outputData.type === 'text' && (
               <div className={style.response_body_control}>
                 <Button
@@ -136,7 +137,11 @@ function Response({ response, method }: IProps): JSX.Element {
             )}
           </div>
         )}
-        {activeTab === TTabs.HEADERS && <div className={style.response_headers_tab}>HEADERS TABLE</div>}
+        {activeTab === TTabs.HEADERS && (
+          <div className={style.response_headers_tab}>
+            <Table headers={response?.headers} />
+          </div>
+        )}
       </div>
     </div>
   );
