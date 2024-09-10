@@ -21,6 +21,7 @@ interface IProps {
 
 function RowEditor(props: IProps): JSX.Element {
   const { type } = props;
+  const headersListSelector = useAppSelector((state) => state.headersList.reqHeaders);
   const headersSelector = useAppSelector((state) => state.rest.headers);
   const focusKeySelector = useAppSelector((state) => state.rest.focusCellKey);
   const focusValueSelector = useAppSelector((state) => state.rest.focusCellValue);
@@ -63,15 +64,26 @@ function RowEditor(props: IProps): JSX.Element {
         }}
       >
         {type === 'headers' && focusKeySelector && (
-          <input
-            className={styles.input}
-            type='text'
-            value={keyInputValue}
-            onChange={(e) => {
-              setKeyInputValue(e.target.value);
-            }}
-            autoFocus
-          />
+          <>
+            <input
+              autoCapitalize='off'
+              className={styles.input}
+              type='text'
+              value={keyInputValue}
+              list='headers'
+              onChange={(e) => {
+                setKeyInputValue(e.target.value);
+              }}
+              autoFocus
+            />
+            <datalist id='headers' className={styles.datalist}>
+              {headersListSelector.map((item) => (
+                <option key={item} className={styles.option}>
+                  {item}
+                </option>
+              ))}
+            </datalist>
+          </>
         )}
         {type === 'headers' && !focusKeySelector && keyInputValue}
         {type === 'variables' && focusVariableSelector && (
