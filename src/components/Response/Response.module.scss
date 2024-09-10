@@ -7,9 +7,11 @@
 
   transition: all 0.3s ease-in;
 
-  &.active {
+  cursor: default;
+
+  &:not(.active) {
     &:hover {
-      cursor: default;
+      cursor: pointer;
     }
   }
 
@@ -176,8 +178,6 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-
-        cursor: default;
 
         .button {
           padding: 2px 8px;
