@@ -1,17 +1,73 @@
 @import './../../../styles/variables.scss';
 
+.switchers_container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button:focus-visible {
+  border: 1px solid $dark-blue;
+}
+
 .switcher {
   display: flex;
   gap: 5px;
+}
+
+.format_switcher {
+  display: flex;
+  align-items: center;
+  margin-right: 6px;
+}
+
+.format_button {
+  padding: 0 8px;
+  border: 1px solid transparent;
+  height: 25px;
+
+  color: $dark-blue;
+
+  background-color: $gray;
+
+  transition: all 0.3s ease-in;
+
+  &:hover {
+    transition: all 0.3s ease-in;
+  }
+
+  &:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  &:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  &:focus-visible {
+    border: 1px solid $dark-blue;
+  }
+}
+
+.format_button.selected_format,
+.format_button.selected_format:hover {
+  background-color: $blue;
+  color: $white;
+  cursor: default;
+
+  transition: all 0.3s ease-in;
 }
 
 .button {
   background-color: $white;
   color: $blue;
   font-size: 20px;
+  transition: all 0.3s ease-in;
   &:not(:disabled):hover {
     color: $dark-blue;
     background-color: $white;
+    transition: all 0.3s ease-in;
   }
 }
 

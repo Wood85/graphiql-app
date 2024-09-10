@@ -6,7 +6,7 @@ import { useAppSelector } from '@/hooks/redux';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 import { EMPTY_ARR_LENGTH, STEP_SIZE } from '@/utils/constants';
 import type { IResponse } from '@/interfaces/Response';
-import type { IRowWithCheckbox } from '@/interfaces/Rows';
+import substitution from '@/utils/variableSubstitution';
 import { Response } from '../Response/Response';
 import { BodyEditor } from './BodyEditor/BodyEditor';
 import { RequestControl } from './RequestControl/RequestControl';
@@ -15,19 +15,25 @@ import style from './RESTAPIClient.module.scss';
 
 export default function RESTAPIClient(): JSX.Element {
   const headersSelector = useAppSelector((state) => state.rest.headers);
+  const variablesSelector = useAppSelector((state) => state.rest.variables);
   const [method, setMethod] = useState<TRequestMethod>(TRequestMethod.GET);
   const [url, setUrl] = useState('');
   const [response, setResponse] = useState<IResponse | null>(null);
   const [body, setBody] = useState(JSON.stringify({}));
 
   const replaceURL = useCallback(async (): Promise<string> => {
-    const urlEncoded = btoa(url).replace(/\//g, '+');
-    const bodyEncoded = isBodyApplicable(method) ? btoa(body.replace(/'+/g, '"')) : '';
+    const urlWithoutVariables = substitution(url, variablesSelector);
+    const urlEncoded = btoa(urlWithoutVariables).replace(/\//g, '+');
+
+    const bodyWithoutVariables = substitution(body, variablesSelector);
+    const bodyEncoded = isBodyApplicable(method) ? btoa(bodyWithoutVariables.replace(/'+/g, '"')) : '';
 
     const queryParamsArr = [];
     for (let i = 0; i < headersSelector.length; i += STEP_SIZE) {
       if (headersSelector[i].checked) {
-        const param = new URLSearchParams({ [headersSelector[i].key]: headersSelector[i].value }).toString();
+        const keyWithoutVariables = substitution(headersSelector[i].key, variablesSelector);
+        const valueWithoutVariables = substitution(headersSelector[i].value, variablesSelector);
+        const param = new URLSearchParams({ [keyWithoutVariables]: valueWithoutVariables }).toString();
         queryParamsArr.push(param);
       }
     }
@@ -43,7 +49,7 @@ export default function RESTAPIClient(): JSX.Element {
     window.history.replaceState(null, '', routerUrl);
 
     return baseUrl;
-  }, [body, method, url, headersSelector]);
+  }, [body, method, url, headersSelector, variablesSelector]);
 
   /** START OF DIAGNOSTIC SECTION. WILL BE REMOVE LATER **/
   useEffect(() => {

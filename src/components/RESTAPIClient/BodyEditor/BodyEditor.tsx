@@ -13,58 +13,98 @@ interface IProps {
 
 type TSelect = 'headers' | 'body' | 'variables';
 
+type TFormat = 'json' | 'text';
+
 function BodyEditor({ setBody }: IProps): JSX.Element {
   const [select, setSelect] = useState<TSelect>('headers');
+  const [editorValue, setEditorValue] = useState<string>('{}');
+  const [format, setFormat] = useState<TFormat>('json');
 
   function handleEditorChange(value: string | undefined): void {
-    if (value !== undefined) setBody(value);
+    if (value !== undefined) {
+      setBody(value);
+      setEditorValue(value);
+    }
   }
   return (
     <div className={styles.container}>
-      <div className={styles.switcher}>
-        <Button
-          className={`${styles.button} ${select === 'headers' ? styles.selected : ''}`}
-          onClick={() => {
-            setSelect('headers');
-          }}
-        >
-          Headers
-        </Button>
-        <Button
-          className={`${styles.button} ${select === 'body' ? styles.selected : ''}`}
-          onClick={() => {
-            setSelect('body');
-          }}
-        >
-          Body
-        </Button>
-        <Button
-          className={`${styles.button} ${select === 'variables' ? styles.selected : ''}`}
-          onClick={() => {
-            setSelect('variables');
-          }}
-        >
-          Variables
-        </Button>
+      <div className={styles.switchers_container}>
+        <div className={styles.switcher}>
+          <Button
+            className={`${styles.button} ${select === 'headers' ? styles.selected : ''}`}
+            onClick={() => {
+              setSelect('headers');
+            }}
+          >
+            Headers
+          </Button>
+          <Button
+            className={`${styles.button} ${select === 'body' ? styles.selected : ''}`}
+            onClick={() => {
+              setSelect('body');
+            }}
+          >
+            Body
+          </Button>
+          <Button
+            className={`${styles.button} ${select === 'variables' ? styles.selected : ''}`}
+            onClick={() => {
+              setSelect('variables');
+            }}
+          >
+            Variables
+          </Button>
+        </div>
+        <div className={styles.format_switcher}>
+          <Button
+            className={`${styles.format_button} ${format === 'json' ? styles.selected_format : ''}`}
+            onClick={() => {
+              setFormat('json');
+            }}
+          >
+            json
+          </Button>
+          <Button
+            className={`${styles.format_button} ${format === 'text' ? styles.selected_format : ''}`}
+            onClick={() => {
+              setFormat('text');
+            }}
+          >
+            text
+          </Button>
+        </div>
       </div>
       {select === 'headers' && <HeadersEditor />}
       {select === 'body' && (
         <Editor
           height='280px'
           defaultValue='{}'
-          defaultLanguage='javascript'
+          language={format}
           theme='vs-light'
+          value={editorValue}
           options={{
+            detectIndentation: false,
+            fontFamily: '"Cera Pro"',
+            fontSize: 16,
+            minimap: { enabled: false },
+            padding: { top: 5, bottom: 5 },
+            renderLineHighlight: 'none',
+            scrollBeyondLastLine: false,
+            tabSize: 2,
+            wordWrap: 'on',
+            wrappingIndent: 'deepIndent',
+            wrappingStrategy: 'advanced',
+
             inlineSuggest: {
               enabled: true,
               showToolbar: 'onHover',
               mode: 'subword',
               suppressSuggestions: false,
             },
-            fontSize: 18,
+            autoIndent: 'advanced',
+            formatOnPaste: true,
             formatOnType: true,
             autoClosingBrackets: 'always',
-            minimap: { enabled: false },
           }}
           className={styles.editor}
           onChange={handleEditorChange}
