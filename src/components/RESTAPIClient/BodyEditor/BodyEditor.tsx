@@ -8,17 +8,16 @@ import HeadersEditor from '../HeadersEditor/HeadersEditor';
 import VariablesEditor from '../VariablesEditor/VariablesEditor';
 
 interface IProps {
-  body: string;
   setBody: React.Dispatch<React.SetStateAction<string>>;
 }
 
 type TSelect = 'headers' | 'body' | 'variables';
 
-function BodyEditor({ body, setBody }: IProps): JSX.Element {
+function BodyEditor({ setBody }: IProps): JSX.Element {
   const [select, setSelect] = useState<TSelect>('headers');
 
   function handleEditorChange(value: string | undefined): void {
-    console.log('here is the current model value:', value);
+    if (value !== undefined) setBody(value);
   }
   return (
     <div className={styles.container}>

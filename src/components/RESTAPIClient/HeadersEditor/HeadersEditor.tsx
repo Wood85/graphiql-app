@@ -6,15 +6,7 @@ import { useAppSelector, useAppDispatch } from '@/hooks/redux';
 import { STEP_SIZE } from '@/utils/constants';
 import styles from './HeadersEditor.module.scss';
 
-// interface IProps {
-//   headerKey: string;
-//   setHeaderKey: React.Dispatch<React.SetStateAction<string>>;
-//   headerValue: string;
-//   setHeaderValue: React.Dispatch<React.SetStateAction<string>>;
-// }
-
 function HeadersEditor(): JSX.Element {
-  // { headerKey, setHeaderKey, headerValue, setHeaderValue }: IProps
   const headersSelector = useAppSelector((state) => state.rest.headers);
 
   const dispatch = useAppDispatch();
@@ -56,26 +48,6 @@ function HeadersEditor(): JSX.Element {
         </tfoot>
       </table>
     </div>
-    // <div className={style.table}>
-    //   <input
-    //     type='text'
-    //     className={style.input}
-    //     placeholder='Header Key'
-    //     value={headerKey}
-    //     onChange={(e) => {
-    //       setHeaderKey(e.target.value);
-    //     }}
-    //   />
-    //   <input
-    //     type='text'
-    //     className={style.input}
-    //     placeholder='Header Value'
-    //     value={headerValue}
-    //     onChange={(e) => {
-    //       setHeaderValue(e.target.value);
-    //     }}
-    //   />
-    // </div>
   );
 }
 

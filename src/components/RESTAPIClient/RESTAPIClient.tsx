@@ -1,35 +1,40 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import { useAppSelector } from '@/hooks/redux';
 
 import { TRequestMethod } from '@/interfaces/RequestMethod';
+import { EMPTY_ARR_LENGTH, STEP_SIZE } from '@/utils/constants';
 import type { IResponse } from '@/interfaces/Response';
+import type { IRowWithCheckbox } from '@/interfaces/Rows';
 import { Response } from '../Response/Response';
 import { BodyEditor } from './BodyEditor/BodyEditor';
 import { RequestControl } from './RequestControl/RequestControl';
-import { TableEditor } from './TableEditor/TableEditor';
 
 import style from './RESTAPIClient.module.scss';
 
 export default function RESTAPIClient(): JSX.Element {
+  const headersSelector = useAppSelector((state) => state.rest.headers);
   const [method, setMethod] = useState<TRequestMethod>(TRequestMethod.GET);
   const [url, setUrl] = useState('');
   const [response, setResponse] = useState<IResponse | null>(null);
   const [body, setBody] = useState(JSON.stringify({}));
-  const [headerKey, setHeaderKey] = useState('');
-  const [headerValue, setHeaderValue] = useState('');
 
   const replaceURL = useCallback(async (): Promise<string> => {
     const urlEncoded = btoa(url).replace(/\//g, '+');
     const bodyEncoded = isBodyApplicable(method) ? btoa(body.replace(/'+/g, '"')) : '';
-    const queryParams =
-      headerKey !== ''
-        ? new URLSearchParams({
-            [headerKey]: headerValue,
-          }).toString()
-        : '';
 
-    const baseUrl = `${method}/${urlEncoded}${isBodyApplicable(method) ? `/${bodyEncoded}` : ''}${headerKey !== '' ? `?${queryParams}` : ''}`;
+    const queryParamsArr = [];
+    for (let i = 0; i < headersSelector.length; i += STEP_SIZE) {
+      if (headersSelector[i].checked) {
+        const param = new URLSearchParams({ [headersSelector[i].key]: headersSelector[i].value }).toString();
+        queryParamsArr.push(param);
+      }
+    }
+
+    const queryParams = queryParamsArr.length > EMPTY_ARR_LENGTH ? queryParamsArr.join('&') : '';
+
+    const baseUrl = `${method}/${urlEncoded}${isBodyApplicable(method) ? `/${bodyEncoded}` : ''}${headersSelector.length > EMPTY_ARR_LENGTH ? `?${queryParams}` : ''}`;
 
     const match = window.location.pathname.match(/^\/[^/]+/);
     const currentRoute = match?.[0] ?? '';
@@ -38,7 +43,7 @@ export default function RESTAPIClient(): JSX.Element {
     window.history.replaceState(null, '', routerUrl);
 
     return baseUrl;
-  }, [body, headerKey, headerValue, method, url]);
+  }, [body, method, url, headersSelector]);
 
   /** START OF DIAGNOSTIC SECTION. WILL BE REMOVE LATER **/
   useEffect(() => {
@@ -104,13 +109,7 @@ export default function RESTAPIClient(): JSX.Element {
     <div className={style.container}>
       <form className={style.form} onSubmit={handleSubmit}>
         <RequestControl method={method} setMethod={setMethod} url={url} setUrl={setUrl} />
-        <BodyEditor body={body} setBody={setBody} />
-        {/* <TableEditor
-          headerKey={headerKey}
-          setHeaderKey={setHeaderKey}
-          headerValue={headerValue}
-          setHeaderValue={setHeaderValue}
-        /> */}
+        <BodyEditor setBody={setBody} />
       </form>
       {response?.status != null && <Response response={response} method={method} />}
     </div>
