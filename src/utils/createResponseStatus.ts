@@ -6,14 +6,20 @@ export const createResponseStatus = (status: number, statusText: string): { valu
 
   if (status < STATUS_REDIRECT) {
     color = 'green';
+    substituteStatusText = statusText === '' ? 'OK' : '';
   }
 
   if (status >= STATUS_REDIRECT && status < STATUS_ERROR) {
     color = 'yellow';
+    substituteStatusText = statusText === '' ? 'Redirect' : '';
   }
 
-  if (statusText === '' && status >= STATUS_SERVER_ERROR) {
-    substituteStatusText = 'Internal Server Error';
+  if (status >= STATUS_ERROR && status < STATUS_SERVER_ERROR) {
+    substituteStatusText = statusText === '' ? 'Bad Request' : '';
+  }
+
+  if (status >= STATUS_SERVER_ERROR) {
+    substituteStatusText = statusText === '' ? 'Internal Server Error' : '';
   }
 
   return { value: `${status} ${substituteStatusText === '' ? statusText : substituteStatusText}`, color };

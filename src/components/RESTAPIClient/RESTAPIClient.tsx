@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { useAppSelector } from '@/hooks/redux';
+import { useAppSelector, useAppDispatch } from '@/hooks/redux';
 
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 import { EMPTY_ARR_LENGTH, STEP_SIZE } from '@/utils/constants';
@@ -12,6 +12,7 @@ import { BodyEditor } from './BodyEditor/BodyEditor';
 import { RequestControl } from './RequestControl/RequestControl';
 
 import style from './RESTAPIClient.module.scss';
+import { loadingStarted, loadingFinished } from '../../store/reducers/loadingStateSlice';
 
 export default function RESTAPIClient(): JSX.Element {
   const headersSelector = useAppSelector((state) => state.rest.headers);
@@ -21,9 +22,15 @@ export default function RESTAPIClient(): JSX.Element {
   const [response, setResponse] = useState<IResponse | null>(null);
   const [body, setBody] = useState(JSON.stringify({}));
 
+  const dispatcher = useAppDispatch();
+
   const replaceURL = useCallback(async (): Promise<string> => {
     const urlWithoutVariables = substitution(url, variablesSelector);
     const urlEncoded = btoa(urlWithoutVariables).replace(/\//g, '+');
+
+    //  The replacement below is necessary because the atob method uses the '/' character when
+    //  encoding the string. This address string is misinterpreted during routing, so we use
+    //  the '+' character instead and reverse the substitution on the server side before encoding.
 
     const bodyWithoutVariables = substitution(body, variablesSelector);
     const bodyEncoded = isBodyApplicable(method) ? btoa(bodyWithoutVariables.replace(/'+/g, '"')) : '';
@@ -57,6 +64,8 @@ export default function RESTAPIClient(): JSX.Element {
     const baseUrl = await replaceURL();
     const { origin } = window.location;
     const apiUrl = `${origin}/api/${baseUrl}`;
+    dispatcher(loadingStarted());
+    let bodyType: string | null = null;
 
     try {
       const res = await fetch(apiUrl, {
@@ -79,6 +88,7 @@ export default function RESTAPIClient(): JSX.Element {
       }
 
       const data = await res.json();
+      bodyType = data.body?.type ?? null;
 
       if (data !== null) {
         setResponse(data as IResponse);
@@ -90,6 +100,10 @@ export default function RESTAPIClient(): JSX.Element {
         statusText: (error as Error).message,
         headers: {},
       });
+    } finally {
+      if (bodyType !== 'image') {
+        dispatcher(loadingFinished());
+      }
     }
   };
 
