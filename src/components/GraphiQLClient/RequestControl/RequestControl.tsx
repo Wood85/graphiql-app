@@ -1,4 +1,5 @@
 import Button from '@/components/UI/Button/Button';
+import { getIntrospectionQuery, type IntrospectionQuery } from 'graphql';
 import style from './RequestControl.module.scss';
 
 interface IProps {
@@ -6,9 +7,30 @@ interface IProps {
   setUrl: React.Dispatch<React.SetStateAction<string>>;
   sdlUrl: string;
   setSdlUrl: React.Dispatch<React.SetStateAction<string>>;
+  setDocs: React.Dispatch<React.SetStateAction<IntrospectionQuery | null>>;
 }
 
-function RequestControl({ url, setUrl, sdlUrl, setSdlUrl }: IProps): JSX.Element {
+function RequestControl({ url, setUrl, sdlUrl, setSdlUrl, setDocs }: IProps): JSX.Element {
+  const getSchema = async (): Promise<void> => {
+    const { data } = await fetch(sdlUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: getIntrospectionQuery(),
+      }),
+    })
+      .then(async (res) => {
+        const resData = await res.json();
+        return resData;
+      })
+      .catch((error) => {
+        if (error === true) throw new Error('Error fetching this API schema');
+      });
+
+    console.log(data);
+    setDocs(data as IntrospectionQuery);
+  };
+
   return (
     <div className={style.request_control}>
       <div className={style.url_control}>
@@ -40,7 +62,7 @@ function RequestControl({ url, setUrl, sdlUrl, setSdlUrl }: IProps): JSX.Element
             setSdlUrl(e.target.value);
           }}
         />
-        <Button type='button' className={style.button} disabled={sdlUrl === ''}>
+        <Button type='button' className={style.button} disabled={sdlUrl === ''} onClick={getSchema}>
           Set
         </Button>
       </div>
