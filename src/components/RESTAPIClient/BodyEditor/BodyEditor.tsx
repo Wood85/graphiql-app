@@ -55,60 +55,62 @@ function BodyEditor({ setBody }: IProps): JSX.Element {
             Variables
           </Button>
         </div>
-        <div className={styles.format_switcher}>
-          <Button
-            className={`${styles.format_button} ${format === 'json' ? styles.selected_format : ''}`}
-            onClick={() => {
-              setFormat('json');
-            }}
-          >
-            json
-          </Button>
-          <Button
-            className={`${styles.format_button} ${format === 'text' ? styles.selected_format : ''}`}
-            onClick={() => {
-              setFormat('text');
-            }}
-          >
-            text
-          </Button>
-        </div>
       </div>
       {select === 'headers' && <HeadersEditor />}
       {select === 'body' && (
-        <Editor
-          height='280px'
-          defaultValue='{}'
-          language={format}
-          theme='vs-light'
-          value={editorValue}
-          options={{
-            detectIndentation: false,
-            fontFamily: '"Cera Pro"',
-            fontSize: 16,
-            minimap: { enabled: false },
-            padding: { top: 5, bottom: 5 },
-            renderLineHighlight: 'none',
-            scrollBeyondLastLine: false,
-            tabSize: 2,
-            wordWrap: 'on',
-            wrappingIndent: 'deepIndent',
-            wrappingStrategy: 'advanced',
+        <div className={styles.editor_container}>
+          <div className={styles.format_switcher}>
+            <Button
+              className={`${styles.format_button} ${format === 'json' ? styles.selected_format : ''}`}
+              onClick={() => {
+                setFormat('json');
+              }}
+            >
+              JSON
+            </Button>
+            <Button
+              className={`${styles.format_button} ${format === 'text' ? styles.selected_format : ''}`}
+              onClick={() => {
+                setFormat('text');
+              }}
+            >
+              Text
+            </Button>
+          </div>
+          <Editor
+            height='280px'
+            defaultValue='{}'
+            language={format}
+            theme='vs-light'
+            value={editorValue}
+            options={{
+              detectIndentation: false,
+              fontFamily: '"Cera Pro"',
+              fontSize: 16,
+              minimap: { enabled: false },
+              padding: { top: 42, bottom: 5 },
+              renderLineHighlight: 'none',
+              scrollBeyondLastLine: false,
+              tabSize: 2,
+              wordWrap: 'on',
+              wrappingIndent: 'deepIndent',
+              wrappingStrategy: 'advanced',
 
-            inlineSuggest: {
-              enabled: true,
-              showToolbar: 'onHover',
-              mode: 'subword',
-              suppressSuggestions: false,
-            },
-            autoIndent: 'advanced',
-            formatOnPaste: true,
-            formatOnType: true,
-            autoClosingBrackets: 'always',
-          }}
-          className={styles.editor}
-          onChange={handleEditorChange}
-        />
+              inlineSuggest: {
+                enabled: true,
+                showToolbar: 'onHover',
+                mode: 'subword',
+                suppressSuggestions: false,
+              },
+              autoIndent: 'advanced',
+              formatOnPaste: true,
+              formatOnType: true,
+              autoClosingBrackets: 'always',
+            }}
+            className={styles.editor}
+            onChange={handleEditorChange}
+          />
+        </div>
       )}
       {select === 'variables' && <VariablesEditor />}
     </div>
