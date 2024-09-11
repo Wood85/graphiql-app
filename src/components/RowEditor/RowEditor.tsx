@@ -41,6 +41,13 @@ function RowEditor(props: IProps): JSX.Element {
   const [cursorPositionValue, setCursorPositionValue] = useState<number>(START_POSITION);
   const [cursorPositionVarKey, setCursorPositionVarKey] = useState<number>(START_POSITION);
   const [cursorPositionVarValue, setCursorPositionVarValue] = useState<number>(START_POSITION);
+  const [autofocus, setAutofocus] = useState({ key: false, value: false });
+
+  const onKeyDownInputHandler = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+    }
+  };
 
   return (
     <tr key={crypto.randomUUID()}>
@@ -67,6 +74,7 @@ function RowEditor(props: IProps): JSX.Element {
             dispatch(focusCellVariable(true));
             dispatch(focusCellCurrentValue(false));
           }
+          setAutofocus({ key: true, value: false });
         }}
       >
         {type === 'headers' && focusKeySelector && (
@@ -90,7 +98,11 @@ function RowEditor(props: IProps): JSX.Element {
                 e.preventDefault();
                 e.target.setSelectionRange(cursorPositionKey, cursorPositionKey);
               }}
-              autoFocus
+              onKeyDown={onKeyDownInputHandler}
+              onBlur={() => {
+                setAutofocus({ key: false, value: false });
+              }}
+              autoFocus={autofocus.key}
             />
             <datalist id='headers' className={styles.datalist}>
               {headersListSelector.map((item) => (
@@ -120,7 +132,11 @@ function RowEditor(props: IProps): JSX.Element {
               e.preventDefault();
               e.target.setSelectionRange(cursorPositionVarKey, cursorPositionVarKey);
             }}
-            autoFocus
+            onKeyDown={onKeyDownInputHandler}
+            onBlur={() => {
+              setAutofocus({ key: false, value: false });
+            }}
+            autoFocus={autofocus.key}
           />
         )}
         {type === 'variables' && !focusVariableSelector && keyInputValue}
@@ -138,6 +154,7 @@ function RowEditor(props: IProps): JSX.Element {
             dispatch(focusCellVariable(false));
             dispatch(focusCellCurrentValue(true));
           }
+          setAutofocus({ key: false, value: true });
         }}
       >
         {type === 'headers' && focusValueSelector && (
@@ -158,7 +175,11 @@ function RowEditor(props: IProps): JSX.Element {
               e.preventDefault();
               e.target.setSelectionRange(cursorPositionValue, cursorPositionValue);
             }}
-            autoFocus
+            onKeyDown={onKeyDownInputHandler}
+            onBlur={() => {
+              setAutofocus({ key: false, value: false });
+            }}
+            autoFocus={autofocus.value}
           />
         )}
         {type === 'headers' && !focusValueSelector && valueInputValue}
@@ -180,7 +201,11 @@ function RowEditor(props: IProps): JSX.Element {
               e.preventDefault();
               e.target.setSelectionRange(cursorPositionVarValue, cursorPositionVarValue);
             }}
-            autoFocus
+            onKeyDown={onKeyDownInputHandler}
+            onBlur={() => {
+              setAutofocus({ key: false, value: false });
+            }}
+            autoFocus={autofocus.value}
           />
         )}
         {type === 'variables' && !focusCurrentValueSelector && valueInputValue}
@@ -191,7 +216,7 @@ function RowEditor(props: IProps): JSX.Element {
             className={styles.save_btn}
             type='button'
             aria-label='save'
-            onClick={async (e) => {
+            onClick={(e) => {
               e.preventDefault();
               if (type === 'headers') {
                 const copyHeaders: TRows = JSON.parse(JSON.stringify(headersSelector));
