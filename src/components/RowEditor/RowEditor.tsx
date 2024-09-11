@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppSelector, useAppDispatch } from '@/hooks/redux';
 import {
   headers,
@@ -13,6 +13,8 @@ import SaveIcon from '@/assets/images/icons/SaveIcon';
 import type TRows from '@/interfaces/Rows';
 import type { IRowWithCheckbox } from '@/interfaces/Rows';
 import styles from './RowEditor.module.scss';
+
+const START_POSITION = 0;
 
 type TTypeTable = 'headers' | 'variables';
 interface IProps {
@@ -35,6 +37,10 @@ function RowEditor(props: IProps): JSX.Element {
   const [keyInputValue, setKeyInputValue] = useState<string>('');
   const [valueInputValue, setValueInputValue] = useState<string>('');
   const [isCurrentChecked, setIsCurrentChecked] = useState<boolean>(true);
+  const [cursorPositionKey, setCursorPositionKey] = useState<number>(START_POSITION);
+  const [cursorPositionValue, setCursorPositionValue] = useState<number>(START_POSITION);
+  const [cursorPositionVarKey, setCursorPositionVarKey] = useState<number>(START_POSITION);
+  const [cursorPositionVarValue, setCursorPositionVarValue] = useState<number>(START_POSITION);
 
   return (
     <tr key={crypto.randomUUID()}>
@@ -72,7 +78,17 @@ function RowEditor(props: IProps): JSX.Element {
               value={keyInputValue}
               list='headers'
               onChange={(e) => {
+                e.preventDefault();
                 setKeyInputValue(e.target.value);
+                if (e.target.selectionStart !== null) {
+                  setCursorPositionKey(e.target.selectionStart);
+                } else {
+                  setCursorPositionKey(START_POSITION);
+                }
+              }}
+              onFocus={(e) => {
+                e.preventDefault();
+                e.target.setSelectionRange(cursorPositionKey, cursorPositionKey);
               }}
               autoFocus
             />
@@ -92,7 +108,17 @@ function RowEditor(props: IProps): JSX.Element {
             type='text'
             value={keyInputValue}
             onChange={(e) => {
+              e.preventDefault();
               setKeyInputValue(e.target.value);
+              if (e.target.selectionStart !== null) {
+                setCursorPositionVarKey(e.target.selectionStart);
+              } else {
+                setCursorPositionVarKey(START_POSITION);
+              }
+            }}
+            onFocus={(e) => {
+              e.preventDefault();
+              e.target.setSelectionRange(cursorPositionVarKey, cursorPositionVarKey);
             }}
             autoFocus
           />
@@ -120,7 +146,17 @@ function RowEditor(props: IProps): JSX.Element {
             type='text'
             value={valueInputValue}
             onChange={(e) => {
+              e.preventDefault();
               setValueInputValue(e.target.value);
+              if (e.target.selectionStart !== null) {
+                setCursorPositionValue(e.target.selectionStart);
+              } else {
+                setCursorPositionValue(START_POSITION);
+              }
+            }}
+            onFocus={(e) => {
+              e.preventDefault();
+              e.target.setSelectionRange(cursorPositionValue, cursorPositionValue);
             }}
             autoFocus
           />
@@ -132,7 +168,17 @@ function RowEditor(props: IProps): JSX.Element {
             type='text'
             value={valueInputValue}
             onChange={(e) => {
+              e.preventDefault();
               setValueInputValue(e.target.value);
+              if (e.target.selectionStart !== null) {
+                setCursorPositionVarValue(e.target.selectionStart);
+              } else {
+                setCursorPositionVarValue(START_POSITION);
+              }
+            }}
+            onFocus={(e) => {
+              e.preventDefault();
+              e.target.setSelectionRange(cursorPositionVarValue, cursorPositionVarValue);
             }}
             autoFocus
           />

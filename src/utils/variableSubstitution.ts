@@ -8,7 +8,7 @@ function substitution(str: string, variables: TRows): string {
 
   for (let i = 0; i < allMatch.length; i += STEP_SIZE) {
     const varKey = allMatch[i][0].substring(AMOUNT_OF_BRACKETS, allMatch[i][0].length - AMOUNT_OF_BRACKETS);
-    const objVariable = variables.find((item) => item.key === varKey);
+    const objVariable = variables.find((item) => item.checked && item.key === varKey);
     if (objVariable !== undefined) {
       copyStr = copyStr.replace(allMatch[i][0], objVariable.value);
     }
