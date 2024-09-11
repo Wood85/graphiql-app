@@ -115,7 +115,7 @@ function Response({ response, method }: IProps): JSX.Element {
                   readOnly: true,
                   renderLineHighlight: 'none',
                   scrollBeyondLastLine: false,
-                  tabSize: 6,
+                  tabSize: 2,
                   wordWrap: 'on',
                   wrappingIndent: 'deepIndent',
                   wrappingStrategy: 'advanced',

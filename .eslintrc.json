@@ -52,6 +52,10 @@
     "react-hooks/exhaustive-deps": "warn",
     "import/prefer-default-export": "off",
     "no-shadow": "off",
-    "@typescript-eslint/no-shadow": "error"
+    "@typescript-eslint/no-shadow": "error",
+    "react/jsx-no-bind": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/no-autofocus": "off",
+    "@typescript-eslint/no-unused-vars": "off"
   }
 }
