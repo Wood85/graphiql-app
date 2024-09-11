@@ -8,7 +8,8 @@
   .endpoint_input,
   .button {
     width: 100%;
-    padding: 10px;
+    height: 45px;
+    padding: 7px 10px;
     border: 1px solid $blue;
     border-right: 1px solid transparent;
     box-sizing: border-box;
@@ -94,6 +95,73 @@
       & .signout_icon {
         fill: $dark-blue;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 940px) {
+  .request_control {
+    .method_selector {
+      font-size: 18px;
+    }
+  }
+}
+
+@media screen and (max-width: 860px) {
+  .request_control {
+    .method_selector {
+      font-size: 16px;
+    }
+  }
+}
+
+@media screen and (max-width: 834px) {
+  .request_control {
+    .method_selector,
+    .endpoint_input,
+    .button {
+      height: 40px;
+      padding: 5px;
+    }
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .request_control {
+    grid-template-columns: 25% 1fr 16%;
+    .method_selector,
+    .endpoint_input,
+    .button {
+      padding: 5px 2px;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .request_control {
+    .method_selector,
+    .endpoint_input,
+    .button {
+      height: 30px;
+      font-size: 14px;
+    }
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .request_control {
+    .method_selector {
+      padding: 5px 2px;
+    }
+  }
+}
+
+@media screen and (max-width: 465px) {
+  .request_control {
+    .method_selector {
+      width: 100%;
+      background-image: none;
+      text-align: center;
     }
   }
 }
