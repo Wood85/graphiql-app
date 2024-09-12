@@ -88,6 +88,7 @@ export default function RESTAPIClient(): JSX.Element {
       }
 
       const data = await res.json();
+
       bodyType = data.body?.type ?? null;
 
       if (data !== null) {
