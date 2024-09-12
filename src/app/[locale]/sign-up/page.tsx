@@ -23,6 +23,8 @@ interface ISignUpForm {
   confirmPassword: string;
 }
 
+export const dynamic = 'force-dynamic';
+
 function SignUp(): JSX.Element {
   const t = useTranslations('SignUp');
 

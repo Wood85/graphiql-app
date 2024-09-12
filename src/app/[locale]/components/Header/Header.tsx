@@ -17,6 +17,8 @@ import { useEffect, useRef, useTransition } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import style from './Header.module.scss';
 
+export const dynamic = 'force-dynamic';
+
 function Header(): JSX.Element {
   const t = useTranslations('Header');
 

@@ -1,17 +1,20 @@
 'use client';
 
+import About from '@/app/[locale]/components/About/About';
+import Welcome from '@/app/[locale]/components/Welcome/Welcome';
 import { auth, db } from '@/firebase/firebase';
 import type { DocumentData } from 'firebase/firestore';
 import { collection, getDocs, query, where } from 'firebase/firestore';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-
-import About from '@/app/[locale]/components/About/About';
-import Welcome from '@/app/[locale]/components/Welcome/Welcome';
-
 import style from './page.module.scss';
 
-function Page(): JSX.Element {
+export const dynamic = 'force-dynamic';
+
+function Page({ params: { locale } }: { params: { locale: string } }): JSX.Element {
+  unstable_setRequestLocale(locale);
+
   const [user, loading] = useAuthState(auth);
   const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(false);

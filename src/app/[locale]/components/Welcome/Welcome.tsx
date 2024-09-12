@@ -14,6 +14,8 @@ interface IWelcomeProps {
   isLoading: boolean;
 }
 
+export const dynamic = 'force-dynamic';
+
 function Welcome(props: IWelcomeProps): JSX.Element {
   const t = useTranslations('Welcome');
   const { userName, isAuth, isLoading } = props;

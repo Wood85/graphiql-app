@@ -4,6 +4,8 @@ import Link from 'next/link';
 import notFoundImage from '../../assets/images/not-found.svg';
 import style from './not-found.module.scss';
 
+export const dynamic = 'force-dynamic';
+
 export default function NotFoundPage(): JSX.Element {
   return (
     <section className={style.wrapper}>

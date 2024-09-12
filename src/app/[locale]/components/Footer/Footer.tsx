@@ -3,6 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import style from './Footer.module.scss';
 
+export const dynamic = 'force-dynamic';
+
 function Footer(): JSX.Element {
   return (
     <footer className={style.footer}>

@@ -7,6 +7,8 @@ import imageMikalai from '@/assets/images/team/Mikalai.png';
 import { useTranslations } from 'next-intl';
 import style from './About.module.scss';
 
+export const dynamic = 'force-dynamic';
+
 function About(): JSX.Element {
   const t = useTranslations('About');
 

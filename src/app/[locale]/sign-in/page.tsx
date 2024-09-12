@@ -20,6 +20,8 @@ interface ISignInForm {
   password: string;
 }
 
+export const dynamic = 'force-dynamic';
+
 function SignIn(): JSX.Element {
   const t = useTranslations('SignIn');
 

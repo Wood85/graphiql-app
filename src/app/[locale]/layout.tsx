@@ -1,13 +1,13 @@
-import type { Metadata } from 'next';
-import localFont from 'next/font/local';
-
 import Footer from '@/app/[locale]/components/Footer/Footer';
 import Header from '@/app/[locale]/components/Header/Header';
+import { routing } from '@/i18n/routing';
 import '@/styles/globals.scss';
+import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, unstable_setRequestLocale } from 'next-intl/server';
+import localFont from 'next/font/local';
 
-import { routing } from '@/i18n/routing';
+export const dynamic = 'force-dynamic';
 
 export function generateStaticParams(): Array<{
   locale: 'en' | 'ru';
@@ -49,6 +49,7 @@ export default async function LocaleLayout({
 }): Promise<JSX.Element> {
   const messages = await getMessages();
   unstable_setRequestLocale(locale);
+
   return (
     <html lang={locale}>
       <body className={`${ceraPro.className} body`}>
