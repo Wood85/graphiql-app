@@ -25,10 +25,17 @@
   }
 
   .docs_fields {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
     overflow-y: scroll;
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: $dark-blue;
 
     &::-webkit-scrollbar {
       width: 4px;
+      height: 4px;
 
       background-color: #f9f9fd;
     }
@@ -47,3 +54,33 @@
     }
   }
 }
+
+.name {
+  margin-top: 30px;
+  margin-bottom: 10px;
+
+  font-weight: bold;
+  color: $blue;
+}
+
+.description {
+  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
+}
+
+.subName {
+  margin-left: 20px;
+
+  font-weight: 500;
+}
+
+.subDescription {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.type {
+  color: $blue;
+  font-weight: normal;
+}
+
