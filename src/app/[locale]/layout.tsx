@@ -4,7 +4,7 @@ import { routing } from '@/i18n/routing';
 import '@/styles/globals.scss';
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, unstable_setRequestLocale } from 'next-intl/server';
+import { getMessages } from 'next-intl/server';
 import localFont from 'next/font/local';
 
 export const dynamic = 'force-dynamic';
@@ -48,7 +48,6 @@ export default async function LocaleLayout({
   params: { locale: string };
 }): Promise<JSX.Element> {
   const messages = await getMessages();
-  unstable_setRequestLocale(locale);
 
   return (
     <html lang={locale}>

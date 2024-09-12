@@ -5,16 +5,13 @@ import Welcome from '@/app/[locale]/components/Welcome/Welcome';
 import { auth, db } from '@/firebase/firebase';
 import type { DocumentData } from 'firebase/firestore';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import { unstable_setRequestLocale } from 'next-intl/server';
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import style from './page.module.scss';
 
 export const dynamic = 'force-dynamic';
 
-function Page({ params: { locale } }: { params: { locale: string } }): JSX.Element {
-  unstable_setRequestLocale(locale);
-
+function Page(): JSX.Element {
   const [user, loading] = useAuthState(auth);
   const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
