@@ -1,10 +1,8 @@
-import Image from 'next/image';
-
 import imageAlexander from '@/assets/images/team/Aleksandr.png';
 import imageEkaterina from '@/assets/images/team/Ekaterina.png';
 import imageMikalai from '@/assets/images/team/Mikalai.png';
-
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import style from './About.module.scss';
 
 export const dynamic = 'force-dynamic';

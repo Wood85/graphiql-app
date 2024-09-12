@@ -1,20 +1,20 @@
-import { useRef, useState } from 'react';
-import Image from 'next/image';
-
-import Editor from '@monaco-editor/react';
-import type { editor } from 'monaco-editor/esm/vs/editor/editor.api';
-import clsx from 'clsx';
-
-import { selectLoadingState, loadingFinished } from '@/store/reducers/loadingStateSlice';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import usePrepareOutput from '@/hooks/usePrepareOutput';
 import useFormatCode from '@/hooks/useFormatCode';
-import type { IResponse } from '@/interfaces/Response';
+import usePrepareOutput from '@/hooks/usePrepareOutput';
 import type { TRequestMethod } from '@/interfaces/RequestMethod';
+import type { IResponse } from '@/interfaces/Response';
+import { loadingFinished, selectLoadingState } from '@/store/reducers/loadingStateSlice';
+import Editor from '@monaco-editor/react';
+import clsx from 'clsx';
+import type { editor } from 'monaco-editor/esm/vs/editor/editor.api';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import { useRef, useState } from 'react';
 import Button from '../UI/Button/Button';
+import style from './Response.module.scss';
 import { Table } from './Table/Table';
 
-import style from './Response.module.scss';
+export const dynamic = 'force-dynamic';
 
 interface IProps {
   method: TRequestMethod;
@@ -27,6 +27,8 @@ enum TTabs {
 }
 
 function Response({ response, method }: IProps): JSX.Element {
+  const t = useTranslations('Response');
+
   const { outputData, imageData, statusString } = usePrepareOutput(response, method);
   const [isPretty, setIsPretty] = useState(true);
   const [activeTab, setActiveTab] = useState<TTabs>(TTabs.BODY);
@@ -56,7 +58,7 @@ function Response({ response, method }: IProps): JSX.Element {
               setActiveTab(TTabs.BODY);
             }}
           >
-            Body
+            {t('body')}
           </Button>
           <Button
             className={clsx(style.button, activeTab === TTabs.HEADERS ? style.active : '')}
@@ -64,7 +66,7 @@ function Response({ response, method }: IProps): JSX.Element {
               setActiveTab(TTabs.HEADERS);
             }}
           >
-            Headers
+            {t('headers')}
           </Button>
         </div>
         <div className={style.response_status_wrapper}>
@@ -76,7 +78,7 @@ function Response({ response, method }: IProps): JSX.Element {
       <div className={style.output_container}>
         {activeTab === TTabs.BODY && (
           <div className={style.response_body_tab}>
-            {isLoading && <div className={style.sending_status}>Sending request...</div>}
+            {isLoading && <div className={style.sending_status}>{t('sendingRequest')}</div>}
             {outputData.type === 'text' && (
               <div className={style.response_body_control}>
                 <Button
@@ -85,7 +87,7 @@ function Response({ response, method }: IProps): JSX.Element {
                     setIsPretty(true);
                   }}
                 >
-                  Pretty
+                  {t('pretty')}
                 </Button>
                 <Button
                   className={clsx(style.button, isPretty ? '' : style.active)}
@@ -93,7 +95,7 @@ function Response({ response, method }: IProps): JSX.Element {
                     setIsPretty(false);
                   }}
                 >
-                  Raw
+                  {t('raw')}
                 </Button>
               </div>
             )}

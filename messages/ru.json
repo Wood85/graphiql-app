@@ -62,5 +62,32 @@
     "passwordRequired": "Требуется подтверждение пароля",
     "userAlreadyExist": "Пользователь с таким электронным адресом уже существует",
     "userWasNotCreated": "Ошибка! Пользователь не был создан"
+  },
+  "Restapi": {
+    "title": "RESTful Клиент",
+    "endpointURL": "URL конечной точки",
+    "send": "Отправить",
+    "key": "Ключ",
+    "value": "Значение",
+    "headers": "Заголовки",
+    "body": "Тело",
+    "variables": "Переменные",
+    "text": "Текст",
+    "variable": "Переменная",
+    "currentValue": "Текущее значение"
+  },
+  "Response": {
+    "body": "Тело",
+    "headers": "Заголовки",
+    "pretty": "Формат.",
+    "raw": "Необраб.",
+    "sendingRequest": "Отправка запроса..."
+  },
+  "Table": {
+    "noHeaders": "Нет заголовков..."
+  },
+  "NotFound": {
+    "notFound": "Страница не найдена. Вы можете перейти на",
+    "mainPage": "Главная\u00a0страница"
   }
 }

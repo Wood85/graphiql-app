@@ -61,5 +61,32 @@
     "passwordRequired": "Confirm password is required",
     "userAlreadyExist": "A user with this email already exists",
     "userWasNotCreated": "Error! User was not created"
+  },
+  "Restapi": {
+    "title": "RESTful Client",
+    "endpointURL": "Endpoint URL",
+    "send": "Send",
+    "key": "Key",
+    "value": "Value",
+    "headers": "Headers",
+    "body": "Body",
+    "variables": "Variables",
+    "text": "Text",
+    "variable": "Variable",
+    "currentValue": "Current Value"
+  },
+  "Response": {
+    "body": "Body",
+    "headers": "Headers",
+    "pretty": "Pretty",
+    "raw": "Raw",
+    "sendingRequest": "Sending request..."
+  },
+  "Table": {
+    "noHeaders": "There are no headers..."
+  },
+  "NotFound": {
+    "notFound": "Page not found. You can go to the",
+    "mainPage": "Main\u00a0page"
   }
 }

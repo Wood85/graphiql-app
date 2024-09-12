@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
-import Editor from '@monaco-editor/react';
 import Button from '@/components/UI/Button/Button';
-import styles from './BodyEditor.module.scss';
+import Editor from '@monaco-editor/react';
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 import HeadersEditor from '../HeadersEditor/HeadersEditor';
 import VariablesEditor from '../VariablesEditor/VariablesEditor';
+import styles from './BodyEditor.module.scss';
 
 interface IProps {
   setBody: React.Dispatch<React.SetStateAction<string>>;
@@ -15,7 +16,11 @@ type TSelect = 'headers' | 'body' | 'variables';
 
 type TFormat = 'json' | 'text';
 
+export const dynamic = 'force-dynamic';
+
 function BodyEditor({ setBody }: IProps): JSX.Element {
+  const t = useTranslations('Restapi');
+
   const [select, setSelect] = useState<TSelect>('headers');
   const [editorValue, setEditorValue] = useState<string>('{}');
   const [format, setFormat] = useState<TFormat>('json');
@@ -36,7 +41,7 @@ function BodyEditor({ setBody }: IProps): JSX.Element {
               setSelect('headers');
             }}
           >
-            Headers
+            {t('headers')}
           </Button>
           <Button
             className={`${styles.button} ${select === 'body' ? styles.selected : ''}`}
@@ -44,7 +49,7 @@ function BodyEditor({ setBody }: IProps): JSX.Element {
               setSelect('body');
             }}
           >
-            Body
+            {t('body')}
           </Button>
           <Button
             className={`${styles.button} ${select === 'variables' ? styles.selected : ''}`}
@@ -52,7 +57,7 @@ function BodyEditor({ setBody }: IProps): JSX.Element {
               setSelect('variables');
             }}
           >
-            Variables
+            {t('variables')}
           </Button>
         </div>
       </div>
@@ -74,7 +79,7 @@ function BodyEditor({ setBody }: IProps): JSX.Element {
                 setFormat('text');
               }}
             >
-              Text
+              {t('text')}
             </Button>
           </div>
           <Editor

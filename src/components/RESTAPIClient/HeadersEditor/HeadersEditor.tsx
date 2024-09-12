@@ -1,12 +1,17 @@
 import Row from '@/components/Row/Row';
 import RowEditor from '@/components/RowEditor/RowEditor';
-import { headers } from '@/store/reducers/restFullSlice';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import type TRows from '@/interfaces/Rows';
-import { useAppSelector, useAppDispatch } from '@/hooks/redux';
+import { headers } from '@/store/reducers/restFullSlice';
 import { STEP_SIZE } from '@/utils/constants';
+import { useTranslations } from 'next-intl';
 import styles from './HeadersEditor.module.scss';
 
+export const dynamic = 'force-dynamic';
+
 function HeadersEditor(): JSX.Element {
+  const t = useTranslations('Restapi');
+
   const headersSelector = useAppSelector((state) => state.rest.headers);
 
   const dispatch = useAppDispatch();
@@ -33,8 +38,8 @@ function HeadersEditor(): JSX.Element {
         <thead>
           <tr key={crypto.randomUUID()}>
             <td className={`${styles.td} ${styles.td_1}`} />
-            <td className={`${styles.td} ${styles.td_2} ${styles.td_title}`}>Key</td>
-            <td className={`${styles.td} ${styles.td_3} ${styles.td_title}`}>Value</td>
+            <td className={`${styles.td} ${styles.td_2} ${styles.td_title}`}>{t('key')}</td>
+            <td className={`${styles.td} ${styles.td_3} ${styles.td_title}`}>{t('value')}</td>
             <td className={`${styles.td} ${styles.td_4} ${styles.td_title}`} />
           </tr>
         </thead>

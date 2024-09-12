@@ -1,7 +1,7 @@
-import { TRequestMethod } from '@/interfaces/RequestMethod';
-
 import Button from '@/components/UI/Button/Button';
+import { TRequestMethod } from '@/interfaces/RequestMethod';
 import { selectedMethod } from '@/store/reducers/restFullSlice';
+import { useTranslations } from 'next-intl';
 import { useDispatch } from 'react-redux';
 import style from './RequestControl.module.scss';
 
@@ -12,7 +12,10 @@ interface IProps {
   setUrl: React.Dispatch<React.SetStateAction<string>>;
 }
 
+export const dynamic = 'force-dynamic';
+
 function RequestControl({ method, setMethod, url, setUrl }: IProps): JSX.Element {
+  const t = useTranslations('Restapi');
   const dispatch = useDispatch();
 
   return (
@@ -36,14 +39,14 @@ function RequestControl({ method, setMethod, url, setUrl }: IProps): JSX.Element
       <input
         type='text'
         className={style.endpoint_input}
-        placeholder='Endpoint URL'
+        placeholder={t('endpointURL')}
         value={url}
         onChange={(e) => {
           setUrl(e.target.value);
         }}
       />
       <Button type='submit' className={style.button} disabled={url === ''}>
-        Send
+        {t('send')}
       </Button>
     </div>
   );
