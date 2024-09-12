@@ -1,4 +1,5 @@
 import Button from '@/components/UI/Button/Button';
+import { getIntrospectionQuery, type IntrospectionQuery } from 'graphql';
 import style from './RequestControl.module.scss';
 
 interface IProps {
@@ -6,9 +7,29 @@ interface IProps {
   setUrl: React.Dispatch<React.SetStateAction<string>>;
   sdlUrl: string;
   setSdlUrl: React.Dispatch<React.SetStateAction<string>>;
+  setDocs: React.Dispatch<React.SetStateAction<IntrospectionQuery | null>>;
 }
 
-function RequestControl({ url, setUrl, sdlUrl, setSdlUrl }: IProps): JSX.Element {
+function RequestControl({ url, setUrl, sdlUrl, setSdlUrl, setDocs }: IProps): JSX.Element {
+  const getSchema = async (): Promise<void> => {
+    await fetch(sdlUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: getIntrospectionQuery(),
+      }),
+    })
+      .then(async (res) => {
+        const resData = await res.json();
+        setDocs(resData.data as IntrospectionQuery);
+        return resData;
+      })
+      .catch((error: Error) => {
+        console.error('Can not fetching this API schema.', error);
+        setDocs(null);
+      });
+  };
+
   return (
     <div className={style.request_control}>
       <div className={style.url_control}>
@@ -18,7 +39,12 @@ function RequestControl({ url, setUrl, sdlUrl, setSdlUrl }: IProps): JSX.Element
           placeholder='Endpoint URL'
           value={url}
           onChange={(e) => {
-            setUrl(e.target.value);
+            if (url === sdlUrl.replace(/\?sdl$/, '')) {
+              setUrl(e.target.value);
+              setSdlUrl(`${e.target.value}?sdl`);
+            } else {
+              setUrl(e.target.value);
+            }
           }}
         />
         <Button type='submit' className={style.button} disabled={url === ''}>
@@ -35,7 +61,7 @@ function RequestControl({ url, setUrl, sdlUrl, setSdlUrl }: IProps): JSX.Element
             setSdlUrl(e.target.value);
           }}
         />
-        <Button type='button' className={style.button} disabled={sdlUrl === ''}>
+        <Button type='button' className={style.button} disabled={sdlUrl === ''} onClick={getSchema}>
           Set
         </Button>
       </div>
