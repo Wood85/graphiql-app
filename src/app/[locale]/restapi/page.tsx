@@ -1,8 +1,8 @@
 'use client';
 
+import RestClient from '@/app/[locale]/components/RESTAPIClient/RESTAPIClient';
 import { ClientTop } from '@/components/ClientTop/ClientTop';
 import { ProtectedRouteWrapper } from '@/components/ProtectedRouteWrapper';
-import RestClient from '@/components/RESTAPIClient/RESTAPIClient';
 import { store } from '@/store/store';
 import { useTranslations } from 'next-intl';
 import { Provider } from 'react-redux';

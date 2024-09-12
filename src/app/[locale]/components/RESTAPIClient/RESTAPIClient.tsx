@@ -1,18 +1,18 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
-import { useAppSelector, useAppDispatch } from '@/hooks/redux';
-
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
-import { EMPTY_ARR_LENGTH, STEP_SIZE } from '@/utils/constants';
 import type { IResponse } from '@/interfaces/Response';
+import { EMPTY_ARR_LENGTH, STEP_SIZE } from '@/utils/constants';
 import substitution from '@/utils/variableSubstitution';
-import { Response } from '../Response/Response';
+import { useCallback, useState } from 'react';
+import { Response } from '../../../../components/Response/Response';
+import { loadingFinished, loadingStarted } from '../../../../store/reducers/loadingStateSlice';
 import { BodyEditor } from './BodyEditor/BodyEditor';
 import { RequestControl } from './RequestControl/RequestControl';
-
 import style from './RESTAPIClient.module.scss';
-import { loadingStarted, loadingFinished } from '../../store/reducers/loadingStateSlice';
+
+export const dynamic = 'force-dynamic';
 
 export default function RESTAPIClient(): JSX.Element {
   const headersSelector = useAppSelector((state) => state.rest.headers);
@@ -50,7 +50,8 @@ export default function RESTAPIClient(): JSX.Element {
     const baseUrl = `${method}/${urlEncoded}${isBodyApplicable(method) ? `/${bodyEncoded}` : ''}${headersSelector.length > EMPTY_ARR_LENGTH ? `?${queryParams}` : ''}`;
 
     const match = window.location.pathname.match(/^\/[^/]+/);
-    const currentRoute = match?.[0] ?? '';
+    const currentRoute = match?.input ?? '';
+
     const routerUrl = `${currentRoute}/${baseUrl}`;
 
     window.history.replaceState(null, '', routerUrl);
@@ -63,7 +64,10 @@ export default function RESTAPIClient(): JSX.Element {
 
     const baseUrl = await replaceURL();
     const { origin } = window.location;
-    const apiUrl = `${origin}/api/${baseUrl}`;
+    console.log(origin);
+    const match = window.location.pathname.match(/^\/[^/]+/);
+    const currentRoute = match?.[0] ?? '';
+    const apiUrl = `${origin}/${currentRoute}/api/${baseUrl}`;
     dispatcher(loadingStarted());
     let bodyType: string | null = null;
 

@@ -1,4 +1,4 @@
-@import './../../../styles/variables.scss';
+@import './../../../../../styles/variables.scss';
 
 .container {
   overflow-y: auto;
@@ -7,6 +7,12 @@
 
   scrollbar-color: $dark-blue $blue;
   scrollbar-width: thin;
+
+  @media screen and (max-width: 500px) {
+    padding: 0;
+
+    font-size: 14px;
+  }
 }
 
 .container::-webkit-scrollbar {
@@ -17,8 +23,9 @@
 }
 
 .container::-webkit-scrollbar-thumb {
-  background-color: $dark-blue;
   border-radius: 4px;
+
+  background-color: $dark-blue;
 }
 
 .container::-webkit-scrollbar-button:vertical:start:decrement {
@@ -49,8 +56,9 @@
 }
 
 .table {
-  border-collapse: collapse;
   width: 100%;
+
+  border-collapse: collapse;
 }
 
 .table,

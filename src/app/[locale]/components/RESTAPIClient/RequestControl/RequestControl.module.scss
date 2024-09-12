@@ -1,4 +1,4 @@
-@import '../../../styles/variables.scss';
+@import './../../../../../styles/variables.scss';
 
 .request_control {
   display: grid;
@@ -44,7 +44,7 @@
     padding-right: 20px;
     border-radius: 4px 0 0 4px;
 
-    background: url(../../../assets/images/select-arrow.svg) no-repeat 98% center;
+    background: url(../../../../../assets/images/select-arrow.svg) no-repeat 98% center;
 
     cursor: pointer;
 
