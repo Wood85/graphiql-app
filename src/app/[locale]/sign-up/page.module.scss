@@ -5,6 +5,7 @@
   padding-top: 60px;
   padding-bottom: 18px;
   justify-content: center;
+
   transition: all 0.3s ease-in;
 
   @media screen and (max-width: 425px) {
@@ -103,18 +104,23 @@
   margin-bottom: 40px;
   width: 200px;
   height: 50px;
+
   transition: all 0.3s ease-in;
 
   &:hover {
     color: $dark-blue;
+
     background-color: $light-blue;
+
     transition: all 0.3s ease-in;
   }
 
   &:disabled {
     background-color: $dark-gray;
-    transition: all 0.3s ease-in;
     cursor: default;
+
+    transition: all 0.3s ease-in;
+
     &:hover {
       color: $white;
     }

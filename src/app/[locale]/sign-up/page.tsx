@@ -79,7 +79,6 @@ function SignUp(): JSX.Element {
   const router = useRouter();
 
   useEffect(() => {
-    if (loading) return;
     if (user !== null && user !== undefined) router.push('/');
   }, [user, loading, router]);
 
