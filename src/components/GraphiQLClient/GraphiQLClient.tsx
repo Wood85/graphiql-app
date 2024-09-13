@@ -59,8 +59,8 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
 
     const baseUrl = `GRAPHQL/${urlEncoded}/${bodyEncoded}${headerKey !== '' ? `?${queryParams}` : ''}`;
 
-    const match = window.location.pathname.match(/^\/[^/]+/);
-    const currentRoute = match?.input ?? '';
+    const match = window.location.pathname.match(/^\/[^/]+\/[^/]+/);
+    const currentRoute = match?.[0] ?? '';
 
     const routerUrl = `${currentRoute}/${baseUrl}`;
 
