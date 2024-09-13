@@ -5,6 +5,7 @@ import SelectArrowTopIcon from '@/assets/images/icons/SelectArrowTopIcon';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 import type { IResponse } from '@/interfaces/Response';
 import clsx from 'clsx';
+import { type IntrospectionQuery } from 'graphql';
 import { useCallback, useEffect, useState } from 'react';
 import { Response } from '../Response/Response';
 import Button from '../UI/Button/Button';
@@ -28,6 +29,7 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
   const [method] = useState<TRequestMethod>(TRequestMethod.POST);
   const [url, setUrl] = useState('');
   const [sdlUrl, setSdlUrl] = useState('');
+  const [docs, setDocs] = useState<IntrospectionQuery | null>(null);
   const [response, setResponse] = useState<IResponse | null>(null);
   const [query, setQuery] = useState('');
   const [variables, setVariables] = useState(JSON.stringify({}));
@@ -120,11 +122,11 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
 
   return (
     <div className={style.wrapper}>
-      {graphqlDocsIsOpen === true ? <Docs /> : null}
+      {graphqlDocsIsOpen === true ? <Docs schema={docs} /> : null}
 
       <div className={style.container}>
         <form className={style.form} onSubmit={handleSubmit}>
-          <RequestControl url={url} setUrl={setUrl} sdlUrl={sdlUrl} setSdlUrl={setSdlUrl} />
+          <RequestControl url={url} setUrl={setUrl} sdlUrl={sdlUrl} setSdlUrl={setSdlUrl} setDocs={setDocs} />
           <QueryEditor query={query} setQuery={setQuery} />
           <div className={style.options}>
             <div className={style.tabs_line}>

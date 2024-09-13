@@ -56,6 +56,8 @@
     "react/jsx-no-bind": "off",
     "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/no-autofocus": "off",
-    "@typescript-eslint/no-unused-vars": "off"
+    "@typescript-eslint/no-unused-vars": "off",
+    "no-underscore-dangle": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off"
   }
 }
