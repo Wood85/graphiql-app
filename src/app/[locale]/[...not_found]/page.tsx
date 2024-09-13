@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
 
-export default function NotFoundCatchAll(): void {
+export default function NotFoundCatchAll(): JSX.Element {
   notFound();
 }
