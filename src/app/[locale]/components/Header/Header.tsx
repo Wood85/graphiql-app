@@ -69,10 +69,10 @@ function Header(): JSX.Element {
   };
 
   const getLang = (lang: string): void => {
-    const path = window.location.pathname.replace(/^\/(ru|en)/, '/');
+    const path = window.location.pathname.replace(/^\/(ru|en)/, '');
 
     startTransition(() => {
-      router.replace(`/${lang}/${path}`);
+      router.replace(`/${lang}${path}`);
     });
   };
 
