@@ -29,10 +29,10 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
   const [url, setUrl] = useState('');
   const [sdlUrl, setSdlUrl] = useState('');
   const [response, setResponse] = useState<IResponse | null>(null);
-  const [query, setQuery] = useState(JSON.stringify({}));
+  const [query, setQuery] = useState('');
   const [variables, setVariables] = useState(JSON.stringify({}));
-  const [headerKey, setHeaderKey] = useState('');
-  const [headerValue, setHeaderValue] = useState('');
+  const [headerKey, setHeaderKey] = useState('Content-type');
+  const [headerValue, setHeaderValue] = useState('application/json');
   const [activeTab, setActiveTab] = useState<TTabs>(TTabs.VARIABLES);
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
 
@@ -74,13 +74,16 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
     //  The replacement below is necessary because the atob method uses the '/' character when
     //  encoding the string. This address string is misinterpreted during routing, so we use
     //  the '+' character instead and reverse the substitution on the server side before encoding.
-    const baseUrl = await replaceURL();
-    const { origin } = window.location;
-    const apiUrl = `${origin}/api/${baseUrl}`;
+    // const baseUrl = await replaceURL();
+    // const { origin } = window.location;
 
     try {
-      const res = await fetch(apiUrl, {
+      const res = await fetch(url, {
         method,
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({ query }),
       });
 
       if (!res.ok) {
@@ -172,7 +175,7 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
             </div>
           </div>
         </form>
-        {response?.status != null && <Response response={response} />}
+        {response?.status != null && <Response method={method} response={response} />}
       </div>
     </div>
   );
