@@ -74,7 +74,9 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
 
     const baseUrl = await replaceURL();
     const { origin } = window.location;
-    const apiUrl = `${origin}/api/${baseUrl}`;
+    const match = window.location.pathname.match(/^\/[^/]+/);
+    const currentRoute = match?.[0] ?? '';
+    const apiUrl = `${origin}${currentRoute}/api/${baseUrl}`;
     dispatcher(loadingStarted());
 
     try {

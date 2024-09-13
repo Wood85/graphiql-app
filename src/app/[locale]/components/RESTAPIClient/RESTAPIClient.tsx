@@ -64,7 +64,7 @@ export default function RESTAPIClient(): JSX.Element {
     const { origin } = window.location;
     const match = window.location.pathname.match(/^\/[^/]+/);
     const currentRoute = match?.[0] ?? '';
-    const apiUrl = `${origin}/${currentRoute}/api/${baseUrl}`;
+    const apiUrl = `${origin}${currentRoute}/api/${baseUrl}`;
     dispatcher(loadingStarted());
     let bodyType: string | null = null;
 
@@ -95,6 +95,7 @@ export default function RESTAPIClient(): JSX.Element {
         setResponse(data as IResponse);
       }
     } catch (error) {
+      console.log(error);
       setResponse({
         body: null,
         status: 500,
