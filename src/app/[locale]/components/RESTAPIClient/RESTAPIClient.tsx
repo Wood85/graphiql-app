@@ -95,7 +95,6 @@ export default function RESTAPIClient(): JSX.Element {
         setResponse(data as IResponse);
       }
     } catch (error) {
-      console.log(error);
       setResponse({
         body: null,
         status: 500,
