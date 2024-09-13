@@ -1,4 +1,4 @@
-import { initializeApp, getApps, getApp } from 'firebase/app';
+import { getApp, getApps, initializeApp } from 'firebase/app';
 import { getAuth, sendPasswordResetEmail, signOut } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
@@ -31,4 +31,4 @@ const logout = async (): Promise<void> => {
   await signOut(auth);
 };
 
-export { app, auth, db, sendPasswordReset, logout };
+export { app, auth, db, logout, sendPasswordReset };

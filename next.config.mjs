@@ -1,3 +1,7 @@
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin();
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -12,12 +16,17 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/restapi/([A-Z]+)/:path*',
-        destination: '/restapi',
+        source: '/en/restapi/([A-Z]+)/:path*',
+        destination: '/en/restapi',
+        permanent: true,
+      },
+      {
+        source: '/ru/restapi/([A-Z]+)/:path*',
+        destination: '/ru/restapi',
         permanent: true,
       },
     ];
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

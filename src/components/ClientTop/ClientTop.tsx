@@ -5,9 +5,9 @@ import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 
 import DocsIcon from '@/assets/images/icons/DocsIcon';
+import GraphqlIcon from '@/assets/images/icons/GraphqlIcon';
 import HistoryIcon from '@/assets/images/icons/HistoryIcon';
 import RestapiIcon from '@/assets/images/icons/RestapiIcon';
-import GraphqlIcon from '@/assets/images/icons/GraphqlIcon';
 import { ROUTES } from '@/utils/constants';
 import Button from '../UI/Button/Button';
 
@@ -25,7 +25,7 @@ function ClientTop({ title, graphqlDocsOpeningToggler, graphqlDocsIsOpen }: IPro
   return (
     <div className={style.top}>
       <div className={style.graphql_docs}>
-        {pathname.startsWith(ROUTES.GRAPHQL) && (
+        {pathname.includes(ROUTES.GRAPHQL) && (
           <Button
             className={clsx(style.button, graphqlDocsIsOpen === true && style.docs_open)}
             onClick={graphqlDocsOpeningToggler}
@@ -36,12 +36,12 @@ function ClientTop({ title, graphqlDocsOpeningToggler, graphqlDocsIsOpen }: IPro
       </div>
       <h2 className={style.title}>{title}</h2>
       <div className={style.links}>
-        {pathname.startsWith(ROUTES.RESTAPI) && (
+        {pathname.includes(ROUTES.RESTAPI) && (
           <Button href={ROUTES.GRAPHQL} className={style.button}>
             <GraphqlIcon className={style.icon} />
           </Button>
         )}
-        {pathname.startsWith(ROUTES.GRAPHQL) && (
+        {pathname.includes(ROUTES.GRAPHQL) && (
           <Button href={ROUTES.RESTAPI} className={style.button}>
             <RestapiIcon className={style.icon} />
           </Button>

@@ -1,0 +1,41 @@
+@import '../../styles/variables.scss';
+
+.wrapper {
+  margin: 60px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+
+  color: $dark-blue;
+
+  @media screen and (max-width: 767px) {
+    padding: 0 30px;
+  }
+
+  @media screen and (max-width: 424px) {
+    margin-top: 30px;
+    gap: 30px;
+  }
+
+  .image {
+    max-width: 500px;
+  }
+
+  .caption {
+    text-align: center;
+    font-size: 22px;
+
+    @media screen and (max-width: 424px) {
+      font-size: 18px;
+      text-wrap: wrap;
+    }
+
+    .link {
+      font-weight: bold;
+      color: inherit;
+
+      text-decoration: none;
+    }
+  }
+}
