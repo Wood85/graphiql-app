@@ -1,12 +1,14 @@
 'use client';
 
+import { useCallback, useState } from 'react';
+
+import { type IntrospectionQuery } from 'graphql';
+import clsx from 'clsx';
+
 import SelectArrowBottomIcon from '@/assets/images/icons/SelectArrowBottomIcon';
 import SelectArrowTopIcon from '@/assets/images/icons/SelectArrowTopIcon';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 import type { IResponse } from '@/interfaces/Response';
-import clsx from 'clsx';
-import { type IntrospectionQuery } from 'graphql';
-import { useCallback, useEffect, useState } from 'react';
 import { Response } from '../Response/Response';
 import Button from '../UI/Button/Button';
 import { Docs } from './Docs/Docs';
@@ -26,7 +28,6 @@ enum TTabs {
 }
 
 export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Element {
-  const [method] = useState<TRequestMethod>(TRequestMethod.POST);
   const [url, setUrl] = useState('');
   const [sdlUrl, setSdlUrl] = useState('');
   const [docs, setDocs] = useState<IntrospectionQuery | null>(null);
@@ -39,9 +40,11 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
 
   const replaceURL = useCallback(async (): Promise<string> => {
+    //  The replacement below is necessary because the atob method uses the '/' character when
+    //  encoding the string. This address string is misinterpreted during routing, so we use
+    //  the '+' character instead and reverse the substitution on the server side before encoding.
     const urlEncoded = btoa(url).replace(/\//g, '+');
-
-    const bodyEncoded = isBodyApplicable(method) ? btoa(query.replace(/'+/g, '"')) : '';
+    const bodyEncoded = btoa(query.replace(/'+/g, '"'));
 
     const queryParams =
       headerKey !== ''
@@ -50,54 +53,31 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
           }).toString()
         : '';
 
-    const baseUrl = `GRAPHQL/${urlEncoded}${isBodyApplicable(method) ? `/${bodyEncoded}` : ''}${headerKey !== '' ? `?${queryParams}` : ''}`;
+    const baseUrl = `GRAPHQL/${urlEncoded}/${bodyEncoded}${headerKey !== '' ? `?${queryParams}` : ''}`;
 
     const match = window.location.pathname.match(/^\/[^/]+/);
-    const currentRoute = match?.[0] ?? '';
+    const currentRoute = match?.input ?? '';
+
     const routerUrl = `${currentRoute}/${baseUrl}`;
 
     window.history.replaceState(null, '', routerUrl);
+
     return baseUrl;
-  }, [query, headerKey, headerValue, method, url]);
-
-  /** START OF DIAGNOSTIC SECTION. WILL BE REMOVE LATER **/
-  useEffect(() => {
-    if (response !== null) {
-      console.log('response =>', response);
-    }
-
-    replaceURL().catch(console.error);
-  }, [response, url, replaceURL]);
-  /** END OF DIAGNOSTIC SECTION **/
+  }, [query, headerKey, headerValue, url]);
 
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
-
-    //  The replacement below is necessary because the atob method uses the '/' character when
-    //  encoding the string. This address string is misinterpreted during routing, so we use
-    //  the '+' character instead and reverse the substitution on the server side before encoding.
     const baseUrl = await replaceURL();
     const { origin } = window.location;
     const apiUrl = `${origin}/api/${baseUrl}`;
 
     try {
       const res = await fetch(apiUrl, {
-        method,
+        method: TRequestMethod.POST,
       });
 
       if (!res.ok) {
         throw new Error(res.statusText);
-      }
-
-      if (method === TRequestMethod.HEAD) {
-        setResponse({
-          body: null,
-          status: 200,
-          statusText: 'OK',
-          headers: Object.fromEntries(res.headers.entries()),
-        });
-
-        return;
       }
 
       const data = await res.json();
@@ -174,7 +154,7 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
             </div>
           </div>
         </form>
-        {response?.status != null && <Response response={response} />}
+        {response?.status != null && <Response response={response} method={TRequestMethod.POST} />}
       </div>
     </div>
   );

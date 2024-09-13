@@ -20,6 +20,7 @@
       "tsx": true
     }
   },
+  "ignorePatterns": ["next.config.mjs"],
   "plugins": ["react"],
   "rules": {
     "no-console": "off",
@@ -54,6 +55,10 @@
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": "error",
     "no-underscore-dangle": "off",
-    "@typescript-eslint/strict-boolean-expressions": "off"
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "react/jsx-no-bind": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/no-autofocus": "off",
+    "@typescript-eslint/no-unused-vars": "off"
   }
 }

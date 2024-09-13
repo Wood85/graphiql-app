@@ -1,5 +1,6 @@
 {
   "cSpell.words": [
+    "autofocus",
     "cera",
     "clsx",
     "firestore",
@@ -11,6 +12,7 @@
     "signin",
     "signout",
     "signup",
+    "subword",
     "uppercased"
   ]
 }

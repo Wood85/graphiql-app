@@ -1,91 +1,150 @@
-import Image from 'next/image';
-import { useCallback, useEffect, useState } from 'react';
-
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import useFormatCode from '@/hooks/useFormatCode';
+import usePrepareOutput from '@/hooks/usePrepareOutput';
+import type { TRequestMethod } from '@/interfaces/RequestMethod';
+import type { IResponse } from '@/interfaces/Response';
+import { loadingFinished, selectLoadingState } from '@/store/reducers/loadingStateSlice';
+import Editor from '@monaco-editor/react';
 import clsx from 'clsx';
-
-import { TRequestMethod } from '@/interfaces/RequestMethod';
-import type { IImageBody, IResponse, ITextBody } from '@/interfaces/Response';
-import { createResponseStatus } from '@/utils/createResponseStatus';
-
+import type { editor } from 'monaco-editor/esm/vs/editor/editor.api';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import { useRef, useState } from 'react';
+import Button from '../UI/Button/Button';
 import style from './Response.module.scss';
+import { Table } from './Table/Table';
+
+export const dynamic = 'force-dynamic';
 
 interface IProps {
-  method?: TRequestMethod;
+  method: TRequestMethod;
   response: IResponse | null;
 }
 
+enum TTabs {
+  BODY = 'BODY',
+  HEADERS = 'HEADERS',
+}
+
 function Response({ response, method }: IProps): JSX.Element {
-  const INDENT = 2;
-  const [statusString, setStatusString] = useState<{
-    value: string;
-    color: string;
-  } | null>(null);
-  const [output, setOutput] = useState<string>('');
-  const [outputType, setOutputType] = useState<'text' | 'image'>('text');
-  const [imageUrl, setImageUrl] = useState<string>('');
-  const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
+  const t = useTranslations('Response');
 
-  const prepareOutput = useCallback(() => {
-    if (response !== null && response?.body === null) {
-      setOutputType('text');
-      setOutput('');
-      return;
-    }
+  const { outputData, imageData, statusString } = usePrepareOutput(response, method);
+  const [isPretty, setIsPretty] = useState(true);
+  const [activeTab, setActiveTab] = useState<TTabs>(TTabs.BODY);
+  const dispatcher = useAppDispatch();
+  const isLoading = useAppSelector(selectLoadingState);
+  const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
+  const { formattedCode, formatCode } = useFormatCode(editorRef, outputData.content);
 
-    if (response !== null && response.headers['content-type']?.includes('json')) {
-      setOutputType('text');
-      setOutput(JSON.stringify(response.body, null, INDENT));
-      return;
-    }
+  const onEditorMountHandler = async (editor: editor.IStandaloneCodeEditor): Promise<void> => {
+    editorRef.current = editor;
+    editor.onDidContentSizeChange(() => {
+      formatCode();
+    });
+  };
 
-    if (
-      response !== null &&
-      (response.headers['content-type']?.includes('text') || response.headers['content-type']?.includes('html'))
-    ) {
-      setOutputType('text');
-      Boolean(response.body) && setOutput((response.body as ITextBody).text.trim());
-      return;
-    }
-
-    if (response !== null && response.headers['content-type']?.includes('image')) {
-      setOutputType('image');
-      const { url, width, height } = response.body as IImageBody;
-      Boolean(response.body) && setImageUrl(url);
-      setImageSize({ width, height });
-      return;
-    }
-
-    setOutputType('text');
-    setOutput('');
-  }, [response]);
-
-  useEffect(() => {
-    if (method === TRequestMethod.HEAD) {
-      const statusOK = 200;
-      setStatusString(createResponseStatus(statusOK, 'OK'));
-    }
-  }, [method]);
-
-  useEffect(() => {
-    if (response !== null) {
-      setStatusString(createResponseStatus(response.status, response.statusText));
-      prepareOutput();
-    }
-  }, [response, prepareOutput]);
+  const onImageLoadHandler = (): void => {
+    dispatcher(loadingFinished());
+  };
 
   return (
-    <div className={style.response}>
-      <div className={style.response_status_wrapper}>
-        <span className={clsx(style.response_status, style[statusString?.color ?? 'gray'])}>
-          {statusString?.value ?? ''}
-        </span>
-      </div>
-      {outputType === 'text' && <textarea className={style.response_body} value={output} readOnly />}
-      {outputType === 'image' && (
-        <div className={style.image_container}>
-          <Image src={imageUrl} alt='Image' width={imageSize.width} height={imageSize.height} />
+    <div className={style.wrapper}>
+      <div className={style.response_header}>
+        <div className={style.response_tabs}>
+          <Button
+            className={clsx(style.button, activeTab === TTabs.BODY ? style.active : '')}
+            onClick={() => {
+              setActiveTab(TTabs.BODY);
+            }}
+          >
+            {t('body')}
+          </Button>
+          <Button
+            className={clsx(style.button, activeTab === TTabs.HEADERS ? style.active : '')}
+            onClick={() => {
+              setActiveTab(TTabs.HEADERS);
+            }}
+          >
+            {t('headers')}
+          </Button>
         </div>
-      )}
+        <div className={style.response_status_wrapper}>
+          <span className={clsx(style.response_status, style[statusString?.color ?? 'gray'])}>
+            {statusString?.value ?? ''}
+          </span>
+        </div>
+      </div>
+      <div className={style.output_container}>
+        {activeTab === TTabs.BODY && (
+          <div className={style.response_body_tab}>
+            {isLoading && <div className={style.sending_status}>{t('sendingRequest')}</div>}
+            {outputData.type === 'text' && (
+              <div className={style.response_body_control}>
+                <Button
+                  className={clsx(style.button, isPretty ? style.active : '')}
+                  onClick={() => {
+                    setIsPretty(true);
+                  }}
+                >
+                  {t('pretty')}
+                </Button>
+                <Button
+                  className={clsx(style.button, isPretty ? '' : style.active)}
+                  onClick={() => {
+                    setIsPretty(false);
+                  }}
+                >
+                  {t('raw')}
+                </Button>
+              </div>
+            )}
+            {outputData.type === 'text' && !isPretty && (
+              <textarea className={style.response_body_raw} value={outputData.content} readOnly />
+            )}
+            {outputData.type === 'text' && isPretty && (
+              <Editor
+                className={style.response_body_editor}
+                language={outputData.language}
+                value={formattedCode ?? outputData.content}
+                options={{
+                  detectIndentation: false,
+                  fontFamily: '"Cera Pro"',
+                  fontSize: 16,
+                  formatOnPaste: true,
+                  minimap: { enabled: false },
+                  padding: { top: 5, bottom: 5 },
+                  readOnly: true,
+                  renderLineHighlight: 'none',
+                  scrollBeyondLastLine: false,
+                  tabSize: 2,
+                  wordWrap: 'on',
+                  wrappingIndent: 'deepIndent',
+                  wrappingStrategy: 'advanced',
+                }}
+                onMount={onEditorMountHandler}
+              />
+            )}
+            {outputData.type === 'image' && (
+              <div className={style.image_container}>
+                <Image
+                  src={imageData.url}
+                  alt='Image'
+                  width={imageData.width}
+                  height={imageData.height}
+                  priority
+                  onLoad={onImageLoadHandler}
+                />
+              </div>
+            )}
+          </div>
+        )}
+        {activeTab === TTabs.HEADERS && (
+          <div className={style.response_headers_tab}>
+            <Table headers={response?.headers} />
+          </div>
+        )}
+      </div>
     </div>
   );
 }
