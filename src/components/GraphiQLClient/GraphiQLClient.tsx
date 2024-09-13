@@ -9,14 +9,17 @@ import SelectArrowBottomIcon from '@/assets/images/icons/SelectArrowBottomIcon';
 import SelectArrowTopIcon from '@/assets/images/icons/SelectArrowTopIcon';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 import type { IResponse } from '@/interfaces/Response';
+import { loadingFinished, loadingStarted } from '@/store/reducers/loadingStateSlice';
+import { useAppDispatch } from '@/hooks/redux';
 import { Response } from '../Response/Response';
 import Button from '../UI/Button/Button';
 import { Docs } from './Docs/Docs';
-import style from './GraphiQLClient.module.scss';
 import { HeadersEditor } from './HeadersEditor/HeadersEditor';
 import { QueryEditor } from './QueryEditor/QueryEditor';
 import { RequestControl } from './RequestControl/RequestControl';
 import { VariablesEditor } from './VariablesEditor/VariablesEditor';
+
+import style from './GraphiQLClient.module.scss';
 
 interface IProps {
   graphqlDocsIsOpen?: boolean;
@@ -38,6 +41,7 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
   const [headerValue, setHeaderValue] = useState('');
   const [activeTab, setActiveTab] = useState<TTabs>(TTabs.VARIABLES);
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+  const dispatcher = useAppDispatch();
 
   const replaceURL = useCallback(async (): Promise<string> => {
     //  The replacement below is necessary because the atob method uses the '/' character when
@@ -67,9 +71,11 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
 
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
+
     const baseUrl = await replaceURL();
     const { origin } = window.location;
     const apiUrl = `${origin}/api/${baseUrl}`;
+    dispatcher(loadingStarted());
 
     try {
       const res = await fetch(apiUrl, {
@@ -92,10 +98,10 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
         statusText: (error as Error).message,
         headers: {},
       });
+    } finally {
+      dispatcher(loadingFinished());
     }
   };
-
-  const isBodyApplicable = (requestMethod: TRequestMethod): boolean => requestMethod === TRequestMethod.POST;
 
   return (
     <div className={style.wrapper}>
