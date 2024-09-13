@@ -13,6 +13,7 @@ export const ROUTES = {
   SIGN_IN: '/sign-in',
   SIGN_UP: '/sign-up',
 };
+export const GRAPHQL = 'GRAPHQL';
 export const STEP_SIZE = 1;
 export const STATUS_REDIRECT = 300;
 export const STATUS_ERROR = 400;

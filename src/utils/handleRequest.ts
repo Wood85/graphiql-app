@@ -7,6 +7,7 @@ import { TRequestMethod } from '@/interfaces/RequestMethod';
 import type { IResponse } from '../interfaces/Response';
 import processingParams from './processingParams';
 import { contentIsJSON, contentIsImage, contentIsText } from './responseHelpers';
+import { GRAPHQL } from './constants';
 
 export default async function handleRequest(request: Request, { params }: IUrlRouteParams): Promise<NextResponse> {
   const { method, url, params: body } = params;
@@ -20,7 +21,7 @@ export default async function handleRequest(request: Request, { params }: IUrlRo
 
   try {
     const response = await fetch(encodedUrl, {
-      method: method.toUpperCase(),
+      method: method.toUpperCase() === GRAPHQL ? TRequestMethod.POST : method.toUpperCase(),
       headers,
       body: encodedBody,
     });

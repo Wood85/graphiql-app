@@ -44,7 +44,7 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
     //  encoding the string. This address string is misinterpreted during routing, so we use
     //  the '+' character instead and reverse the substitution on the server side before encoding.
     const urlEncoded = btoa(url).replace(/\//g, '+');
-    const bodyEncoded = btoa(query.replace(/'+/g, '"'));
+    const bodyEncoded = btoa(JSON.stringify({ query: `${query}` }));
 
     const queryParams =
       headerKey !== ''
@@ -52,8 +52,10 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
             [headerKey]: headerValue,
           }).toString()
         : '';
+    //
 
     const baseUrl = `GRAPHQL/${urlEncoded}/${bodyEncoded}${headerKey !== '' ? `?${queryParams}` : ''}`;
+    // const baseUrl = `POST/${urlEncoded}/${bodyEncoded}${headerKey !== '' ? `?${queryParams}` : ''}`;
 
     const match = window.location.pathname.match(/^\/[^/]+/);
     const currentRoute = match?.input ?? '';
