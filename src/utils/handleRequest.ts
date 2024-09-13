@@ -18,10 +18,11 @@ export default async function handleRequest(request: Request, { params }: IUrlRo
   const encodedUrl = atob(url.replace(/\+/g, '/'));
   const { search: headersAsQueryParams } = new URL(request.url);
   const headers = processingParams(headersAsQueryParams);
+  const { origin } = new URL(encodedUrl);
 
   try {
-    const response = await fetch(encodedUrl, {
-      method: method.toUpperCase() === GRAPHQL ? TRequestMethod.POST : method.toUpperCase(),
+    const response = await fetch(method === TRequestMethod.HEAD ? origin : encodedUrl, {
+      method: method === GRAPHQL ? TRequestMethod.POST : method,
       headers,
       body: encodedBody,
     });
