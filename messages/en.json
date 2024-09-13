@@ -83,10 +83,13 @@
     "sendingRequest": "Sending request..."
   },
   "Table": {
-    "noHeaders": "There are no headers..."
+    "noHeaders": "There are no headers...",
+    "key": "Key",
+    "value": "Value"
   },
   "NotFound": {
     "notFound": "Page not found. You can go to the",
     "mainPage": "Main\u00a0page"
   }
 }
+

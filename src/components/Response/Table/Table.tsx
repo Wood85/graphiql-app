@@ -19,8 +19,8 @@ function Table({ headers }: IProps): JSX.Element {
           <thead>
             <tr>
               <td className={clsx(style.td, style.td_1)}> </td>
-              <td className={clsx(style.td, style.td_2, style.td_title)}>Key</td>
-              <td className={clsx(style.td, style.td_3, style.td_title)}>Value</td>
+              <td className={clsx(style.td, style.td_2, style.td_title)}>{t('key')}</td>
+              <td className={clsx(style.td, style.td_3, style.td_title)}>{t('value')}</td>
             </tr>
           </thead>
           <tbody>
