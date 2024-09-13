@@ -1,3 +1,5 @@
+'use client';
+
 import Editor from '@monaco-editor/react';
 import ClearIcon from '@/assets/images/icons/ClearIcon';
 import CopyIcon from '@/assets/images/icons/CopyIcon';
