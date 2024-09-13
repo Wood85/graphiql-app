@@ -16,8 +16,13 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/restapi/([A-Z]+)/:path*',
-        destination: '/restapi',
+        source: '/en/restapi/([A-Z]+)/:path*',
+        destination: '/en/restapi',
+        permanent: true,
+      },
+      {
+        source: '/ru/restapi/([A-Z]+)/:path*',
+        destination: '/ru/restapi',
         permanent: true,
       },
     ];
