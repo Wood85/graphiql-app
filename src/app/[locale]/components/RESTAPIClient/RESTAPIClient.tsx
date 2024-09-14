@@ -46,6 +46,7 @@ export default function RESTAPIClient(): JSX.Element {
     const queryParams = queryParamsArr.length > EMPTY_ARR_LENGTH ? queryParamsArr.join('&') : '';
 
     const baseUrl = `${method}/${urlEncoded}${isBodyApplicable(method) ? `/${bodyEncoded}` : ''}${headersSelector.length > EMPTY_ARR_LENGTH ? `?${queryParams}` : ''}`;
+
     const match = window.location.pathname.match(/^\/[^/]+\/[^/]+/);
     const currentRoute = match?.[0] ?? '';
 
