@@ -7,6 +7,7 @@ import { TRequestMethod } from '@/interfaces/RequestMethod';
 import type { IResponse } from '../interfaces/Response';
 import processingParams from './processingParams';
 import { contentIsJSON, contentIsImage, contentIsText } from './responseHelpers';
+import { GRAPHQL } from './constants';
 
 export default async function handleRequest(request: Request, { params }: IUrlRouteParams): Promise<NextResponse> {
   const { method, url, params: body } = params;
@@ -17,10 +18,11 @@ export default async function handleRequest(request: Request, { params }: IUrlRo
   const encodedUrl = atob(url.replace(/\+/g, '/'));
   const { search: headersAsQueryParams } = new URL(request.url);
   const headers = processingParams(headersAsQueryParams);
+  const { origin } = new URL(encodedUrl);
 
   try {
-    const response = await fetch(encodedUrl, {
-      method: method.toUpperCase(),
+    const response = await fetch(method === TRequestMethod.HEAD ? origin : encodedUrl, {
+      method: method === GRAPHQL ? TRequestMethod.POST : method,
       headers,
       body: encodedBody,
     });

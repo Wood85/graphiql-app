@@ -47,8 +47,8 @@ export default function RESTAPIClient(): JSX.Element {
 
     const baseUrl = `${method}/${urlEncoded}${isBodyApplicable(method) ? `/${bodyEncoded}` : ''}${headersSelector.length > EMPTY_ARR_LENGTH ? `?${queryParams}` : ''}`;
 
-    const match = window.location.pathname.match(/^\/[^/]+/);
-    const currentRoute = match?.input ?? '';
+    const match = window.location.pathname.match(/^\/[^/]+\/[^/]+/);
+    const currentRoute = match?.[0] ?? '';
 
     const routerUrl = `${currentRoute}/${baseUrl}`;
 
@@ -64,7 +64,7 @@ export default function RESTAPIClient(): JSX.Element {
     const { origin } = window.location;
     const match = window.location.pathname.match(/^\/[^/]+/);
     const currentRoute = match?.[0] ?? '';
-    const apiUrl = `${origin}/${currentRoute}/api/${baseUrl}`;
+    const apiUrl = `${origin}${currentRoute}/api/${baseUrl}`;
     dispatcher(loadingStarted());
     let bodyType: string | null = null;
 
