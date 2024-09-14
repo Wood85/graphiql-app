@@ -12,8 +12,6 @@ import styles from './BodyEditor.module.scss';
 interface IProps {
   setBody: React.Dispatch<React.SetStateAction<string>>;
   body: string;
-  variablesLS: IHeadersVariables[];
-  headersLS: IHeadersVariables[];
 }
 
 type TSelect = 'headers' | 'body' | 'variables';
@@ -22,7 +20,7 @@ type TFormat = 'json' | 'text';
 
 export const dynamic = 'force-dynamic';
 
-function BodyEditor({ body, setBody, variablesLS, headersLS }: IProps): JSX.Element {
+function BodyEditor({ body, setBody }: IProps): JSX.Element {
   const t = useTranslations('Restapi');
 
   const [select, setSelect] = useState<TSelect>('headers');
@@ -65,7 +63,7 @@ function BodyEditor({ body, setBody, variablesLS, headersLS }: IProps): JSX.Elem
           </Button>
         </div>
       </div>
-      {select === 'headers' && <HeadersEditor headersLS={headersLS} />}
+      {select === 'headers' && <HeadersEditor />}
       {select === 'body' && (
         <div className={styles.editor_container}>
           <div className={styles.format_switcher}>
@@ -121,7 +119,7 @@ function BodyEditor({ body, setBody, variablesLS, headersLS }: IProps): JSX.Elem
           />
         </div>
       )}
-      {select === 'variables' && <VariablesEditor variablesLS={variablesLS} />}
+      {select === 'variables' && <VariablesEditor />}
     </div>
   );
 }

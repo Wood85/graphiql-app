@@ -1,7 +1,6 @@
 import Row from '@/components/Row/Row';
 import RowEditor from '@/components/RowEditor/RowEditor';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { type IHeadersVariables } from '@/interfaces/LocalStorage';
 import type TRows from '@/interfaces/Rows';
 import { headers } from '@/store/reducers/restFullSlice';
 import { STEP_SIZE } from '@/utils/constants';
@@ -10,11 +9,7 @@ import styles from './HeadersEditor.module.scss';
 
 export const dynamic = 'force-dynamic';
 
-interface IProps {
-  headersLS: IHeadersVariables[];
-}
-
-function HeadersEditor({ headersLS }: IProps): JSX.Element {
+function HeadersEditor(): JSX.Element {
   const t = useTranslations('Restapi');
 
   const headersSelector = useAppSelector((state) => state.rest.headers);
@@ -49,7 +44,7 @@ function HeadersEditor({ headersLS }: IProps): JSX.Element {
           </tr>
         </thead>
         <tbody>
-          {(headersLS.length !== ZERO ? headersLS : headersSelector).map((header) => (
+          {headersSelector.map((header) => (
             <Row type='headers' key={crypto.randomUUID()} row={header} updateRowState={updateRowState} />
           ))}
         </tbody>

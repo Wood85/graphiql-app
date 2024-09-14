@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { type IHeadersVariables, type IRequestLS } from '@/interfaces/LocalStorage';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 import type { IResponse } from '@/interfaces/Response';
+import { headers, variables } from '@/store/reducers/restFullSlice';
 import { EMPTY_ARR_LENGTH, STEP_SIZE } from '@/utils/constants';
 import substitution from '@/utils/variableSubstitution';
 import { useCallback, useEffect, useState } from 'react';
@@ -137,7 +138,8 @@ export default function RESTAPIClient(): JSX.Element {
     requestMethod === TRequestMethod.PUT ||
     requestMethod === TRequestMethod.PATCH;
 
-  const [history, setHistory] = useState<IRequestLS | ''>('');
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     const match = window.location.search.match(/\?history=[0-9]+/gm);
     const historyRequest = match?.toString().replace('?history=', '');
@@ -145,6 +147,7 @@ export default function RESTAPIClient(): JSX.Element {
     const currentData = data.filter((el: IRequestLS) => el.time.toString() === historyRequest)[0] as IRequestLS;
 
     setUrl(currentData.url);
+
     switch (currentData.method) {
       case TRequestMethod.GET:
         setMethod(TRequestMethod.GET);
@@ -172,16 +175,15 @@ export default function RESTAPIClient(): JSX.Element {
         break;
     }
     setBody(currentData.body);
-    setVariablesLS(currentData.variables);
-    setHeadersLS(currentData.headers);
-    setHistory(currentData);
-  }, []);
+    dispatch(variables(currentData.variables));
+    dispatch(headers(currentData.headers));
+  }, [dispatch]);
 
   return (
     <div className={style.container}>
       <form className={style.form} onSubmit={handleSubmit}>
         <RequestControl method={method} setMethod={setMethod} url={url} setUrl={setUrl} />
-        <BodyEditor body={body} setBody={setBody} variablesLS={variablesLS} headersLS={headersLS} />
+        <BodyEditor body={body} setBody={setBody} />
       </form>
       {response?.status != null && <Response response={response} method={method} />}
     </div>
