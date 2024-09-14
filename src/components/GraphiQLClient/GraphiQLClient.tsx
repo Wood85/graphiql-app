@@ -10,7 +10,8 @@ import SelectArrowTopIcon from '@/assets/images/icons/SelectArrowTopIcon';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 import type { IResponse } from '@/interfaces/Response';
 import { loadingFinished, loadingStarted } from '@/store/reducers/loadingStateSlice';
-import { useAppDispatch } from '@/hooks/redux';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { STEP_SIZE, EMPTY_ARR_LENGTH } from '@/utils/constants';
 import { Response } from '../Response/Response';
 import Button from '../UI/Button/Button';
 import { Docs } from './Docs/Docs';
@@ -41,6 +42,7 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
   const [headerValue, setHeaderValue] = useState('application/json');
   const [activeTab, setActiveTab] = useState<TTabs>(TTabs.VARIABLES);
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+  const headersSelector = useAppSelector((state) => state.graphql.headers);
   const dispatcher = useAppDispatch();
 
   const replaceURL = useCallback(async (): Promise<string> => {
@@ -50,14 +52,17 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
     const urlEncoded = btoa(url).replace(/\//g, '+');
     const bodyEncoded = btoa(JSON.stringify({ query: `${query}` }));
 
-    const queryParams =
-      headerKey !== ''
-        ? new URLSearchParams({
-            [headerKey]: headerValue,
-          }).toString()
-        : '';
+    const queryParamsArr = [];
+    for (let i = 0; i < headersSelector.length; i += STEP_SIZE) {
+      if (headersSelector[i].checked) {
+        const param = new URLSearchParams({ [headersSelector[i].key]: headersSelector[i].value }).toString();
+        queryParamsArr.push(param);
+      }
+    }
 
-    const baseUrl = `GRAPHQL/${urlEncoded}/${bodyEncoded}${headerKey !== '' ? `?${queryParams}` : ''}`;
+    const queryParams = queryParamsArr.length > EMPTY_ARR_LENGTH ? queryParamsArr.join('&') : '';
+
+    const baseUrl = `GRAPHQL/${urlEncoded}/${bodyEncoded}${headersSelector.length > EMPTY_ARR_LENGTH ? `?${queryParams}` : ''}`;
 
     const match = window.location.pathname.match(/^\/[^/]+\/[^/]+/);
     const currentRoute = match?.[0] ?? '';
@@ -67,7 +72,7 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
     window.history.replaceState(null, '', routerUrl);
 
     return baseUrl;
-  }, [query, headerKey, headerValue, url]);
+  }, [query, headersSelector, url]);
 
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
@@ -137,14 +142,7 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
             {isOptionsOpen && (
               <div>
                 {activeTab === TTabs.VARIABLES && <VariablesEditor variables={variables} setVariables={setVariables} />}
-                {activeTab === TTabs.HEADERS && (
-                  <HeadersEditor
-                    headerKey={headerKey}
-                    setHeaderKey={setHeaderKey}
-                    headerValue={headerValue}
-                    setHeaderValue={setHeaderValue}
-                  />
-                )}
+                {activeTab === TTabs.HEADERS && <HeadersEditor />}
               </div>
             )}
             {!isOptionsOpen && <div className={style.options_closed} />}
