@@ -47,7 +47,7 @@ function QueryEditor({ query, setQuery }: IProps): JSX.Element {
     <div className={styles.wrapper}>
       <Editor
         height='366px'
-        defaultValue='//Query Editor'
+        defaultValue='#Query Editor'
         language='graphql'
         theme='vs-light'
         value={query}
