@@ -36,7 +36,7 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
   const [docs, setDocs] = useState<IntrospectionQuery | null>(null);
   const [response, setResponse] = useState<IResponse | null>(null);
   const [query, setQuery] = useState('');
-  const [variables, setVariables] = useState(JSON.stringify({}));
+  const [variables, setVariables] = useState<string>(JSON.stringify({}));
   const [headerKey, setHeaderKey] = useState('Content-type');
   const [headerValue, setHeaderValue] = useState('application/json');
   const [activeTab, setActiveTab] = useState<TTabs>(TTabs.VARIABLES);
@@ -135,7 +135,7 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
               </div>
             </div>
             {isOptionsOpen && (
-              <div>
+              <div className={style.options_content}>
                 {activeTab === TTabs.VARIABLES && <VariablesEditor variables={variables} setVariables={setVariables} />}
                 {activeTab === TTabs.HEADERS && (
                   <HeadersEditor
