@@ -38,11 +38,10 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
   const [response, setResponse] = useState<IResponse | null>(null);
   const [query, setQuery] = useState('');
   const [variables, setVariables] = useState(JSON.stringify({}));
-  const [headerKey, setHeaderKey] = useState('Content-type');
-  const [headerValue, setHeaderValue] = useState('application/json');
   const [activeTab, setActiveTab] = useState<TTabs>(TTabs.VARIABLES);
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const headersSelector = useAppSelector((state) => state.graphql.headers);
+
   const dispatcher = useAppDispatch();
 
   const replaceURL = useCallback(async (): Promise<string> => {
