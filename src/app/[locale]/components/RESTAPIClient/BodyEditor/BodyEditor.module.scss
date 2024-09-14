@@ -1,0 +1,119 @@
+@import './../../../../../styles/variables.scss';
+
+.container {
+  .button:focus-visible {
+    border: 1px solid $dark-blue;
+  }
+
+  .switchers_container {
+    display: flex;
+
+    .switcher {
+      display: flex;
+      gap: 5px;
+
+      .button {
+        background-color: $white;
+
+        color: $blue;
+        font-size: 20px;
+
+        transition: all 0.3s ease-in;
+
+        @media screen and (max-width: 500px) {
+          padding: 0;
+
+          font-size: 16px;
+        }
+
+        &:not(:disabled):hover {
+          color: $dark-blue;
+
+          background-color: $white;
+
+          transition: all 0.3s ease-in;
+        }
+
+        &.selected {
+          color: $dark-blue;
+        }
+      }
+    }
+  }
+
+  .editor_container {
+    position: relative;
+
+    height: 280px;
+    width: 100%;
+
+    .format_switcher {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 10;
+
+      display: flex;
+      align-items: center;
+      margin-right: 6px;
+
+      font-size: 14px;
+
+      @media screen and (max-width: 500px) {
+        margin-right: 0;
+      }
+
+      .format_button {
+        padding: 0 8px;
+        border: 1px solid transparent;
+        height: 25px;
+
+        color: $dark-blue;
+        font-size: 16px;
+
+        background-color: $gray;
+
+        transition: all 0.3s ease-in;
+
+        @media screen and (max-width: 340px) {
+          padding: 0 3px;
+        }
+
+        &:hover {
+          transition: all 0.3s ease-in;
+        }
+
+        &:first-child {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+
+        &:last-child {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+
+        &:focus-visible {
+          border: 1px solid $dark-blue;
+        }
+
+        &.selected_format,
+        &.selected_format:hover {
+          color: $white;
+
+          background-color: $blue;
+          cursor: default;
+
+          transition: all 0.3s ease-in;
+        }
+      }
+    }
+
+    .editor {
+      width: 100%;
+      border: 1px solid $blue;
+
+      font-size: 20px;
+    }
+  }
+}

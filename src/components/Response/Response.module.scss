@@ -1,26 +1,26 @@
 @import '../../styles/variables.scss';
 
-.button {
-  height: auto;
+.wrapper {
+  .button {
+    height: auto;
 
-  font-size: 16px;
+    font-size: 16px;
 
-  transition: all 0.3s ease-in;
+    transition: all 0.3s ease-in;
 
-  cursor: default;
+    cursor: default;
 
-  &:not(.active) {
-    &:hover {
-      cursor: pointer;
+    &:not(.active) {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    &:focus-visible {
+      outline: none;
     }
   }
 
-  &:focus-visible {
-    outline: none;
-  }
-}
-
-.wrapper {
   .response_header {
     display: flex;
     flex-direction: row;

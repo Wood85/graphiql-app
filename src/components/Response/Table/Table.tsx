@@ -1,12 +1,16 @@
 import clsx from 'clsx';
-
+import { useTranslations } from 'next-intl';
 import style from './Table.module.scss';
 
 interface IProps {
   headers: Record<string, string> | undefined;
 }
 
+export const dynamic = 'force-dynamic';
+
 function Table({ headers }: IProps): JSX.Element {
+  const t = useTranslations('Table');
+
   const ZERO = 0;
   return (
     <div className={style.wrapper}>
@@ -15,8 +19,8 @@ function Table({ headers }: IProps): JSX.Element {
           <thead>
             <tr>
               <td className={clsx(style.td, style.td_1)}> </td>
-              <td className={clsx(style.td, style.td_2, style.td_title)}>Key</td>
-              <td className={clsx(style.td, style.td_3, style.td_title)}>Value</td>
+              <td className={clsx(style.td, style.td_2, style.td_title)}>{t('key')}</td>
+              <td className={clsx(style.td, style.td_3, style.td_title)}>{t('value')}</td>
             </tr>
           </thead>
           <tbody>
@@ -30,7 +34,7 @@ function Table({ headers }: IProps): JSX.Element {
           </tbody>
         </table>
       )}
-      {Object.keys(headers ?? {}).length === ZERO && <p className={style.no_headers}>There are no headers...</p>}
+      {Object.keys(headers ?? {}).length === ZERO && <p className={style.no_headers}>{t('noHeaders')}</p>}
     </div>
   );
 }
