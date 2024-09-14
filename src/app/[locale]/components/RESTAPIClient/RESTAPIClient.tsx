@@ -1,11 +1,11 @@
 'use client';
 
-import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { useCallback, useEffect, useState } from 'react';
+import { useAppSelector, useAppDispatch } from '@/hooks/redux';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 import type { IResponse } from '@/interfaces/Response';
 import { EMPTY_ARR_LENGTH, STEP_SIZE } from '@/utils/constants';
 import substitution from '@/utils/variableSubstitution';
-import { useCallback, useState } from 'react';
 import { Response } from '../../../../components/Response/Response';
 import { loadingFinished, loadingStarted } from '../../../../store/reducers/loadingStateSlice';
 import { BodyEditor } from './BodyEditor/BodyEditor';
