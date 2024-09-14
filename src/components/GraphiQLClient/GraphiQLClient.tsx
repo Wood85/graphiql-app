@@ -35,10 +35,10 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
   const [sdlUrl, setSdlUrl] = useState('');
   const [docs, setDocs] = useState<IntrospectionQuery | null>(null);
   const [response, setResponse] = useState<IResponse | null>(null);
-  const [query, setQuery] = useState(JSON.stringify({}));
+  const [query, setQuery] = useState('');
   const [variables, setVariables] = useState(JSON.stringify({}));
-  const [headerKey, setHeaderKey] = useState('');
-  const [headerValue, setHeaderValue] = useState('');
+  const [headerKey, setHeaderKey] = useState('Content-type');
+  const [headerValue, setHeaderValue] = useState('application/json');
   const [activeTab, setActiveTab] = useState<TTabs>(TTabs.VARIABLES);
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const dispatcher = useAppDispatch();
