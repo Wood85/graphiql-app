@@ -90,5 +90,8 @@
   "NotFound": {
     "notFound": "Page not found. You can go to the",
     "mainPage": "Main\u00a0page"
+  },
+  "History": {
+    "title": "History requests"
   }
 }

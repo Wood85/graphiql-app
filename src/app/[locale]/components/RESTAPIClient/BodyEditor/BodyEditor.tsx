@@ -1,6 +1,7 @@
 'use client';
 
 import Button from '@/components/UI/Button/Button';
+import { type IHeadersVariables } from '@/interfaces/LocalStorage';
 import Editor from '@monaco-editor/react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
@@ -10,6 +11,9 @@ import styles from './BodyEditor.module.scss';
 
 interface IProps {
   setBody: React.Dispatch<React.SetStateAction<string>>;
+  body: string;
+  variablesLS: IHeadersVariables[];
+  headersLS: IHeadersVariables[];
 }
 
 type TSelect = 'headers' | 'body' | 'variables';
@@ -18,7 +22,7 @@ type TFormat = 'json' | 'text';
 
 export const dynamic = 'force-dynamic';
 
-function BodyEditor({ setBody }: IProps): JSX.Element {
+function BodyEditor({ body, setBody, variablesLS, headersLS }: IProps): JSX.Element {
   const t = useTranslations('Restapi');
 
   const [select, setSelect] = useState<TSelect>('headers');
@@ -61,7 +65,7 @@ function BodyEditor({ setBody }: IProps): JSX.Element {
           </Button>
         </div>
       </div>
-      {select === 'headers' && <HeadersEditor />}
+      {select === 'headers' && <HeadersEditor headersLS={headersLS} />}
       {select === 'body' && (
         <div className={styles.editor_container}>
           <div className={styles.format_switcher}>
@@ -87,7 +91,7 @@ function BodyEditor({ setBody }: IProps): JSX.Element {
             defaultValue='{}'
             language={format}
             theme='vs-light'
-            value={editorValue}
+            value={body}
             options={{
               detectIndentation: false,
               fontFamily: '"Cera Pro"',
@@ -117,7 +121,7 @@ function BodyEditor({ setBody }: IProps): JSX.Element {
           />
         </div>
       )}
-      {select === 'variables' && <VariablesEditor />}
+      {select === 'variables' && <VariablesEditor variablesLS={variablesLS} />}
     </div>
   );
 }

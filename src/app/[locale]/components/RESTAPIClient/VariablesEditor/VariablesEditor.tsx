@@ -1,6 +1,7 @@
 import Row from '@/components/Row/Row';
 import RowEditor from '@/components/RowEditor/RowEditor';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { type IHeadersVariables } from '@/interfaces/LocalStorage';
 import type TRows from '@/interfaces/Rows';
 import { variables } from '@/store/reducers/restFullSlice';
 import { STEP_SIZE } from '@/utils/constants';
@@ -9,7 +10,11 @@ import styles from './VariablesEditor.module.scss';
 
 export const dynamic = 'force-dynamic';
 
-function VariablesEditor(): JSX.Element {
+interface IProps {
+  variablesLS: IHeadersVariables[];
+}
+
+function VariablesEditor({ variablesLS }: IProps): JSX.Element {
   const t = useTranslations('Restapi');
 
   const variablesSelector = useAppSelector((state) => state.rest.variables);
@@ -31,7 +36,7 @@ function VariablesEditor(): JSX.Element {
     }
     dispatch(variables(newVariables));
   };
-
+  const ZERO = 0;
   return (
     <div className={styles.container}>
       <table className={styles.table} role='grid'>
@@ -44,7 +49,7 @@ function VariablesEditor(): JSX.Element {
           </tr>
         </thead>
         <tbody>
-          {variablesSelector.map((variable) => (
+          {(variablesLS.length !== ZERO ? variablesLS : variablesSelector).map((variable) => (
             <Row type='variables' key={crypto.randomUUID()} row={variable} updateRowState={updateRowState} />
           ))}
         </tbody>
