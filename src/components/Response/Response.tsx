@@ -1,18 +1,21 @@
+import { useRef, useState } from 'react';
+import Image from 'next/image';
+
+import { useTranslations } from 'next-intl';
+import clsx from 'clsx';
+import Editor from '@monaco-editor/react';
+import type { editor } from 'monaco-editor/esm/vs/editor/editor.api';
+
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import useFormatCode from '@/hooks/useFormatCode';
 import usePrepareOutput from '@/hooks/usePrepareOutput';
 import type { TRequestMethod } from '@/interfaces/RequestMethod';
 import type { IResponse } from '@/interfaces/Response';
 import { loadingFinished, selectLoadingState } from '@/store/reducers/loadingStateSlice';
-import Editor from '@monaco-editor/react';
-import clsx from 'clsx';
-import type { editor } from 'monaco-editor/esm/vs/editor/editor.api';
-import { useTranslations } from 'next-intl';
-import Image from 'next/image';
-import { useRef, useState } from 'react';
 import Button from '../UI/Button/Button';
-import style from './Response.module.scss';
 import { Table } from './Table/Table';
+
+import style from './Response.module.scss';
 
 export const dynamic = 'force-dynamic';
 
@@ -141,6 +144,7 @@ function Response({ response, method }: IProps): JSX.Element {
         )}
         {activeTab === TTabs.HEADERS && (
           <div className={style.response_headers_tab}>
+            {isLoading && <div className={style.sending_status}>{t('sendingRequest')}</div>}
             <Table headers={response?.headers} />
           </div>
         )}

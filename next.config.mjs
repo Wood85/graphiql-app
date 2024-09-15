@@ -25,6 +25,16 @@ const nextConfig = {
         destination: '/ru/restapi',
         permanent: true,
       },
+      {
+        source: '/en/graphiql/([A-Z]+)/:path*',
+        destination: '/en/graphiql',
+        permanent: true,
+      },
+      {
+        source: '/ru/graphiql/([A-Z]+)/:path*',
+        destination: '/ru/graphiql',
+        permanent: true,
+      },
     ];
   },
 };

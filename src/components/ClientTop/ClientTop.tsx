@@ -15,20 +15,24 @@ import style from './ClientTop.module.scss';
 
 interface IProps {
   title: string;
-  graphqlDocsOpeningToggler?: () => void;
+  setGraphqlDocsIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   graphqlDocsIsOpen?: boolean;
+  isDocsAvailable?: boolean;
 }
 
-function ClientTop({ title, graphqlDocsOpeningToggler, graphqlDocsIsOpen }: IProps): JSX.Element {
+function ClientTop({ title, setGraphqlDocsIsOpen, graphqlDocsIsOpen, isDocsAvailable }: IProps): JSX.Element {
   const pathname = usePathname();
 
   return (
     <div className={style.top}>
       <div className={style.graphql_docs}>
-        {pathname.includes(ROUTES.GRAPHQL) && (
+        {pathname.includes(ROUTES.GRAPHQL) && isDocsAvailable && (
           <Button
             className={clsx(style.button, graphqlDocsIsOpen === true && style.docs_open)}
-            onClick={graphqlDocsOpeningToggler}
+            onClick={() => {
+              if (setGraphqlDocsIsOpen !== undefined && graphqlDocsIsOpen !== undefined)
+                setGraphqlDocsIsOpen(!graphqlDocsIsOpen);
+            }}
           >
             <DocsIcon className={style.icon} />
           </Button>
