@@ -10,6 +10,7 @@ function RestapiIcon({ className }: IProps): JSX.Element {
       viewBox='0 0 45 45'
       fill='none'
       className={className}
+      data-testid='svg'
     >
       <rect width='45' height='45' rx='4' fill='none' />
       <g clipPath='url(#clip0_172_322)'>

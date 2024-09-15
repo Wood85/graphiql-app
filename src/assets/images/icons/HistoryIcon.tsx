@@ -10,6 +10,7 @@ function HistoryIcon({ className }: IProps): JSX.Element {
       viewBox='0 0 45 45'
       fill='none'
       className={className}
+      data-testid='svg'
     >
       <rect width='45' height='45' rx='4' fill='none' />
       <path
