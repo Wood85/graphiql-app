@@ -1,6 +1,8 @@
 import { getIntrospectionQuery, type IntrospectionQuery } from 'graphql';
 
 import { replaceInHistory } from '@/utils/replaceHistory';
+import { useAppSelector } from '@/hooks/redux';
+import { selectVariableNotFound } from '@/store/reducers/graphqlSlice';
 import Button from '@/components/UI/Button/Button';
 
 import style from './RequestControl.module.scss';
@@ -15,6 +17,7 @@ interface IProps {
 }
 
 function RequestControl({ url, setUrl, sdlUrl, setSdlUrl, setDocs, setIsDocsAvailable }: IProps): JSX.Element {
+  const variableNotFound = useAppSelector(selectVariableNotFound);
   const getSchema = async (): Promise<void> => {
     await fetch(sdlUrl, {
       method: 'POST',
@@ -58,7 +61,7 @@ function RequestControl({ url, setUrl, sdlUrl, setSdlUrl, setDocs, setIsDocsAvai
             replaceInHistory('url', e.target.value);
           }}
         />
-        <Button type='submit' className={style.button} disabled={url === ''}>
+        <Button type='submit' className={style.button} disabled={url === '' || variableNotFound}>
           Send
         </Button>
       </div>

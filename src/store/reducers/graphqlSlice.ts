@@ -8,6 +8,7 @@ export interface IState {
   focusCellKey: boolean;
   focusCellValue: boolean;
   variables: TGraphQLVars;
+  variableNotFound: boolean;
 }
 
 const initialState: IState = {
@@ -15,6 +16,7 @@ const initialState: IState = {
   focusCellKey: false,
   focusCellValue: false,
   variables: {},
+  variableNotFound: false,
 };
 
 export const graphqlSlice = createSlice({
@@ -37,14 +39,19 @@ export const graphqlSlice = createSlice({
       const currentState = state;
       currentState.variables = action.payload;
     }),
+    setVariableNotFound: create.reducer((state, action: PayloadAction<boolean>) => {
+      const currentState = state;
+      currentState.variableNotFound = action.payload;
+    }),
   }),
   selectors: {
     selectGraphQLVariables: (state) => state.variables,
-    getVariableByName: (state, name: string) => state.variables[name],
+    selectVariableNotFound: (state) => state.variableNotFound,
   },
 });
 
-export const { gqlHeaders, gqlFocusCellKey, gqlFocusCellValue, setGraphQLVariables } = graphqlSlice.actions;
-export const { selectGraphQLVariables, getVariableByName } = graphqlSlice.selectors;
+export const { gqlHeaders, gqlFocusCellKey, gqlFocusCellValue, setGraphQLVariables, setVariableNotFound } =
+  graphqlSlice.actions;
+export const { selectGraphQLVariables, selectVariableNotFound } = graphqlSlice.selectors;
 
 export default graphqlSlice.reducer;

@@ -1,11 +1,15 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import Editor from '@monaco-editor/react';
 import { toast, ToastContainer, Flip } from 'react-toastify';
 
 import ClearIcon from '@/assets/images/icons/ClearIcon';
 import CopyIcon from '@/assets/images/icons/CopyIcon';
 import PrettifyIcon from '@/assets/images/icons/PrettifyIcon';
+import { selectGraphQLVariables, selectVariableNotFound, setVariableNotFound } from '@/store/reducers/graphqlSlice';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import prettierPluginGraphql from '@/utils/libs/prettier/graphql.mjs';
 import * as prettier from '@/utils/libs/prettier/standalone.mjs';
 import { replaceInHistory } from '@/utils/replaceHistory';
@@ -20,12 +24,11 @@ interface IErr {
   };
 }
 
-interface IProps {
-  query: string;
-  setQuery: React.Dispatch<React.SetStateAction<string>>;
-}
+function QueryEditor(): JSX.Element {
+  const [query, setQuery] = useState('');
+  const variables = useAppSelector(selectGraphQLVariables);
+  const dispatcher = useAppDispatch();
 
-function QueryEditor({ query, setQuery }: IProps): JSX.Element {
   function handleEditorChange(value: string | undefined): void {
     if (value !== undefined) {
       setQuery(value);
@@ -47,13 +50,34 @@ function QueryEditor({ query, setQuery }: IProps): JSX.Element {
       });
   }
 
+  function checkVariables(queryString: string, variablesObject: Record<string, unknown>): void {
+    const pattern = /:\s*\$([a-zA-Z0-9_]*)/gm;
+
+    const matches = [...queryString.matchAll(pattern)].map((match) => match[1]);
+    matches.forEach((varName) => {
+      if (!Object.hasOwn(variablesObject, varName)) {
+        throw new Error(`Variable "${varName}" is not found in variables`);
+      }
+    });
+  }
+
+  const handleOnBlur = (): void => {
+    try {
+      checkVariables(query, variables);
+      dispatcher(setVariableNotFound(false));
+      replaceInHistory('body', JSON.stringify({ query: `${query}`, variables }));
+    } catch (e) {
+      dispatcher(setVariableNotFound(true));
+      toast.error((e as Error).message);
+    }
+  };
+
+  useEffect(() => {
+    handleOnBlur();
+  }, [variables]);
+
   return (
-    <div
-      className={styles.wrapper}
-      onBlur={() => {
-        replaceInHistory('body', JSON.stringify({ query: `${query}` }));
-      }}
-    >
+    <div className={styles.wrapper} onBlur={handleOnBlur}>
       <Editor
         height='366px'
         defaultValue='#Query Editor'
@@ -130,7 +154,7 @@ function QueryEditor({ query, setQuery }: IProps): JSX.Element {
       </div>
       <ToastContainer
         position='bottom-right'
-        autoClose={2000}
+        autoClose={5000}
         hideProgressBar
         newestOnTop={false}
         closeOnClick
