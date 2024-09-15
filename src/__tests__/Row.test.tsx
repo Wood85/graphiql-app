@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { describe, expect, it } from 'vitest';
 import { Provider } from 'react-redux';
-import store from './mockStore';
+import storeMock from './mockStore';
 import messages from '../../messages/en.json';
 
 const locale = 'en';
@@ -18,7 +18,7 @@ const row = {
 describe('Row', () => {
   it('should render key and value correctly', () => {
     render(
-      <Provider store={store}>
+      <Provider store={storeMock}>
         <NextIntlClientProvider messages={messages} locale={locale}>
           <table role='grid'>
             <tfoot>

@@ -29,6 +29,6 @@ export const initialState = {
   },
 };
 export const mockStore = configureStore();
-const store = mockStore(initialState);
+const storeMock = mockStore(initialState);
 
-export default store;
+export default storeMock;

@@ -13,4 +13,3 @@ describe('middleware', () => {
     expect(config.matcher).toEqual(['/', '/((?!_next|_vercel|.*\\..*).*)']);
   });
 });
-
