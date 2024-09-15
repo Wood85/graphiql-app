@@ -50,7 +50,7 @@ function ClientTop({ title, setGraphqlDocsIsOpen, graphqlDocsIsOpen, isDocsAvail
             <RestapiIcon className={style.icon} />
           </Button>
         )}
-        <Button href={ROUTES.HISTORY} className={style.button}>
+        <Button href={ROUTES.HISTORY} className={style.button} data-testid='historyBtn'>
           <HistoryIcon className={style.icon} />
         </Button>
       </div>

@@ -11,7 +11,7 @@
     "lint:fix": "npx eslint ./src --fix",
     "format": "npx prettier . --check",
     "format:fix": "npx prettier . --write",
-    "test": "vitest --watch=false",
+    "test": "vitest --watch=true",
     "coverage": "vitest run --coverage",
     "prepare": "husky"
   },
@@ -19,6 +19,7 @@
     "@hookform/resolvers": "^3.9.0",
     "@monaco-editor/react": "^4.6.0",
     "@reduxjs/toolkit": "^2.2.7",
+    "@types/jest": "^29.5.13",
     "clsx": "^2.1.1",
     "firebase": "^10.13.1",
     "graphql": "^16.9.0",
