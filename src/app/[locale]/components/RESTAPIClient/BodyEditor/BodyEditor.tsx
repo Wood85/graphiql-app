@@ -1,7 +1,6 @@
 'use client';
 
 import Button from '@/components/UI/Button/Button';
-import { type IHeadersVariables } from '@/interfaces/LocalStorage';
 import Editor from '@monaco-editor/react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';

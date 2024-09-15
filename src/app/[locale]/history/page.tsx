@@ -15,8 +15,10 @@ function History(): JSX.Element {
   const [restfulRequest, setRestfulRequest] = useState<IRequestLS[] | ''>('');
 
   useEffect(() => {
-    const value = JSON.parse(localStorage.getItem('RESTFUL_request') ?? '') as IRequestLS[];
-    setRestfulRequest(value);
+    if (localStorage.getItem('RESTFUL_request') !== null) {
+      const value = JSON.parse(localStorage.getItem('RESTFUL_request') ?? '') as IRequestLS[];
+      setRestfulRequest(value);
+    }
   }, []);
 
   return (
@@ -39,7 +41,7 @@ function History(): JSX.Element {
             )}
             {restfulRequest === '' && (
               <div className={style.empty_history}>
-                <p className={style.description}>You haven’t executed any requests. It’s empty here. Try:</p>
+                <p className={style.description}>{t('description')}</p>
                 <div>
                   <Link href='/restapi' className={style.link}>
                     REST Client

@@ -1,7 +1,7 @@
 'use client';
 
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { type IHeadersVariables, type IRequestLS } from '@/interfaces/LocalStorage';
+import { type IRequestLS } from '@/interfaces/LocalStorage';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 import type { IResponse } from '@/interfaces/Response';
 import { headers, variables } from '@/store/reducers/restFullSlice';
@@ -23,8 +23,6 @@ export default function RESTAPIClient(): JSX.Element {
   const [url, setUrl] = useState('');
   const [response, setResponse] = useState<IResponse | null>(null);
   const [body, setBody] = useState(JSON.stringify({}));
-  const [variablesLS, setVariablesLS] = useState<IHeadersVariables[]>([]);
-  const [headersLS, setHeadersLS] = useState<IHeadersVariables[]>([]);
 
   const dispatcher = useAppDispatch();
 
@@ -142,41 +140,44 @@ export default function RESTAPIClient(): JSX.Element {
 
   useEffect(() => {
     const match = window.location.search.match(/\?history=[0-9]+/gm);
-    const historyRequest = match?.toString().replace('?history=', '');
-    const data = JSON.parse(localStorage.getItem('RESTFUL_request') ?? '');
-    const currentData = data.filter((el: IRequestLS) => el.time.toString() === historyRequest)[0] as IRequestLS;
 
-    setUrl(currentData.url);
+    if (match !== null) {
+      const historyRequest = match?.toString().replace('?history=', '');
+      const data = JSON.parse(localStorage.getItem('RESTFUL_request') ?? '');
+      const currentData = data.filter((el: IRequestLS) => el.time.toString() === historyRequest)[0] as IRequestLS;
 
-    switch (currentData.method) {
-      case TRequestMethod.GET:
-        setMethod(TRequestMethod.GET);
-        break;
-      case TRequestMethod.POST:
-        setMethod(TRequestMethod.POST);
-        break;
-      case TRequestMethod.PUT:
-        setMethod(TRequestMethod.PUT);
-        break;
-      case TRequestMethod.PATCH:
-        setMethod(TRequestMethod.PATCH);
-        break;
-      case TRequestMethod.DELETE:
-        setMethod(TRequestMethod.DELETE);
-        break;
-      case TRequestMethod.HEAD:
-        setMethod(TRequestMethod.HEAD);
-        break;
-      case TRequestMethod.OPTIONS:
-        setMethod(TRequestMethod.OPTIONS);
-        break;
+      setUrl(currentData.url);
 
-      default:
-        break;
+      switch (currentData.method) {
+        case TRequestMethod.GET:
+          setMethod(TRequestMethod.GET);
+          break;
+        case TRequestMethod.POST:
+          setMethod(TRequestMethod.POST);
+          break;
+        case TRequestMethod.PUT:
+          setMethod(TRequestMethod.PUT);
+          break;
+        case TRequestMethod.PATCH:
+          setMethod(TRequestMethod.PATCH);
+          break;
+        case TRequestMethod.DELETE:
+          setMethod(TRequestMethod.DELETE);
+          break;
+        case TRequestMethod.HEAD:
+          setMethod(TRequestMethod.HEAD);
+          break;
+        case TRequestMethod.OPTIONS:
+          setMethod(TRequestMethod.OPTIONS);
+          break;
+
+        default:
+          break;
+      }
+      setBody(currentData.body);
+      dispatch(variables(currentData.variables));
+      dispatch(headers(currentData.headers));
     }
-    setBody(currentData.body);
-    dispatch(variables(currentData.variables));
-    dispatch(headers(currentData.headers));
   }, [dispatch]);
 
   return (
