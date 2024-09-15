@@ -5,7 +5,6 @@
 }
 
 .editor {
-  width: 100%;
   min-height: 366px;
   padding: 10px;
   border-radius: 4px;
@@ -16,8 +15,6 @@
 
   font-size: 14px;
   color: $dark-blue;
-
-  transition: all 0.3s ease-in;
 
   &:focus {
     border: 1px solid $dark-blue;
@@ -54,3 +51,4 @@
     }
   }
 }
+

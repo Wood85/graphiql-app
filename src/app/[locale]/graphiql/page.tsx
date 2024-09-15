@@ -12,6 +12,7 @@ import style from './page.module.scss';
 
 export default function Graphiql(): JSX.Element {
   const [graphqlDocsIsOpen, setGraphqlDocsIsOpen] = useState(false);
+  const [isDocsAvailable, setIsDocsAvailable] = useState(false);
 
   return (
     <Provider store={store}>
@@ -22,8 +23,9 @@ export default function Graphiql(): JSX.Element {
               title='GraphiQL Client'
               setGraphqlDocsIsOpen={setGraphqlDocsIsOpen}
               graphqlDocsIsOpen={graphqlDocsIsOpen}
+              isDocsAvailable={isDocsAvailable}
             />
-            <GraphiQLClient graphqlDocsIsOpen={graphqlDocsIsOpen} />
+            <GraphiQLClient graphqlDocsIsOpen={graphqlDocsIsOpen} setIsDocsAvailable={setIsDocsAvailable} />
           </div>
         </div>
       </ProtectedRouteWrapper>

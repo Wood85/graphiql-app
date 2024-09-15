@@ -20,3 +20,9 @@
 .ͼ1.cm-focused {
   outline: none;
 }
+
+.monaco-editor {
+  &.no-user-select {
+    width: 200px !important;
+  }
+}

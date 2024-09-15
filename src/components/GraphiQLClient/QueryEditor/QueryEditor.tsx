@@ -1,13 +1,13 @@
 'use client';
 
-import Editor from '@monaco-editor/react';
 import ClearIcon from '@/assets/images/icons/ClearIcon';
 import CopyIcon from '@/assets/images/icons/CopyIcon';
 import PrettifyIcon from '@/assets/images/icons/PrettifyIcon';
 import Button from '@/components/UI/Button/Button';
 import prettierPluginGraphql from '@/utils/libs/prettier/graphql.mjs';
 import * as prettier from '@/utils/libs/prettier/standalone.mjs';
-import { toast, ToastContainer, Flip } from 'react-toastify';
+import Editor from '@monaco-editor/react';
+import { Flip, toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './QueryEditor.module.scss';
 

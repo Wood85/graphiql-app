@@ -2,15 +2,15 @@
 
 import { useCallback, useState } from 'react';
 
-import { type IntrospectionQuery } from 'graphql';
 import clsx from 'clsx';
+import { type IntrospectionQuery } from 'graphql';
 
 import SelectArrowBottomIcon from '@/assets/images/icons/SelectArrowBottomIcon';
 import SelectArrowTopIcon from '@/assets/images/icons/SelectArrowTopIcon';
+import { useAppDispatch } from '@/hooks/redux';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 import type { IResponse } from '@/interfaces/Response';
 import { loadingFinished, loadingStarted } from '@/store/reducers/loadingStateSlice';
-import { useAppDispatch } from '@/hooks/redux';
 import { Response } from '../Response/Response';
 import Button from '../UI/Button/Button';
 import { Docs } from './Docs/Docs';
@@ -23,6 +23,7 @@ import style from './GraphiQLClient.module.scss';
 
 interface IProps {
   graphqlDocsIsOpen?: boolean;
+  setIsDocsAvailable: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 enum TTabs {
@@ -30,7 +31,7 @@ enum TTabs {
   VARIABLES = 'VARIABLES',
 }
 
-export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Element {
+export default function GraphiQLClient({ graphqlDocsIsOpen, setIsDocsAvailable }: IProps): JSX.Element {
   const [url, setUrl] = useState('');
   const [sdlUrl, setSdlUrl] = useState('');
   const [docs, setDocs] = useState<IntrospectionQuery | null>(null);
@@ -107,62 +108,72 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
 
   return (
     <div className={style.wrapper}>
-      {graphqlDocsIsOpen === true ? <Docs schema={docs} /> : null}
+      <div className={`${style.container} ${graphqlDocsIsOpen === true ? style.docsOpen : ''}`}>
+        <div className={style.docs_wrapper}>{graphqlDocsIsOpen === true ? <Docs schema={docs} /> : null}</div>
+        <div className={style.form_wrapper}>
+          <form className={style.form} onSubmit={handleSubmit}>
+            <RequestControl
+              url={url}
+              setUrl={setUrl}
+              sdlUrl={sdlUrl}
+              setSdlUrl={setSdlUrl}
+              setDocs={setDocs}
+              setIsDocsAvailable={setIsDocsAvailable}
+            />
+            <QueryEditor query={query} setQuery={setQuery} />
+            <div className={style.options}>
+              <div className={style.tabs_line}>
+                <div className={style.tabs}>
+                  <Button
+                    className={clsx(style.button, activeTab === TTabs.VARIABLES ? style.active : '')}
+                    onClick={() => {
+                      setActiveTab(TTabs.VARIABLES);
+                    }}
+                  >
+                    Variables
+                  </Button>
+                  <Button
+                    className={clsx(style.button, activeTab === TTabs.HEADERS ? style.active : '')}
+                    onClick={() => {
+                      setActiveTab(TTabs.HEADERS);
+                    }}
+                  >
+                    Headers
+                  </Button>
+                </div>
+              </div>
+              {isOptionsOpen && (
+                <div>
+                  {activeTab === TTabs.VARIABLES && (
+                    <VariablesEditor variables={variables} setVariables={setVariables} />
+                  )}
+                  {activeTab === TTabs.HEADERS && (
+                    <HeadersEditor
+                      headerKey={headerKey}
+                      setHeaderKey={setHeaderKey}
+                      headerValue={headerValue}
+                      setHeaderValue={setHeaderValue}
+                    />
+                  )}
+                </div>
+              )}
+              {!isOptionsOpen && <div className={style.options_closed} />}
 
-      <div className={style.container}>
-        <form className={style.form} onSubmit={handleSubmit}>
-          <RequestControl url={url} setUrl={setUrl} sdlUrl={sdlUrl} setSdlUrl={setSdlUrl} setDocs={setDocs} />
-          <QueryEditor query={query} setQuery={setQuery} />
-          <div className={style.options}>
-            <div className={style.tabs_line}>
-              <div className={style.tabs}>
+              <div className={style.buttons}>
                 <Button
-                  className={clsx(style.button, activeTab === TTabs.VARIABLES ? style.active : '')}
+                  className={style.select_arrow_icon}
                   onClick={() => {
-                    setActiveTab(TTabs.VARIABLES);
+                    setIsOptionsOpen(!isOptionsOpen);
                   }}
                 >
-                  Variables
-                </Button>
-                <Button
-                  className={clsx(style.button, activeTab === TTabs.HEADERS ? style.active : '')}
-                  onClick={() => {
-                    setActiveTab(TTabs.HEADERS);
-                  }}
-                >
-                  Headers
+                  {isOptionsOpen && <SelectArrowTopIcon />}
+                  {!isOptionsOpen && <SelectArrowBottomIcon />}
                 </Button>
               </div>
             </div>
-            {isOptionsOpen && (
-              <div>
-                {activeTab === TTabs.VARIABLES && <VariablesEditor variables={variables} setVariables={setVariables} />}
-                {activeTab === TTabs.HEADERS && (
-                  <HeadersEditor
-                    headerKey={headerKey}
-                    setHeaderKey={setHeaderKey}
-                    headerValue={headerValue}
-                    setHeaderValue={setHeaderValue}
-                  />
-                )}
-              </div>
-            )}
-            {!isOptionsOpen && <div className={style.options_closed} />}
-
-            <div className={style.buttons}>
-              <Button
-                className={style.select_arrow_icon}
-                onClick={() => {
-                  setIsOptionsOpen(!isOptionsOpen);
-                }}
-              >
-                {isOptionsOpen && <SelectArrowTopIcon />}
-                {!isOptionsOpen && <SelectArrowBottomIcon />}
-              </Button>
-            </div>
-          </div>
-        </form>
-        {response?.status != null && <Response response={response} method={TRequestMethod.POST} />}
+          </form>
+          {response?.status != null && <Response response={response} method={TRequestMethod.POST} />}
+        </div>
       </div>
     </div>
   );
