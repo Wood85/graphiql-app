@@ -1,70 +1,42 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
-import { useAppSelector, useAppDispatch } from '@/hooks/redux';
+import { useEffect, useState } from 'react';
+
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 import type { IResponse } from '@/interfaces/Response';
-import { EMPTY_ARR_LENGTH, STEP_SIZE } from '@/utils/constants';
-import substitution from '@/utils/variableSubstitution';
-import { Response } from '../../../../components/Response/Response';
-import { loadingFinished, loadingStarted } from '../../../../store/reducers/loadingStateSlice';
+import { loadingFinished, loadingStarted } from '@/store/reducers/loadingStateSlice';
+import { replaceInHistory } from '@/utils/replaceHistory';
+import useHeaders from '@/hooks/useHeaders';
+import { Response } from '@/components/Response/Response';
 import { BodyEditor } from './BodyEditor/BodyEditor';
 import { RequestControl } from './RequestControl/RequestControl';
+
 import style from './RESTAPIClient.module.scss';
 
 export const dynamic = 'force-dynamic';
 
 export default function RESTAPIClient(): JSX.Element {
-  const headersSelector = useAppSelector((state) => state.rest.headers);
-  const variablesSelector = useAppSelector((state) => state.rest.variables);
+  const headers = useHeaders('rest');
   const [method, setMethod] = useState<TRequestMethod>(TRequestMethod.GET);
   const [url, setUrl] = useState('');
   const [response, setResponse] = useState<IResponse | null>(null);
   const [body, setBody] = useState(JSON.stringify({}));
 
+  useEffect(() => {
+    replaceInHistory('method', method);
+  }, []);
+
+  useEffect(() => {
+    replaceInHistory('headers', headers);
+  }, [headers]);
+
   const dispatcher = useAppDispatch();
-
-  const replaceURL = useCallback(async (): Promise<string> => {
-    const urlWithoutVariables = substitution(url, variablesSelector);
-    //  The replacement below is necessary because the atob method uses the '/' character when
-    //  encoding the string. This address string is misinterpreted during routing, so we use
-    //  the '+' character instead and reverse the substitution on the server side before encoding.
-    const urlEncoded = btoa(urlWithoutVariables).replace(/\//g, '+');
-    const bodyWithoutVariables = substitution(body, variablesSelector);
-    const bodyEncoded = isBodyApplicable(method) ? btoa(bodyWithoutVariables.replace(/'+/g, '"')) : '';
-
-    const queryParamsArr = [];
-    for (let i = 0; i < headersSelector.length; i += STEP_SIZE) {
-      if (headersSelector[i].checked) {
-        const keyWithoutVariables = substitution(headersSelector[i].key, variablesSelector);
-        const valueWithoutVariables = substitution(headersSelector[i].value, variablesSelector);
-        const param = new URLSearchParams({ [keyWithoutVariables]: valueWithoutVariables }).toString();
-        queryParamsArr.push(param);
-      }
-    }
-
-    const queryParams = queryParamsArr.length > EMPTY_ARR_LENGTH ? queryParamsArr.join('&') : '';
-
-    const baseUrl = `${method}/${urlEncoded}${isBodyApplicable(method) ? `/${bodyEncoded}` : ''}${headersSelector.length > EMPTY_ARR_LENGTH ? `?${queryParams}` : ''}`;
-
-    const match = window.location.pathname.match(/^\/[^/]+\/[^/]+/);
-    const currentRoute = match?.[0] ?? '';
-
-    const routerUrl = `${currentRoute}/${baseUrl}`;
-
-    window.history.replaceState(null, '', routerUrl);
-
-    return baseUrl;
-  }, [body, method, url, headersSelector, variablesSelector]);
 
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
-
-    const baseUrl = await replaceURL();
-    const { origin } = window.location;
-    const match = window.location.pathname.match(/^\/[^/]+/);
-    const currentRoute = match?.[0] ?? '';
-    const apiUrl = `${origin}${currentRoute}/api/${baseUrl}`;
+    const { href } = window.location;
+    const apiUrl = href.replace(/\/restapi\/|\/graphiql\//g, '/api/');
     dispatcher(loadingStarted());
     let bodyType: string | null = null;
 
@@ -108,15 +80,10 @@ export default function RESTAPIClient(): JSX.Element {
     }
   };
 
-  const isBodyApplicable = (requestMethod: TRequestMethod): boolean =>
-    requestMethod === TRequestMethod.POST ||
-    requestMethod === TRequestMethod.PUT ||
-    requestMethod === TRequestMethod.PATCH;
-
   return (
     <div className={style.container}>
       <form className={style.form} onSubmit={handleSubmit}>
-        <RequestControl method={method} setMethod={setMethod} url={url} setUrl={setUrl} />
+        <RequestControl method={method} setMethod={setMethod} url={url} setUrl={setUrl} body={body} />
         <BodyEditor setBody={setBody} />
       </form>
       {response?.status != null && <Response response={response} method={method} />}

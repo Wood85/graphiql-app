@@ -1,13 +1,16 @@
 'use client';
 
+import Editor from '@monaco-editor/react';
+import { toast, ToastContainer, Flip } from 'react-toastify';
+
 import ClearIcon from '@/assets/images/icons/ClearIcon';
 import CopyIcon from '@/assets/images/icons/CopyIcon';
 import PrettifyIcon from '@/assets/images/icons/PrettifyIcon';
-import Button from '@/components/UI/Button/Button';
 import prettierPluginGraphql from '@/utils/libs/prettier/graphql.mjs';
 import * as prettier from '@/utils/libs/prettier/standalone.mjs';
-import Editor from '@monaco-editor/react';
-import { Flip, toast, ToastContainer } from 'react-toastify';
+import { replaceInHistory } from '@/utils/replaceHistory';
+import Button from '@/components/UI/Button/Button';
+
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './QueryEditor.module.scss';
 
@@ -28,6 +31,7 @@ function QueryEditor({ query, setQuery }: IProps): JSX.Element {
       setQuery(value);
     }
   }
+
   function removeCode(): void {
     setQuery('');
   }
@@ -44,7 +48,12 @@ function QueryEditor({ query, setQuery }: IProps): JSX.Element {
   }
 
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={styles.wrapper}
+      onBlur={() => {
+        replaceInHistory('body', JSON.stringify({ query: `${query}` }));
+      }}
+    >
       <Editor
         height='366px'
         defaultValue='#Query Editor'

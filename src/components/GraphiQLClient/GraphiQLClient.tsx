@@ -1,17 +1,19 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import clsx from 'clsx';
 import { type IntrospectionQuery } from 'graphql';
 
 import SelectArrowBottomIcon from '@/assets/images/icons/SelectArrowBottomIcon';
 import SelectArrowTopIcon from '@/assets/images/icons/SelectArrowTopIcon';
-import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 import type { IResponse } from '@/interfaces/Response';
 import { loadingFinished, loadingStarted } from '@/store/reducers/loadingStateSlice';
-import { EMPTY_ARR_LENGTH, STEP_SIZE } from '@/utils/constants';
+import { useAppDispatch } from '@/hooks/redux';
+import { replaceInHistory } from '@/utils/replaceHistory';
+import useHeaders from '@/hooks/useHeaders';
+import { GRAPHQL } from '@/utils/constants';
 import { Response } from '../Response/Response';
 import Button from '../UI/Button/Button';
 import { Docs } from './Docs/Docs';
@@ -41,47 +43,23 @@ export default function GraphiQLClient({ graphqlDocsIsOpen, setIsDocsAvailable }
   const [variables, setVariables] = useState(JSON.stringify({}));
   const [activeTab, setActiveTab] = useState<TTabs>(TTabs.VARIABLES);
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
-  const headersSelector = useAppSelector((state) => state.graphql.headers);
 
   const dispatcher = useAppDispatch();
+  const headers = useHeaders('graphql');
 
-  const replaceURL = useCallback(async (): Promise<string> => {
-    //  The replacement below is necessary because the atob method uses the '/' character when
-    //  encoding the string. This address string is misinterpreted during routing, so we use
-    //  the '+' character instead and reverse the substitution on the server side before encoding.
-    const urlEncoded = btoa(url).replace(/\//g, '+');
-    const bodyEncoded = btoa(JSON.stringify({ query: `${query}` }));
+  useEffect(() => {
+    replaceInHistory('method', GRAPHQL);
+  }, []);
 
-    const queryParamsArr = [];
-    for (let i = 0; i < headersSelector.length; i += STEP_SIZE) {
-      if (headersSelector[i].checked) {
-        const param = new URLSearchParams({ [headersSelector[i].key]: headersSelector[i].value }).toString();
-        queryParamsArr.push(param);
-      }
-    }
-
-    const queryParams = queryParamsArr.length > EMPTY_ARR_LENGTH ? queryParamsArr.join('&') : '';
-
-    const baseUrl = `GRAPHQL/${urlEncoded}/${bodyEncoded}${headersSelector.length > EMPTY_ARR_LENGTH ? `?${queryParams}` : ''}`;
-
-    const match = window.location.pathname.match(/^\/[^/]+\/[^/]+/);
-    const currentRoute = match?.[0] ?? '';
-
-    const routerUrl = `${currentRoute}/${baseUrl}`;
-
-    window.history.replaceState(null, '', routerUrl);
-
-    return baseUrl;
-  }, [query, headersSelector, url]);
+  useEffect(() => {
+    replaceInHistory('headers', headers);
+  }, [headers]);
 
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
 
-    const baseUrl = await replaceURL();
-    const { origin } = window.location;
-    const match = window.location.pathname.match(/^\/[^/]+/);
-    const currentRoute = match?.[0] ?? '';
-    const apiUrl = `${origin}${currentRoute}/api/${baseUrl}`;
+    const { href } = window.location;
+    const apiUrl = href.replace(/\/restapi\/|\/graphiql\//g, '/api/');
     dispatcher(loadingStarted());
 
     try {
