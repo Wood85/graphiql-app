@@ -3,8 +3,10 @@
 import { useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { type IRequestLS } from '@/interfaces/LocalStorage';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 import type { IResponse } from '@/interfaces/Response';
+import { headers, variables } from '@/store/reducers/restFullSlice';
 import { loadingFinished, loadingStarted } from '@/store/reducers/loadingStateSlice';
 import { replaceInHistory } from '@/utils/replaceHistory';
 import useHeaders from '@/hooks/useHeaders';
@@ -17,7 +19,9 @@ import style from './RESTAPIClient.module.scss';
 export const dynamic = 'force-dynamic';
 
 export default function RESTAPIClient(): JSX.Element {
-  const headers = useHeaders('rest');
+  const headersSelector = useAppSelector((state) => state.rest.headers);
+  const variablesSelector = useAppSelector((state) => state.rest.variables);
+  const headersFromHook = useHeaders('rest');
   const [method, setMethod] = useState<TRequestMethod>(TRequestMethod.GET);
   const [url, setUrl] = useState('');
   const [response, setResponse] = useState<IResponse | null>(null);
@@ -28,8 +32,8 @@ export default function RESTAPIClient(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    replaceInHistory('headers', headers);
-  }, [headers]);
+    replaceInHistory('headers', headersFromHook);
+  }, [headersFromHook]);
 
   const dispatcher = useAppDispatch();
 
@@ -78,7 +82,67 @@ export default function RESTAPIClient(): JSX.Element {
         dispatcher(loadingFinished());
       }
     }
+
+    const allRequests = [];
+    if (localStorage.getItem('RESTFUL_request') !== null) {
+      JSON.parse(localStorage.getItem('RESTFUL_request') ?? '').forEach((el: IRequestLS) => allRequests.push(el));
+    }
+    const currentTime = new Date().getTime();
+    const currentData = {
+      client: 'restapi',
+      time: currentTime,
+      method,
+      url,
+      headers: headersSelector,
+      body,
+      variables: variablesSelector,
+    };
+    allRequests.push(currentData);
+
+    localStorage.setItem('RESTFUL_request', JSON.stringify(allRequests));
   };
+
+  useEffect(() => {
+    const match = window.location.search.match(/\?history=[0-9]+/gm);
+
+    if (match !== null) {
+      const historyRequest = match?.toString().replace('?history=', '');
+      const data = JSON.parse(localStorage.getItem('RESTFUL_request') ?? '');
+      const currentData = data.filter((el: IRequestLS) => el.time.toString() === historyRequest)[0] as IRequestLS;
+
+      setUrl(currentData.url);
+
+      switch (currentData.method) {
+        case TRequestMethod.GET:
+          setMethod(TRequestMethod.GET);
+          break;
+        case TRequestMethod.POST:
+          setMethod(TRequestMethod.POST);
+          break;
+        case TRequestMethod.PUT:
+          setMethod(TRequestMethod.PUT);
+          break;
+        case TRequestMethod.PATCH:
+          setMethod(TRequestMethod.PATCH);
+          break;
+        case TRequestMethod.DELETE:
+          setMethod(TRequestMethod.DELETE);
+          break;
+        case TRequestMethod.HEAD:
+          setMethod(TRequestMethod.HEAD);
+          break;
+        case TRequestMethod.OPTIONS:
+          setMethod(TRequestMethod.OPTIONS);
+          break;
+
+        default:
+          break;
+      }
+      setBody(currentData.body);
+      dispatcher(variables(currentData.variables));
+      dispatcher(headers(currentData.headers));
+    }
+  }, [dispatcher]);
 
   return (
     <div className={style.container}>

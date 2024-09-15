@@ -1,18 +1,20 @@
-import { useEffect, useState } from 'react';
-import { useAppSelector, useAppDispatch } from '@/hooks/redux';
+import { useState } from 'react';
+
+import SaveIcon from '@/assets/images/icons/SaveIcon';
+import Checkbox from '@/components/UI/Checkbox/Checkbox';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import type TRows from '@/interfaces/Rows';
+import type { IRowWithCheckbox } from '@/interfaces/Rows';
 import {
-  headers,
+  focusCellCurrentValue,
   focusCellKey,
   focusCellValue,
   focusCellVariable,
-  focusCellCurrentValue,
+  headers,
   variables,
 } from '@/store/reducers/restFullSlice';
 import { gqlHeaders, gqlFocusCellKey, gqlFocusCellValue } from '@/store/reducers/graphqlSlice';
-import Checkbox from '@/components/UI/Checkbox/Checkbox';
-import SaveIcon from '@/assets/images/icons/SaveIcon';
-import type TRows from '@/interfaces/Rows';
-import type { IRowWithCheckbox } from '@/interfaces/Rows';
+
 import styles from './RowEditor.module.scss';
 
 const START_POSITION = 0;
@@ -26,6 +28,7 @@ function RowEditor(props: IProps): JSX.Element {
   const { type } = props;
   const headersListSelector = useAppSelector((state) => state.headersList.reqHeaders);
   const headersSelector = useAppSelector((state) => state.rest.headers);
+
   const focusKeySelector = useAppSelector((state) => state.rest.focusCellKey);
   const focusValueSelector = useAppSelector((state) => state.rest.focusCellValue);
 

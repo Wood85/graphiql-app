@@ -31,7 +31,7 @@ function VariablesEditor(): JSX.Element {
     }
     dispatch(variables(newVariables));
   };
-
+  const ZERO = 0;
   return (
     <div className={styles.container}>
       <table className={styles.table} role='grid'>
