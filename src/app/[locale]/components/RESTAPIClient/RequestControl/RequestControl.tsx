@@ -40,7 +40,7 @@ function RequestControl({ method, setMethod, url, setUrl }: IProps): JSX.Element
         type='text'
         className={style.endpoint_input}
         placeholder={t('endpointURL')}
-        value={url}
+        value={url ?? ''}
         onChange={(e) => {
           setUrl(e.target.value);
         }}

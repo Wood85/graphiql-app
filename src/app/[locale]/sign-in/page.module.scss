@@ -15,7 +15,7 @@
 .form {
   width: 650px;
   height: 489px;
-  border: 1px solid #6b99c3;
+  border: 1px solid $blue;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -41,6 +41,7 @@
 
   font-weight: 700;
   font-size: 38px;
+  color: $dark-blue;
 }
 
 .input_container {
@@ -54,7 +55,7 @@
 .password_input {
   width: 484px;
   height: 45px;
-  border: 1px solid #6b99c3;
+  border: 1px solid $blue;
   border-radius: 4px;
   padding-left: 10px;
 
@@ -85,7 +86,7 @@
   font-weight: 700;
   font-size: 18px;
   text-decoration: none;
-  color: #000000;
+  color: $dark-blue;
 }
 
 .sign_up_text {

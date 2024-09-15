@@ -31,7 +31,7 @@ function HeadersEditor(): JSX.Element {
     }
     dispatch(headers(newHeaders));
   };
-
+  const ZERO = 0;
   return (
     <div className={styles.container}>
       <table className={styles.table} role='grid'>

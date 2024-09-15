@@ -1,11 +1,13 @@
 'use client';
 
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { type IRequestLS } from '@/interfaces/LocalStorage';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 import type { IResponse } from '@/interfaces/Response';
+import { headers, variables } from '@/store/reducers/restFullSlice';
 import { EMPTY_ARR_LENGTH, STEP_SIZE } from '@/utils/constants';
 import substitution from '@/utils/variableSubstitution';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Response } from '../../../../components/Response/Response';
 import { loadingFinished, loadingStarted } from '../../../../store/reducers/loadingStateSlice';
 import { BodyEditor } from './BodyEditor/BodyEditor';
@@ -109,6 +111,24 @@ export default function RESTAPIClient(): JSX.Element {
         dispatcher(loadingFinished());
       }
     }
+
+    const allRequests = [];
+    if (localStorage.getItem('RESTFUL_request') !== null) {
+      JSON.parse(localStorage.getItem('RESTFUL_request') ?? '').forEach((el: IRequestLS) => allRequests.push(el));
+    }
+    const currentTime = new Date().getTime();
+    const currentData = {
+      client: 'restapi',
+      time: currentTime,
+      method,
+      url,
+      headers: headersSelector,
+      body,
+      variables: variablesSelector,
+    };
+    allRequests.push(currentData);
+
+    localStorage.setItem('RESTFUL_request', JSON.stringify(allRequests));
   };
 
   const isBodyApplicable = (requestMethod: TRequestMethod): boolean =>
@@ -116,11 +136,55 @@ export default function RESTAPIClient(): JSX.Element {
     requestMethod === TRequestMethod.PUT ||
     requestMethod === TRequestMethod.PATCH;
 
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const match = window.location.search.match(/\?history=[0-9]+/gm);
+
+    if (match !== null) {
+      const historyRequest = match?.toString().replace('?history=', '');
+      const data = JSON.parse(localStorage.getItem('RESTFUL_request') ?? '');
+      const currentData = data.filter((el: IRequestLS) => el.time.toString() === historyRequest)[0] as IRequestLS;
+
+      setUrl(currentData.url);
+
+      switch (currentData.method) {
+        case TRequestMethod.GET:
+          setMethod(TRequestMethod.GET);
+          break;
+        case TRequestMethod.POST:
+          setMethod(TRequestMethod.POST);
+          break;
+        case TRequestMethod.PUT:
+          setMethod(TRequestMethod.PUT);
+          break;
+        case TRequestMethod.PATCH:
+          setMethod(TRequestMethod.PATCH);
+          break;
+        case TRequestMethod.DELETE:
+          setMethod(TRequestMethod.DELETE);
+          break;
+        case TRequestMethod.HEAD:
+          setMethod(TRequestMethod.HEAD);
+          break;
+        case TRequestMethod.OPTIONS:
+          setMethod(TRequestMethod.OPTIONS);
+          break;
+
+        default:
+          break;
+      }
+      setBody(currentData.body);
+      dispatch(variables(currentData.variables));
+      dispatch(headers(currentData.headers));
+    }
+  }, [dispatch]);
+
   return (
     <div className={style.container}>
       <form className={style.form} onSubmit={handleSubmit}>
         <RequestControl method={method} setMethod={setMethod} url={url} setUrl={setUrl} />
-        <BodyEditor setBody={setBody} />
+        <BodyEditor body={body} setBody={setBody} />
       </form>
       {response?.status != null && <Response response={response} method={method} />}
     </div>

@@ -10,6 +10,7 @@ import styles from './BodyEditor.module.scss';
 
 interface IProps {
   setBody: React.Dispatch<React.SetStateAction<string>>;
+  body: string;
 }
 
 type TSelect = 'headers' | 'body' | 'variables';
@@ -18,7 +19,7 @@ type TFormat = 'json' | 'text';
 
 export const dynamic = 'force-dynamic';
 
-function BodyEditor({ setBody }: IProps): JSX.Element {
+function BodyEditor({ body, setBody }: IProps): JSX.Element {
   const t = useTranslations('Restapi');
 
   const [select, setSelect] = useState<TSelect>('headers');
@@ -87,7 +88,7 @@ function BodyEditor({ setBody }: IProps): JSX.Element {
             defaultValue='{}'
             language={format}
             theme='vs-light'
-            value={editorValue}
+            value={body}
             options={{
               detectIndentation: false,
               fontFamily: '"Cera Pro"',
