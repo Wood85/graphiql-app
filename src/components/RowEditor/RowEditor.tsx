@@ -55,7 +55,7 @@ function RowEditor(props: IProps): JSX.Element {
   };
 
   return (
-    <tr key={crypto.randomUUID()}>
+    <tr key={crypto.randomUUID()} data-testid='row_editor'>
       <td className={`${styles.td} ${styles.td_1}`} role='gridcell' aria-label='checkbox'>
         {(keyInputValue !== '' || valueInputValue !== '') && (
           <Checkbox

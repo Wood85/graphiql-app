@@ -72,4 +72,3 @@
     "*.{html,css,ts,tsx}": "npm run format:fix"
   }
 }
-
