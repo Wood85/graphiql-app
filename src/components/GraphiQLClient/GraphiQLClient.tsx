@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { type IntrospectionQuery } from 'graphql';
 import clsx from 'clsx';
@@ -11,6 +11,9 @@ import { TRequestMethod } from '@/interfaces/RequestMethod';
 import type { IResponse } from '@/interfaces/Response';
 import { loadingFinished, loadingStarted } from '@/store/reducers/loadingStateSlice';
 import { useAppDispatch } from '@/hooks/redux';
+import { replaceInHistory } from '@/utils/replaceHistory';
+import useHeaders from '@/hooks/useHeaders';
+import { GRAPHQL } from '@/utils/constants';
 import { Response } from '../Response/Response';
 import Button from '../UI/Button/Button';
 import { Docs } from './Docs/Docs';
@@ -42,41 +45,21 @@ export default function GraphiQLClient({ graphqlDocsIsOpen }: IProps): JSX.Eleme
   const [activeTab, setActiveTab] = useState<TTabs>(TTabs.VARIABLES);
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const dispatcher = useAppDispatch();
+  const headers = useHeaders();
 
-  const replaceURL = useCallback(async (): Promise<string> => {
-    //  The replacement below is necessary because the atob method uses the '/' character when
-    //  encoding the string. This address string is misinterpreted during routing, so we use
-    //  the '+' character instead and reverse the substitution on the server side before encoding.
-    const urlEncoded = btoa(url).replace(/\//g, '+');
-    const bodyEncoded = btoa(JSON.stringify({ query: `${query}` }));
+  useEffect(() => {
+    replaceInHistory('method', GRAPHQL);
+  }, []);
 
-    const queryParams =
-      headerKey !== ''
-        ? new URLSearchParams({
-            [headerKey]: headerValue,
-          }).toString()
-        : '';
-
-    const baseUrl = `GRAPHQL/${urlEncoded}/${bodyEncoded}${headerKey !== '' ? `?${queryParams}` : ''}`;
-
-    const match = window.location.pathname.match(/^\/[^/]+\/[^/]+/);
-    const currentRoute = match?.[0] ?? '';
-
-    const routerUrl = `${currentRoute}/${baseUrl}`;
-
-    window.history.replaceState(null, '', routerUrl);
-
-    return baseUrl;
-  }, [query, headerKey, headerValue, url]);
+  useEffect(() => {
+    replaceInHistory('headers', headers);
+  }, [headers]);
 
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
 
-    const baseUrl = await replaceURL();
-    const { origin } = window.location;
-    const match = window.location.pathname.match(/^\/[^/]+/);
-    const currentRoute = match?.[0] ?? '';
-    const apiUrl = `${origin}${currentRoute}/api/${baseUrl}`;
+    const { href } = window.location;
+    const apiUrl = href.replace(/\/restapi\/|\/graphiql\//g, '/api/');
     dispatcher(loadingStarted());
 
     try {
