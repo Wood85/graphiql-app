@@ -1,4 +1,5 @@
 import { useAppSelector, useAppDispatch } from '@/hooks/redux';
+
 import type { IRowWithCheckbox } from '@/interfaces/Rows';
 import type TRows from '@/interfaces/Rows';
 import { headers, variables } from '@/store/reducers/restFullSlice';
@@ -6,6 +7,7 @@ import { gqlHeaders } from '@/store/reducers/graphqlSlice';
 import { STEP_SIZE } from '@/utils/constants';
 import CleanIcon from '@/assets/images/icons/CleanIcon';
 import Checkbox from '../UI/Checkbox/Checkbox';
+
 import styles from './Row.module.scss';
 
 type TRowType = 'headers' | 'variables' | 'graphqlHeaders';

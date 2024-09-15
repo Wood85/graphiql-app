@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import restFullReducer from '@/store/reducers/restFullSlice';
-import graphqlReducer from '@/store/reducers/graphqlSlice';
-import headersReducer from '@/store/reducers/headersSlice';
-import loadingStateReducer from '@/store/reducers/loadingStateSlice';
+
+import restFullReducer from './reducers/restFullSlice';
+import graphqlReducer from './reducers/graphqlSlice';
+import headersReducer from './reducers/headersSlice';
+import loadingStateReducer from './reducers/loadingStateSlice';
 
 export const store = configureStore({
   reducer: {

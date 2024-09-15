@@ -118,6 +118,8 @@
 
                 &:focus-visible {
                   border-bottom: 1px solid $dark-blue;
+
+                  outline: none;
                 }
 
                 &:active,
@@ -130,12 +132,18 @@
                     cursor: default;
                   }
                 }
-
-                &:focus-visible {
-                  outline: none;
-                }
               }
             }
+          }
+
+          .options_content {
+            padding: 2px;
+
+            border: 1px solid $blue;
+            border-radius: 4px;
+            border-top-left-radius: 0;
+
+            background-color: $white;
           }
 
           .options_closed {

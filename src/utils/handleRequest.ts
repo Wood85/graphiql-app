@@ -60,10 +60,6 @@ export default async function handleRequest(request: Request, { params }: IUrlRo
       };
     }
 
-    if (method === TRequestMethod.OPTIONS) {
-      data = null;
-    }
-
     const plainHeaders = Object.fromEntries(response.headers.entries());
 
     return NextResponse.json<IResponse>(

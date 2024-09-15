@@ -39,8 +39,6 @@ export default function GraphiQLClient({ graphqlDocsIsOpen, setIsDocsAvailable }
   const [sdlUrl, setSdlUrl] = useState('');
   const [docs, setDocs] = useState<IntrospectionQuery | null>(null);
   const [response, setResponse] = useState<IResponse | null>(null);
-  const [query, setQuery] = useState('');
-  const [variables, setVariables] = useState(JSON.stringify({}));
   const [activeTab, setActiveTab] = useState<TTabs>(TTabs.VARIABLES);
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
 
@@ -102,7 +100,7 @@ export default function GraphiQLClient({ graphqlDocsIsOpen, setIsDocsAvailable }
               setDocs={setDocs}
               setIsDocsAvailable={setIsDocsAvailable}
             />
-            <QueryEditor query={query} setQuery={setQuery} />
+            <QueryEditor />
             <div className={style.options}>
               <div className={style.tabs_line}>
                 <div className={style.tabs}>
@@ -125,10 +123,8 @@ export default function GraphiQLClient({ graphqlDocsIsOpen, setIsDocsAvailable }
                 </div>
               </div>
               {isOptionsOpen && (
-                <div>
-                  {activeTab === TTabs.VARIABLES && (
-                    <VariablesEditor variables={variables} setVariables={setVariables} />
-                  )}
+                <div className={style.options_content}>
+                  {activeTab === TTabs.VARIABLES && <VariablesEditor />}
                   {activeTab === TTabs.HEADERS && <HeadersEditor />}
                 </div>
               )}
