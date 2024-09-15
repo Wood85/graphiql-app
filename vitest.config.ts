@@ -14,7 +14,7 @@ export default defineConfig({
         ...coverageConfigDefaults.exclude,
         './src/interfaces/**',
         './next.config.mjs',
-        './src/utils/libs',
+        '**/libs/**',
         './src/app/*/not-found.tsx',
         './src/app/*/layout.tsx',
         './src/app/*/page.tsx',
