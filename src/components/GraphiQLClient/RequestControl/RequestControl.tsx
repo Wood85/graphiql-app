@@ -1,5 +1,8 @@
-import Button from '@/components/UI/Button/Button';
 import { getIntrospectionQuery, type IntrospectionQuery } from 'graphql';
+
+import { replaceInHistory } from '@/utils/replaceHistory';
+import Button from '@/components/UI/Button/Button';
+
 import style from './RequestControl.module.scss';
 
 interface IProps {
@@ -33,6 +36,15 @@ function RequestControl({ url, setUrl, sdlUrl, setSdlUrl, setDocs, setIsDocsAvai
       });
   };
 
+  const handleEndpointChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    if (url === sdlUrl.replace(/\?sdl$/, '')) {
+      setUrl(e.target.value);
+      setSdlUrl(`${e.target.value}?sdl`);
+    } else {
+      setUrl(e.target.value);
+    }
+  };
+
   return (
     <div className={style.request_control}>
       <div className={style.url_control}>
@@ -41,13 +53,9 @@ function RequestControl({ url, setUrl, sdlUrl, setSdlUrl, setDocs, setIsDocsAvai
           className={style.endpoint_input}
           placeholder='Endpoint URL'
           value={url}
-          onChange={(e) => {
-            if (url === sdlUrl.replace(/\?sdl$/, '')) {
-              setUrl(e.target.value);
-              setSdlUrl(`${e.target.value}?sdl`);
-            } else {
-              setUrl(e.target.value);
-            }
+          onChange={handleEndpointChange}
+          onBlur={(e) => {
+            replaceInHistory('url', e.target.value);
           }}
         />
         <Button type='submit' className={style.button} disabled={url === ''}>
