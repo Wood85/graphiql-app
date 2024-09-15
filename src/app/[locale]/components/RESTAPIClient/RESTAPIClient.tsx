@@ -17,7 +17,7 @@ import style from './RESTAPIClient.module.scss';
 export const dynamic = 'force-dynamic';
 
 export default function RESTAPIClient(): JSX.Element {
-  const headers = useHeaders();
+  const headers = useHeaders('rest');
   const [method, setMethod] = useState<TRequestMethod>(TRequestMethod.GET);
   const [url, setUrl] = useState('');
   const [response, setResponse] = useState<IResponse | null>(null);

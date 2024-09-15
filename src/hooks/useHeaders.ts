@@ -1,8 +1,10 @@
 import { useMemo } from 'react';
 import { useAppSelector } from './redux';
 
-export default function useHeaders(): Record<string, string> {
-  const headersSelector = useAppSelector((state) => state.rest.headers);
+type TClient = 'rest' | 'graphql';
+
+export default function useHeaders(client: TClient): Record<string, string> {
+  const headersSelector = useAppSelector((state) => (client === 'rest' ? state.rest.headers : state.graphql.headers));
 
   const headers = useMemo(
     (): Record<string, string> =>

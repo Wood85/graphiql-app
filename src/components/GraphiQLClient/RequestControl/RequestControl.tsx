@@ -11,9 +11,10 @@ interface IProps {
   sdlUrl: string;
   setSdlUrl: React.Dispatch<React.SetStateAction<string>>;
   setDocs: React.Dispatch<React.SetStateAction<IntrospectionQuery | null>>;
+  setIsDocsAvailable: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function RequestControl({ url, setUrl, sdlUrl, setSdlUrl, setDocs }: IProps): JSX.Element {
+function RequestControl({ url, setUrl, sdlUrl, setSdlUrl, setDocs, setIsDocsAvailable }: IProps): JSX.Element {
   const getSchema = async (): Promise<void> => {
     await fetch(sdlUrl, {
       method: 'POST',
@@ -25,11 +26,13 @@ function RequestControl({ url, setUrl, sdlUrl, setSdlUrl, setDocs }: IProps): JS
       .then(async (res) => {
         const resData = await res.json();
         setDocs(resData.data as IntrospectionQuery);
+        setIsDocsAvailable(true);
         return resData;
       })
       .catch((error: Error) => {
         console.error('Can not fetching this API schema.', error);
         setDocs(null);
+        setIsDocsAvailable(false);
       });
   };
 

@@ -2,12 +2,13 @@ import { useAppSelector, useAppDispatch } from '@/hooks/redux';
 import type { IRowWithCheckbox } from '@/interfaces/Rows';
 import type TRows from '@/interfaces/Rows';
 import { headers, variables } from '@/store/reducers/restFullSlice';
+import { gqlHeaders } from '@/store/reducers/graphqlSlice';
 import { STEP_SIZE } from '@/utils/constants';
 import CleanIcon from '@/assets/images/icons/CleanIcon';
 import Checkbox from '../UI/Checkbox/Checkbox';
 import styles from './Row.module.scss';
 
-type TRowType = 'headers' | 'variables';
+type TRowType = 'headers' | 'variables' | 'graphqlHeaders';
 
 interface IProps {
   type: TRowType;
@@ -20,6 +21,7 @@ function Row(props: IProps): JSX.Element {
 
   const headersSelector = useAppSelector((state) => state.rest.headers);
   const variablesSelector = useAppSelector((state) => state.rest.variables);
+  const graphqlHeadersSelector = useAppSelector((state) => state.graphql.headers);
 
   const dispatch = useAppDispatch();
 
@@ -49,6 +51,16 @@ function Row(props: IProps): JSX.Element {
         }
       }
       dispatch(variables(newVariables));
+    }
+    if (type === 'graphqlHeaders') {
+      const copyHeaders: TRows = JSON.parse(JSON.stringify(graphqlHeadersSelector));
+      const newHeaders: TRows = [];
+      for (let i = 0; i < copyHeaders.length; i += STEP_SIZE) {
+        if (copyHeaders[i].key !== row.key) {
+          newHeaders.push(copyHeaders[i]);
+        }
+      }
+      dispatch(gqlHeaders(newHeaders));
     }
   }
 

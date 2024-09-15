@@ -18,15 +18,14 @@ function Docs(props: IProps): JSX.Element {
 
   return (
     <div className={style.docs}>
-      <div className={style.docs_title}>&lt; Docs</div>
-      <h2 className={style.docs_heading}>Query</h2>
+      <h2 className={style.docs_heading}>Schema</h2>
       <div className={style.docs_fields}>
         {schema !== null
           ? schema.__schema.types
               .filter((el) => !el.name.match(/^__/) && el)
               .map((el: IntrospectionType) => (
                 <div key={el.name}>
-                  <div className={style.name}>{el.name}</div>
+                  <div className={style.name}>type {el.name}</div>
                   <div className={style.description}>{el.description}</div>
                   {(el as IntrospectionObjectType).fields !== null ||
                   (el as IntrospectionInputObjectType).inputFields !== null ||

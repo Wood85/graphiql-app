@@ -1,78 +1,49 @@
-import style from './HeadersEditor.module.scss';
+import Row from '@/components/Row/Row';
+import RowEditor from '@/components/RowEditor/RowEditor';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import type TRows from '@/interfaces/Rows';
+import { gqlHeaders } from '@/store/reducers/graphqlSlice';
+import { STEP_SIZE } from '@/utils/constants';
 
-interface IProps {
-  headerKey: string;
-  setHeaderKey: React.Dispatch<React.SetStateAction<string>>;
-  headerValue: string;
-  setHeaderValue: React.Dispatch<React.SetStateAction<string>>;
-}
+import styles from './HeadersEditor.module.scss';
 
-function HeadersEditor({ headerKey, setHeaderKey, headerValue, setHeaderValue }: IProps): JSX.Element {
+function HeadersEditor(): JSX.Element {
+  const graphqlHeadersSelector = useAppSelector((state) => state.graphql.headers);
+
+  const dispatch = useAppDispatch();
+
+  const updateRowState = (checked: boolean, key: string): void => {
+    const copyHeaders: TRows = JSON.parse(JSON.stringify(graphqlHeadersSelector));
+    const copyKey: string = key;
+    const copyChecked: boolean = checked;
+    const newHeaders: TRows = [];
+    for (let i = 0; i < copyHeaders.length; i += STEP_SIZE) {
+      if (copyHeaders[i].key === copyKey) {
+        copyHeaders[i].checked = copyChecked;
+        newHeaders.push(copyHeaders[i]);
+      } else {
+        newHeaders.push(copyHeaders[i]);
+      }
+    }
+    dispatch(gqlHeaders(newHeaders));
+  };
   return (
-    <div className={style.table}>
-      <div className={style.table_heading}>
-        <div>Key</div>
+    <div className={styles.table}>
+      <div className={styles.table_heading}>
+        <div className={styles.table_heading_key}>Key</div>
         <div>Value</div>
       </div>
-      <div className={style.table_row}>
-        <input
-          type='text'
-          className={style.input}
-          placeholder='Header Key'
-          value={headerKey}
-          onChange={(e) => {
-            setHeaderKey(e.target.value);
-          }}
-        />
-        <input
-          type='text'
-          className={style.input}
-          placeholder='Header Value'
-          value={headerValue}
-          onChange={(e) => {
-            setHeaderValue(e.target.value);
-          }}
-        />
-      </div>
-      <div className={style.table_row}>
-        <input
-          type='text'
-          className={style.input}
-          placeholder='Header Key'
-          value={headerKey}
-          onChange={(e) => {
-            setHeaderKey(e.target.value);
-          }}
-        />
-        <input
-          type='text'
-          className={style.input}
-          placeholder='Header Value'
-          value={headerValue}
-          onChange={(e) => {
-            setHeaderValue(e.target.value);
-          }}
-        />
-      </div>
-      <div className={style.table_row}>
-        <input
-          type='text'
-          className={style.input}
-          placeholder='Header Key'
-          value={headerKey}
-          onChange={(e) => {
-            setHeaderKey(e.target.value);
-          }}
-        />
-        <input
-          type='text'
-          className={style.input}
-          placeholder='Header Value'
-          value={headerValue}
-          onChange={(e) => {
-            setHeaderValue(e.target.value);
-          }}
-        />
+      <div className={styles.container}>
+        <table className={styles.table_header} role='grid'>
+          <tbody>
+            {graphqlHeadersSelector.map((header) => (
+              <Row type='graphqlHeaders' key={crypto.randomUUID()} row={header} updateRowState={updateRowState} />
+            ))}
+          </tbody>
+          <tfoot>
+            <RowEditor type='graphqlHeaders' />
+          </tfoot>
+        </table>
       </div>
     </div>
   );
