@@ -1,3 +1,4 @@
+// src/__tests__/ClientTop.test.tsx
 import { ClientTop } from '@/components/ClientTop/ClientTop';
 import { render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
@@ -8,7 +9,9 @@ import messages from '../../messages/en.json';
 const locale = 'en';
 
 const ROUTES = {
-  GRAPHQL: '/graphql',
+  GRAPHQL: '/en/graphql',
+  RESTAPI: '/en/restapi',
+  HISTORY: '/en/history',
 };
 
 vi.mock('next/navigation', () => ({
@@ -38,6 +41,32 @@ describe('ClientTop', () => {
     expect(historyBtn).toBeDefined();
 
     const link = historyBtn.getAttribute('href');
-    expect(link).toBe('/en/history');
+    expect(link).toBe(ROUTES.HISTORY);
+  });
+
+  it('should render correctly', () => {
+    (usePathname as jest.Mock).mockReturnValue(ROUTES.GRAPHQL);
+
+    render(
+      <NextIntlClientProvider messages={messages} locale={locale}>
+        <ClientTop title='GraphiQL Client' isDocsAvailable />
+      </NextIntlClientProvider>,
+    );
+
+    const docsBtn = screen.queryByText(/Docs/i);
+    expect(docsBtn).toBeDefined();
+  });
+
+  it('should render correctly', () => {
+    (usePathname as jest.Mock).mockReturnValue(ROUTES.GRAPHQL);
+
+    render(
+      <NextIntlClientProvider messages={messages} locale={locale}>
+        <ClientTop title='GraphiQL Client' isDocsAvailable={false} />
+      </NextIntlClientProvider>,
+    );
+
+    const docsBtn = screen.queryByText(/Docs/i);
+    expect(docsBtn).toBeNull();
   });
 });
