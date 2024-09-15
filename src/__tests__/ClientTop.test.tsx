@@ -1,4 +1,3 @@
-// src/__tests__/ClientTop.test.tsx
 import { ClientTop } from '@/components/ClientTop/ClientTop';
 import { render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
