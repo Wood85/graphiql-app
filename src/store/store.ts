@@ -1,15 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
+
 import restFullReducer from './reducers/restFullSlice';
+import graphqlReducer from './reducers/graphqlSlice';
 import headersReducer from './reducers/headersSlice';
 import loadingStateReducer from './reducers/loadingStateSlice';
-import graphQLVariablesReducer from './reducers/graphQLVariablesSlice';
 
 export const store = configureStore({
   reducer: {
     rest: restFullReducer,
     headersList: headersReducer,
     loadingState: loadingStateReducer,
-    graphQLVariables: graphQLVariablesReducer,
+    graphql: graphqlReducer,
   },
 });
 

@@ -4,17 +4,12 @@ import Editor from '@monaco-editor/react';
 import type { editor } from 'monaco-editor/esm/vs/editor/editor.api';
 
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { selectGraphQLVariables, setGraphQLVariables } from '@/store/reducers/graphQLVariablesSlice';
-import type { TGraphQLVars } from '@/store/reducers/graphQLVariablesSlice';
+import { selectGraphQLVariables, setGraphQLVariables } from '@/store/reducers/graphqlSlice';
+import type { TGraphQLVars } from '@/store/reducers/graphqlSlice';
 
 import style from './VariablesEditor.module.scss';
 
-interface IProps {
-  variables: string;
-  setVariables: React.Dispatch<React.SetStateAction<string>>;
-}
-
-function VariablesEditor({ variables, setVariables }: IProps): JSX.Element {
+function VariablesEditor(): JSX.Element {
   const INDENT = 2;
   const variablesObject = useAppSelector(selectGraphQLVariables);
   const [variablesString, setVariablesString] = useState(JSON.stringify(variablesObject, null, INDENT));
@@ -30,9 +25,9 @@ function VariablesEditor({ variables, setVariables }: IProps): JSX.Element {
       try {
         const parsedVariablesObject = JSON.parse(value);
         dispatcher(setGraphQLVariables(parsedVariablesObject as TGraphQLVars));
-        setVariablesString(value);
       } catch (e) {
-        console.log('error parsing json');
+      } finally {
+        setVariablesString(value);
       }
     }
   };
