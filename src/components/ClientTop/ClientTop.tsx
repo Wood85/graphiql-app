@@ -17,15 +17,16 @@ interface IProps {
   title: string;
   setGraphqlDocsIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   graphqlDocsIsOpen?: boolean;
+  isDocsAvailable?: boolean;
 }
 
-function ClientTop({ title, setGraphqlDocsIsOpen, graphqlDocsIsOpen }: IProps): JSX.Element {
+function ClientTop({ title, setGraphqlDocsIsOpen, graphqlDocsIsOpen, isDocsAvailable }: IProps): JSX.Element {
   const pathname = usePathname();
 
   return (
     <div className={style.top}>
       <div className={style.graphql_docs}>
-        {pathname.includes(ROUTES.GRAPHQL) && (
+        {pathname.includes(ROUTES.GRAPHQL) && isDocsAvailable && (
           <Button
             className={clsx(style.button, graphqlDocsIsOpen === true && style.docs_open)}
             onClick={() => {
