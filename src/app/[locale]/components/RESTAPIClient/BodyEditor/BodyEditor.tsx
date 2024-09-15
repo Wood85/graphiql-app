@@ -1,11 +1,15 @@
 'use client';
 
-import Button from '@/components/UI/Button/Button';
-import Editor from '@monaco-editor/react';
-import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
+
+import Editor from '@monaco-editor/react';
+
+import { replaceInHistory } from '@/utils/replaceHistory';
+import Button from '@/components/UI/Button/Button';
 import HeadersEditor from '../HeadersEditor/HeadersEditor';
 import VariablesEditor from '../VariablesEditor/VariablesEditor';
+
 import styles from './BodyEditor.module.scss';
 
 interface IProps {
@@ -63,7 +67,12 @@ function BodyEditor({ setBody }: IProps): JSX.Element {
       </div>
       {select === 'headers' && <HeadersEditor />}
       {select === 'body' && (
-        <div className={styles.editor_container}>
+        <div
+          className={styles.editor_container}
+          onBlur={() => {
+            replaceInHistory('body', editorValue);
+          }}
+        >
           <div className={styles.format_switcher}>
             <Button
               className={`${styles.format_button} ${format === 'json' ? styles.selected_format : ''}`}

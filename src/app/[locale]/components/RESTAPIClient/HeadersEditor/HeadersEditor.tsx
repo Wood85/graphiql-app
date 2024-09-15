@@ -21,6 +21,7 @@ function HeadersEditor(): JSX.Element {
     const copyKey: string = key;
     const copyChecked: boolean = checked;
     const newHeaders: TRows = [];
+
     for (let i = 0; i < copyHeaders.length; i += STEP_SIZE) {
       if (copyHeaders[i].key === copyKey) {
         copyHeaders[i].checked = copyChecked;
