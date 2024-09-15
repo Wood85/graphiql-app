@@ -10,6 +10,7 @@ function CloseIcon({ className }: IProps): JSX.Element {
       width='34px'
       fill='white'
       className={className}
+      data-testid='svg'
     >
       <path d='m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z' />
     </svg>
