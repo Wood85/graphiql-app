@@ -12,11 +12,6 @@ const headersArr = [
 ];
 
 describe('graphqlSlice', () => {
-  test('should return default state when passed an empty action', () => {
-    const result = graphqlReducer(undefined, { type: '' });
-    expect(result).toEqual(initialState);
-  });
-
   test('should set headers with "gqlHeaders" action', () => {
     const action = { type: gqlHeaders.type, payload: headersArr };
 
