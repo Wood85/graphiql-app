@@ -153,4 +153,4 @@ function Response({ response, method }: IProps): JSX.Element {
   );
 }
 
-export { Response };
+export { Response, type IProps };

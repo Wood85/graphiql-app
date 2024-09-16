@@ -46,11 +46,11 @@ function ClientTop({ title, setGraphqlDocsIsOpen, graphqlDocsIsOpen, isDocsAvail
           </Button>
         )}
         {pathname.includes(ROUTES.GRAPHQL) && (
-          <Button href={ROUTES.RESTAPI} className={style.button}>
+          <Button href={ROUTES.RESTAPI} className={style.button} data-testid='restapiBtn'>
             <RestapiIcon className={style.icon} />
           </Button>
         )}
-        <Button href={ROUTES.HISTORY} className={style.button}>
+        <Button href={ROUTES.HISTORY} className={style.button} data-testid='historyBtn'>
           <HistoryIcon className={style.icon} />
         </Button>
       </div>

@@ -16,6 +16,7 @@ function Checkbox(props: IProps): JSX.Element {
       <input
         className={styles.checkbox_hide}
         type='checkbox'
+        data-testid='checkbox'
         onChange={() => {
           updateState(!isChecked);
           setIsChecked(!isChecked);

@@ -3,7 +3,7 @@ interface IProps {
 }
 function PrettifyIcon({ className }: IProps): JSX.Element {
   return (
-    <svg width='45' height='45' viewBox='0 0 45 45' fill='none' xmlns='http://www.w3.org/2000/svg'>
+    <svg width='45' height='45' viewBox='0 0 45 45' fill='none' data-testid='svg' xmlns='http://www.w3.org/2000/svg'>
       <path
         d='M24.8437 14.1743C24.8437 14.6058 25.1935 14.9556 25.625 14.9556C26.0564 14.9556 26.4062 14.6058 26.4062 14.1743V11.3174C26.4062 10.8859 26.0564 10.5361 25.625 10.5361C25.1935 10.5361 24.8437 10.8859 24.8437 11.3174V14.1743Z'
         fill='#AFAFAF'
