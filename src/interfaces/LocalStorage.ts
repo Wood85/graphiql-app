@@ -1,11 +1,14 @@
+import { type TGraphQLVars } from '@/store/reducers/graphqlSlice';
+
 export interface IRequestLS {
   client: string;
   time: number;
   method: string;
   url: string;
+  sdlUrl?: string;
   headers: IHeadersVariables[];
   body: string;
-  variables: IHeadersVariables[];
+  variables: IHeadersVariables[] | TGraphQLVars;
 }
 
 export interface IHeadersVariables {
