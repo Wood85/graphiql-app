@@ -1,4 +1,5 @@
 import graphqlReducer, { gqlHeaders, gqlFocusCellKey, gqlFocusCellValue } from '@/store/reducers/graphqlSlice';
+import type { IState } from '@/store/reducers/graphqlSlice';
 import { describe, expect, test } from 'vitest';
 
 const initialState = {
@@ -15,7 +16,7 @@ describe('graphqlSlice', () => {
   test('should set headers with "gqlHeaders" action', () => {
     const action = { type: gqlHeaders.type, payload: headersArr };
 
-    const result = graphqlReducer(initialState, action);
+    const result = graphqlReducer(initialState as IState, action);
 
     expect(result.headers[0].key).toBe('Content-type');
     expect(result.headers[1].key).toBe('Accept');
@@ -28,7 +29,7 @@ describe('graphqlSlice', () => {
   test('should set status cell of key with "gqlFocusCellKey" action', () => {
     const action = { type: gqlFocusCellKey.type, payload: true };
 
-    const result = graphqlReducer(initialState, action);
+    const result = graphqlReducer(initialState as IState, action);
 
     expect(result.focusCellKey).toBe(true);
   });
@@ -36,7 +37,7 @@ describe('graphqlSlice', () => {
   test('should set status cell of key with "gqlFocusCellValue" action', () => {
     const action = { type: gqlFocusCellValue.type, payload: true };
 
-    const result = graphqlReducer(initialState, action);
+    const result = graphqlReducer(initialState as IState, action);
 
     expect(result.focusCellValue).toBe(true);
   });
