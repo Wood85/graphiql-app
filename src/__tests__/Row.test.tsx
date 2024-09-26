@@ -1,12 +1,7 @@
 import Row from '@/components/Row/Row';
-import { render, screen } from '@testing-library/react';
-import { NextIntlClientProvider } from 'next-intl';
-import { Provider } from 'react-redux';
+import { screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import storeMock from './mockStore';
-import messages from '../../messages/en.json';
-
-const locale = 'en';
+import { renderWithStore } from '../utils/testUtils';
 
 const row = {
   key: 'Content-Type',
@@ -17,17 +12,12 @@ const row = {
 
 describe('Row', () => {
   it('should render key and value correctly', () => {
-    render(
-      <Provider store={storeMock}>
-        <NextIntlClientProvider messages={messages} locale={locale}>
-          <table role='grid'>
-            <tfoot>
-              <Row type='headers' row={row} updateRowState={() => {}} />
-            </tfoot>
-          </table>
-        </NextIntlClientProvider>
-        ,
-      </Provider>,
+    renderWithStore(
+      <table role='grid'>
+        <tfoot>
+          <Row type='headers' row={row} updateRowState={() => {}} />
+        </tfoot>
+      </table>,
     );
 
     expect(screen.getByText('Content-Type')).toBeDefined();
