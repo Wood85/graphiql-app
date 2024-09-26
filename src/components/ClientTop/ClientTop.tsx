@@ -25,23 +25,24 @@ function ClientTop({ title, setGraphqlDocsIsOpen, graphqlDocsIsOpen, isDocsAvail
 
   return (
     <div className={style.top}>
-      <div className={style.graphql_docs}>
-        {pathname.includes(ROUTES.GRAPHQL) && isDocsAvailable && (
+      {pathname.includes(ROUTES.GRAPHQL) && isDocsAvailable && (
+        <div className={style.graphql_docs}>
           <Button
             className={clsx(style.button, graphqlDocsIsOpen === true && style.docs_open)}
             onClick={() => {
               if (setGraphqlDocsIsOpen !== undefined && graphqlDocsIsOpen !== undefined)
                 setGraphqlDocsIsOpen(!graphqlDocsIsOpen);
             }}
+            data-testid='docsBtn'
           >
             <DocsIcon className={style.icon} />
           </Button>
-        )}
-      </div>
+        </div>
+      )}
       <h2 className={style.title}>{title}</h2>
       <div className={style.links}>
         {pathname.includes(ROUTES.RESTAPI) && (
-          <Button href={ROUTES.GRAPHQL} className={style.button}>
+          <Button href={ROUTES.GRAPHQL} className={style.button} data-testid='graphqlBtn'>
             <GraphqlIcon className={style.icon} />
           </Button>
         )}
