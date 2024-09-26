@@ -2,16 +2,11 @@ import About from '@/app/[locale]/components/About/About';
 import { render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { describe, expect, it } from 'vitest';
-import messages from '../../messages/en.json';
+import { renderWithIntl } from '../utils/testUtils';
 
-const locale = 'en';
 describe('About', () => {
   it('should render correctly', () => {
-    render(
-      <NextIntlClientProvider messages={messages} locale={locale}>
-        <About />
-      </NextIntlClientProvider>,
-    );
+    renderWithIntl(<About />);
 
     const title = screen.getByText('About us');
     const description = screen.getByText(/this application is a result of our work as a team/i);
