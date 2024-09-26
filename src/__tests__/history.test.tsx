@@ -1,10 +1,24 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { screen } from '@testing-library/react';
 
 import History from '@/app/[locale]/history/page';
 import { renderWithIntl } from '../utils/testUtils';
 
+const mockRecord = {
+  client: 'test_client',
+  time: 123456789,
+  method: 'GET',
+  url: 'test.com',
+  headers: [{ checked: true, key: 'Content-type', value: 'application/json' }],
+  body: '',
+  variables: [],
+};
+
 describe('History', () => {
+  afterEach(() => {
+    localStorage.clear();
+  });
+
   it('should render correctly without data', () => {
     renderWithIntl(<History />);
 
@@ -16,29 +30,12 @@ describe('History', () => {
   });
 
   it('should render correctly with data', () => {
-    localStorage.setItem(
-      'RESTFUL_request',
-      JSON.stringify([
-        {
-          client: 'test_client',
-          time: 123456789,
-          method: 'GET',
-          url: 'test.com',
-          headers: [{ checked: true, key: 'Content-type', value: 'application/json' }],
-          body: '',
-          variables: [],
-        },
-      ]),
-    );
+    localStorage.setItem('history_requests', JSON.stringify([mockRecord]));
 
     renderWithIntl(<History />);
 
     expect(screen.getByText('GET')).toBeDefined();
     expect(screen.getByRole('link', { name: 'test.com' })).toBeDefined();
-    expect(screen.getByRole('link', { name: 'test.com' }).getAttribute('href')).toBe(
-      '/en/test_client?history=123456789',
-    );
-
-    localStorage.removeItem('RESTFUL_request');
+    expect(screen.getByRole('link', { name: 'test.com' }).getAttribute('href')).toBe('/en/test_client');
   });
 });
