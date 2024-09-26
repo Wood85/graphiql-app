@@ -1,21 +1,11 @@
 import RESTAPIClient from '@/app/[locale]/components/RESTAPIClient/RESTAPIClient';
-import { store } from '@/store/store';
-import { render, screen } from '@testing-library/react';
-import { NextIntlClientProvider } from 'next-intl';
-import { Provider } from 'react-redux';
-import messages from '../../messages/en.json';
+import { screen } from '@testing-library/react';
 
-const locale = 'en';
+import { renderWithStore } from '../utils/testUtils';
 
 describe('RESTAPIClient', () => {
   it('renders the component', () => {
-    render(
-      <Provider store={store}>
-        <NextIntlClientProvider messages={messages} locale={locale}>
-          <RESTAPIClient />
-        </NextIntlClientProvider>
-      </Provider>,
-    );
+    renderWithStore(<RESTAPIClient />);
 
     expect(screen.getByText('Variables')).toBeDefined();
     expect(screen.getByText('Headers')).toBeDefined();
@@ -23,13 +13,7 @@ describe('RESTAPIClient', () => {
   });
 
   it('renders the request control', () => {
-    render(
-      <Provider store={store}>
-        <NextIntlClientProvider messages={messages} locale={locale}>
-          <RESTAPIClient />
-        </NextIntlClientProvider>
-      </Provider>,
-    );
+    renderWithStore(<RESTAPIClient />);
 
     expect(screen.getByText('GET')).toBeDefined();
     expect(screen.getByText('POST')).toBeDefined();
@@ -38,13 +22,7 @@ describe('RESTAPIClient', () => {
   });
 
   it('renders correctly', () => {
-    render(
-      <Provider store={store}>
-        <NextIntlClientProvider messages={messages} locale={locale}>
-          <RESTAPIClient />
-        </NextIntlClientProvider>
-      </Provider>,
-    );
+    renderWithStore(<RESTAPIClient />);
 
     expect(screen.getByText('keep-alive')).toBeDefined();
     expect(screen.getByText('Connection')).toBeDefined();
