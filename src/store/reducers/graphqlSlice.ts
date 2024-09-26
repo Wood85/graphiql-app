@@ -1,6 +1,6 @@
+import type TRows from '@/interfaces/Rows';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-import type TRows from '@/interfaces/Rows';
 
 export type TGraphQLVars = Record<string, string | number | boolean | object | undefined>;
 export interface IState {
@@ -47,11 +47,12 @@ export const graphqlSlice = createSlice({
   selectors: {
     selectGraphQLVariables: (state) => state.variables,
     selectVariableNotFound: (state) => state.variableNotFound,
+    selectGraphQLHeaders: (state) => state.headers,
   },
 });
 
 export const { gqlHeaders, gqlFocusCellKey, gqlFocusCellValue, setGraphQLVariables, setVariableNotFound } =
   graphqlSlice.actions;
-export const { selectGraphQLVariables, selectVariableNotFound } = graphqlSlice.selectors;
+export const { selectGraphQLVariables, selectVariableNotFound, selectGraphQLHeaders } = graphqlSlice.selectors;
 
 export default graphqlSlice.reducer;

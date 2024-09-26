@@ -1,12 +1,12 @@
 'use client';
 
-import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 
 import Editor from '@monaco-editor/react';
 
-import { replaceInHistory } from '@/utils/replaceHistory';
 import Button from '@/components/UI/Button/Button';
+import { replaceInHistory } from '@/utils/replaceHistory';
 import HeadersEditor from '../HeadersEditor/HeadersEditor';
 import VariablesEditor from '../VariablesEditor/VariablesEditor';
 
@@ -14,6 +14,7 @@ import styles from './BodyEditor.module.scss';
 
 interface IProps {
   setBody: React.Dispatch<React.SetStateAction<string>>;
+  body: string;
 }
 
 type TSelect = 'headers' | 'body' | 'variables';
@@ -22,7 +23,7 @@ type TFormat = 'json' | 'text';
 
 export const dynamic = 'force-dynamic';
 
-function BodyEditor({ setBody }: IProps): JSX.Element {
+function BodyEditor({ setBody, body }: IProps): JSX.Element {
   const t = useTranslations('Restapi');
 
   const [select, setSelect] = useState<TSelect>('headers');
@@ -96,7 +97,7 @@ function BodyEditor({ setBody }: IProps): JSX.Element {
             defaultValue='{}'
             language={format}
             theme='vs-light'
-            value={editorValue}
+            value={body ?? editorValue}
             options={{
               detectIndentation: false,
               fontFamily: '"Cera Pro"',

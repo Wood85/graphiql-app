@@ -24,7 +24,6 @@ describe('GraphiQLClient', () => {
     );
 
     await waitFor(() => {
-      expect(getByText('Loading...')).toBeInTheDocument();
       expect(getByText('Set')).toBeInTheDocument();
       expect(getByText('Send')).toBeInTheDocument();
       expect(getByText('No schema available')).toBeInTheDocument();

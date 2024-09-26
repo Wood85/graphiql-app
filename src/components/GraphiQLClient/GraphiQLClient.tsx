@@ -7,13 +7,21 @@ import { type IntrospectionQuery } from 'graphql';
 
 import SelectArrowBottomIcon from '@/assets/images/icons/SelectArrowBottomIcon';
 import SelectArrowTopIcon from '@/assets/images/icons/SelectArrowTopIcon';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import useHeaders from '@/hooks/useHeaders';
+import { type IRequestLS } from '@/interfaces/LocalStorage';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 import type { IResponse } from '@/interfaces/Response';
+import {
+  gqlHeaders,
+  selectGraphQLHeaders,
+  selectGraphQLVariables,
+  setGraphQLVariables,
+  type TGraphQLVars,
+} from '@/store/reducers/graphqlSlice';
 import { loadingFinished, loadingStarted } from '@/store/reducers/loadingStateSlice';
-import { useAppDispatch } from '@/hooks/redux';
-import { replaceInHistory } from '@/utils/replaceHistory';
-import useHeaders from '@/hooks/useHeaders';
 import { GRAPHQL } from '@/utils/constants';
+import { replaceInHistory } from '@/utils/replaceHistory';
 import { Response } from '../Response/Response';
 import Button from '../UI/Button/Button';
 import { Docs } from './Docs/Docs';
@@ -37,13 +45,16 @@ enum TTabs {
 export default function GraphiQLClient({ graphqlDocsIsOpen, setIsDocsAvailable }: IProps): JSX.Element {
   const [url, setUrl] = useState('');
   const [sdlUrl, setSdlUrl] = useState('');
+  const [queryFromLS, setQueryFromLS] = useState('#Query Editor');
   const [docs, setDocs] = useState<IntrospectionQuery | null>(null);
   const [response, setResponse] = useState<IResponse | null>(null);
   const [activeTab, setActiveTab] = useState<TTabs>(TTabs.VARIABLES);
-  const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+  const [isOptionsOpen, setIsOptionsOpen] = useState(true);
 
   const dispatcher = useAppDispatch();
   const headers = useHeaders('graphql');
+  const variablesSelector = useAppSelector(selectGraphQLVariables);
+  const graphqlHeadersSelector = useAppSelector(selectGraphQLHeaders);
 
   useEffect(() => {
     replaceInHistory('method', GRAPHQL);
@@ -55,7 +66,7 @@ export default function GraphiQLClient({ graphqlDocsIsOpen, setIsDocsAvailable }
 
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
-
+    replaceInHistory('url', url);
     const { href } = window.location;
     const apiUrl = href.replace(/\/restapi\/|\/graphiql\//g, '/api/');
     dispatcher(loadingStarted());
@@ -84,7 +95,39 @@ export default function GraphiQLClient({ graphqlDocsIsOpen, setIsDocsAvailable }
     } finally {
       dispatcher(loadingFinished());
     }
+
+    const allRequests = [];
+    if (localStorage.getItem('history_requests') !== null) {
+      JSON.parse(localStorage.getItem('history_requests') ?? '').forEach((el: IRequestLS) => allRequests.push(el));
+    }
+    const currentTime = new Date().getTime();
+    const currentData = {
+      client: 'graphiql',
+      time: currentTime,
+      method: GRAPHQL,
+      url,
+      sdlUrl,
+      headers: graphqlHeadersSelector,
+      body: queryFromLS,
+      variables: variablesSelector,
+    };
+    allRequests.push(currentData);
+
+    localStorage.setItem('history_requests', JSON.stringify(allRequests));
   };
+
+  useEffect(() => {
+    if (localStorage.getItem('current_request') !== null) {
+      const currentData = JSON.parse(localStorage.getItem('current_request') ?? '') as IRequestLS;
+
+      setUrl(currentData.url ?? '');
+      setSdlUrl(currentData.sdlUrl ?? '');
+      setQueryFromLS(currentData.body);
+      dispatcher(gqlHeaders(currentData.headers ?? []));
+      dispatcher(setGraphQLVariables(currentData.variables as TGraphQLVars));
+      localStorage.removeItem('current_request');
+    }
+  }, [dispatcher]);
 
   return (
     <div className={style.wrapper}>
@@ -100,7 +143,7 @@ export default function GraphiQLClient({ graphqlDocsIsOpen, setIsDocsAvailable }
               setDocs={setDocs}
               setIsDocsAvailable={setIsDocsAvailable}
             />
-            <QueryEditor />
+            <QueryEditor setQueryFromLS={setQueryFromLS} queryFromLS={queryFromLS} />
             <div className={style.options}>
               <div className={style.tabs_line}>
                 <div className={style.tabs}>
