@@ -15,11 +15,16 @@ function History(): JSX.Element {
   const [restfulRequest, setRestfulRequest] = useState<IRequestLS[] | ''>('');
 
   useEffect(() => {
-    if (localStorage.getItem('RESTFUL_request') !== null) {
-      const value = JSON.parse(localStorage.getItem('RESTFUL_request') ?? '') as IRequestLS[];
+    if (localStorage.getItem('history_requests') !== null) {
+      const value = JSON.parse(localStorage.getItem('history_requests') ?? '') as IRequestLS[];
       setRestfulRequest(value);
     }
   }, []);
+  const saveCurrentRequest = (el: IRequestLS): void => {
+    if (localStorage.getItem('history_requests') !== null) {
+      localStorage.setItem('current_request', JSON.stringify(el));
+    }
+  };
 
   return (
     <ProtectedRouteWrapper>
@@ -32,7 +37,13 @@ function History(): JSX.Element {
                 {restfulRequest.map((el) => (
                   <div key={el.time} className={style.history_request}>
                     <div className={style.method}>{el.method}</div>
-                    <Link href={`/${el.client}?history=${el.time}`} className={style.link}>
+                    <Link
+                      href={`/${el.client}`}
+                      className={style.link}
+                      onClick={() => {
+                        saveCurrentRequest(el);
+                      }}
+                    >
                       {el.url}
                     </Link>
                   </div>

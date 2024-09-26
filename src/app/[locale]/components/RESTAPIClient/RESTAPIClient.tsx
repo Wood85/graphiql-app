@@ -2,15 +2,15 @@
 
 import { useEffect, useState } from 'react';
 
+import { Response } from '@/components/Response/Response';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { type IRequestLS } from '@/interfaces/LocalStorage';
+import useHeaders from '@/hooks/useHeaders';
+import { type IHeadersVariables, type IRequestLS } from '@/interfaces/LocalStorage';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 import type { IResponse } from '@/interfaces/Response';
-import { headers, variables } from '@/store/reducers/restFullSlice';
 import { loadingFinished, loadingStarted } from '@/store/reducers/loadingStateSlice';
+import { headers, variables } from '@/store/reducers/restFullSlice';
 import { replaceInHistory } from '@/utils/replaceHistory';
-import useHeaders from '@/hooks/useHeaders';
-import { Response } from '@/components/Response/Response';
 import { BodyEditor } from './BodyEditor/BodyEditor';
 import { RequestControl } from './RequestControl/RequestControl';
 
@@ -39,6 +39,9 @@ export default function RESTAPIClient(): JSX.Element {
 
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
+    replaceInHistory('method', method);
+    replaceInHistory('url', url);
+    replaceInHistory('body', body);
     const { href } = window.location;
     const apiUrl = href.replace(/\/restapi\/|\/graphiql\//g, '/api/');
     dispatcher(loadingStarted());
@@ -84,8 +87,8 @@ export default function RESTAPIClient(): JSX.Element {
     }
 
     const allRequests = [];
-    if (localStorage.getItem('RESTFUL_request') !== null) {
-      JSON.parse(localStorage.getItem('RESTFUL_request') ?? '').forEach((el: IRequestLS) => allRequests.push(el));
+    if (localStorage.getItem('history_requests') !== null) {
+      JSON.parse(localStorage.getItem('history_requests') ?? '').forEach((el: IRequestLS) => allRequests.push(el));
     }
     const currentTime = new Date().getTime();
     const currentData = {
@@ -99,48 +102,21 @@ export default function RESTAPIClient(): JSX.Element {
     };
     allRequests.push(currentData);
 
-    localStorage.setItem('RESTFUL_request', JSON.stringify(allRequests));
+    localStorage.setItem('history_requests', JSON.stringify(allRequests));
   };
 
   useEffect(() => {
-    const match = window.location.search.match(/\?history=[0-9]+/gm);
-
-    if (match !== null) {
-      const historyRequest = match?.toString().replace('?history=', '');
-      const data = JSON.parse(localStorage.getItem('RESTFUL_request') ?? '');
-      const currentData = data.filter((el: IRequestLS) => el.time.toString() === historyRequest)[0] as IRequestLS;
+    if (localStorage.getItem('current_request') !== null) {
+      const currentData = JSON.parse(localStorage.getItem('current_request') ?? '') as IRequestLS;
 
       setUrl(currentData.url);
-
-      switch (currentData.method) {
-        case TRequestMethod.GET:
-          setMethod(TRequestMethod.GET);
-          break;
-        case TRequestMethod.POST:
-          setMethod(TRequestMethod.POST);
-          break;
-        case TRequestMethod.PUT:
-          setMethod(TRequestMethod.PUT);
-          break;
-        case TRequestMethod.PATCH:
-          setMethod(TRequestMethod.PATCH);
-          break;
-        case TRequestMethod.DELETE:
-          setMethod(TRequestMethod.DELETE);
-          break;
-        case TRequestMethod.HEAD:
-          setMethod(TRequestMethod.HEAD);
-          break;
-        case TRequestMethod.OPTIONS:
-          setMethod(TRequestMethod.OPTIONS);
-          break;
-
-        default:
-          break;
+      if ((currentData.method as TRequestMethod) in TRequestMethod) {
+        setMethod(currentData.method as TRequestMethod);
       }
       setBody(currentData.body);
-      dispatcher(variables(currentData.variables));
       dispatcher(headers(currentData.headers));
+      dispatcher(variables(currentData.variables as IHeadersVariables[]));
+      localStorage.removeItem('current_request');
     }
   }, [dispatcher]);
 
@@ -148,7 +124,7 @@ export default function RESTAPIClient(): JSX.Element {
     <div className={style.container}>
       <form className={style.form} onSubmit={handleSubmit}>
         <RequestControl method={method} setMethod={setMethod} url={url} setUrl={setUrl} body={body} />
-        <BodyEditor setBody={setBody} />
+        <BodyEditor setBody={setBody} body={body} />
       </form>
       {response?.status != null && <Response response={response} method={method} />}
     </div>

@@ -15,7 +15,6 @@ describe('GraphiQLClient', () => {
     const { getByText } = renderWithStore(<GraphiQLClient graphqlDocsIsOpen setIsDocsAvailable={() => {}} />);
 
     await waitFor(() => {
-      expect(getByText('Loading...')).toBeInTheDocument();
       expect(getByText('Set')).toBeInTheDocument();
       expect(getByText('Send')).toBeInTheDocument();
       expect(getByText('No schema available')).toBeInTheDocument();

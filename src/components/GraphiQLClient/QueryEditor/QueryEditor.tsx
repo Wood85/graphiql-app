@@ -1,19 +1,19 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import Editor from '@monaco-editor/react';
-import { toast, ToastContainer, Flip } from 'react-toastify';
+import { Flip, toast, ToastContainer } from 'react-toastify';
 
 import ClearIcon from '@/assets/images/icons/ClearIcon';
 import CopyIcon from '@/assets/images/icons/CopyIcon';
 import PrettifyIcon from '@/assets/images/icons/PrettifyIcon';
-import { selectGraphQLVariables, selectVariableNotFound, setVariableNotFound } from '@/store/reducers/graphqlSlice';
+import Button from '@/components/UI/Button/Button';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { selectGraphQLVariables, setVariableNotFound } from '@/store/reducers/graphqlSlice';
 import prettierPluginGraphql from '@/utils/libs/prettier/graphql.mjs';
 import * as prettier from '@/utils/libs/prettier/standalone.mjs';
 import { replaceInHistory } from '@/utils/replaceHistory';
-import Button from '@/components/UI/Button/Button';
 
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './QueryEditor.module.scss';
@@ -23,25 +23,27 @@ interface IErr {
     message: string;
   };
 }
-
-function QueryEditor(): JSX.Element {
-  const [query, setQuery] = useState('');
+interface IProps {
+  setQueryFromLS: React.Dispatch<React.SetStateAction<string>>;
+  queryFromLS: string;
+}
+function QueryEditor({ setQueryFromLS, queryFromLS }: IProps): JSX.Element {
   const variables = useAppSelector(selectGraphQLVariables);
   const dispatcher = useAppDispatch();
 
   function handleEditorChange(value: string | undefined): void {
     if (value !== undefined) {
-      setQuery(value);
+      setQueryFromLS(value);
     }
   }
 
   function removeCode(): void {
-    setQuery('');
+    setQueryFromLS('');
   }
 
   function copyCode(): void {
     navigator.clipboard
-      .writeText(query)
+      .writeText(queryFromLS)
       .then(() => {
         toast.success('Text copied to clipboard');
       })
@@ -52,20 +54,21 @@ function QueryEditor(): JSX.Element {
 
   function checkVariables(queryString: string, variablesObject: Record<string, unknown>): void {
     const pattern = /:\s*\$([a-zA-Z0-9_]*)/gm;
-
-    const matches = [...queryString.matchAll(pattern)].map((match) => match[1]);
-    matches.forEach((varName) => {
-      if (!Object.hasOwn(variablesObject, varName)) {
-        throw new Error(`Variable "${varName}" is not found in variables`);
-      }
-    });
+    if (queryString) {
+      const matches = [...queryString.matchAll(pattern)].map((match) => match[1]);
+      matches.forEach((varName) => {
+        if (!Object.hasOwn(variablesObject, varName)) {
+          throw new Error(`Variable "${varName}" is not found in variables`);
+        }
+      });
+    }
   }
 
   const handleOnBlur = (): void => {
     try {
-      checkVariables(query, variables);
+      checkVariables(queryFromLS, variables);
       dispatcher(setVariableNotFound(false));
-      replaceInHistory('body', JSON.stringify({ query: `${query}`, variables }));
+      replaceInHistory('body', JSON.stringify({ query: `${queryFromLS}`, variables }));
     } catch (e) {
       dispatcher(setVariableNotFound(true));
       toast.error((e as Error).message);
@@ -83,7 +86,7 @@ function QueryEditor(): JSX.Element {
         defaultValue='#Query Editor'
         language='graphql'
         theme='vs-light'
-        value={query}
+        value={queryFromLS}
         options={{
           scrollbar: {
             verticalScrollbarSize: 1,
@@ -120,11 +123,11 @@ function QueryEditor(): JSX.Element {
           onClick={async (e: React.MouseEvent) => {
             e.preventDefault();
             try {
-              const formatted: string = await prettier.format(query, {
+              const formatted: string = await prettier.format(queryFromLS, {
                 parser: 'graphql',
                 plugins: [prettierPluginGraphql],
               });
-              setQuery(formatted);
+              setQueryFromLS(formatted);
             } catch (error) {
               const err = error as IErr;
               toast.error(`${err.cause.message}}`);
