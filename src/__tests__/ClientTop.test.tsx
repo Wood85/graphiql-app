@@ -1,6 +1,5 @@
 import { ClientTop } from '@/components/ClientTop/ClientTop';
-import { render, screen, fireEvent } from '@testing-library/react';
-import { NextIntlClientProvider } from 'next-intl';
+import { screen, fireEvent } from '@testing-library/react';
 import { usePathname } from 'next/navigation';
 import { describe, expect, it, vi } from 'vitest';
 import { renderWithIntl } from '../utils/testUtils';
