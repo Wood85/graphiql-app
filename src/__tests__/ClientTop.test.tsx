@@ -3,9 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import { describe, expect, it, vi } from 'vitest';
-import messages from '../../messages/en.json';
-
-const locale = 'en';
+import { renderWithIntl } from '../utils/testUtils';
 
 const ROUTES = {
   GRAPHQL: '/en/graphiql',
@@ -13,25 +11,19 @@ const ROUTES = {
   HISTORY: '/en/history',
 };
 
-vi.mock('next/navigation', () => ({
-  usePathname: vi.fn(),
-}));
-
 describe('ClientTop', () => {
   it('should render correctly for graphql', () => {
     (usePathname as jest.Mock).mockReturnValueOnce(ROUTES.GRAPHQL);
 
     const setGraphqlDocsIsOpen = vi.fn();
 
-    render(
-      <NextIntlClientProvider messages={messages} locale={locale}>
-        <ClientTop
-          title='GraphiQL Client'
-          setGraphqlDocsIsOpen={setGraphqlDocsIsOpen}
-          graphqlDocsIsOpen={false}
-          isDocsAvailable
-        />
-      </NextIntlClientProvider>,
+    renderWithIntl(
+      <ClientTop
+        title='GraphiQL Client'
+        setGraphqlDocsIsOpen={setGraphqlDocsIsOpen}
+        graphqlDocsIsOpen={false}
+        isDocsAvailable
+      />,
     );
 
     expect(screen.getByText(/GraphiQL Client/i)).toBeDefined();
@@ -49,11 +41,7 @@ describe('ClientTop', () => {
   it('should render correctly for rest api', () => {
     (usePathname as jest.Mock).mockReturnValueOnce(ROUTES.RESTAPI);
 
-    render(
-      <NextIntlClientProvider messages={messages} locale={locale}>
-        <ClientTop title='RestAPI Client' />
-      </NextIntlClientProvider>,
-    );
+    renderWithIntl(<ClientTop title='RestAPI Client' />);
 
     expect(screen.getByText(/RestAPI Client/i)).toBeDefined();
 
@@ -67,11 +55,7 @@ describe('ClientTop', () => {
   it('should render Docs button correctly', () => {
     (usePathname as jest.Mock).mockReturnValue(ROUTES.GRAPHQL);
 
-    render(
-      <NextIntlClientProvider messages={messages} locale={locale}>
-        <ClientTop title='GraphiQL Client' isDocsAvailable />
-      </NextIntlClientProvider>,
-    );
+    renderWithIntl(<ClientTop title='GraphiQL Client' isDocsAvailable />);
 
     const docsBtn = screen.queryByText(/Docs/i);
     expect(docsBtn).toBeDefined();
@@ -80,11 +64,7 @@ describe('ClientTop', () => {
   it("shouldn't render Docs button", () => {
     (usePathname as jest.Mock).mockReturnValue(ROUTES.GRAPHQL);
 
-    render(
-      <NextIntlClientProvider messages={messages} locale={locale}>
-        <ClientTop title='GraphiQL Client' isDocsAvailable={false} />
-      </NextIntlClientProvider>,
-    );
+    renderWithIntl(<ClientTop title='GraphiQL Client' isDocsAvailable={false} />);
 
     const docsBtn = screen.queryByText(/Docs/i);
     expect(docsBtn).toBeNull();
@@ -97,15 +77,13 @@ describe('ClientTop', () => {
     const setGraphqlDocsIsOpen = vi.fn();
     const graphqlDocsIsOpen = false;
 
-    render(
-      <NextIntlClientProvider messages={messages} locale={locale}>
-        <ClientTop
-          title='GraphiQL Client'
-          setGraphqlDocsIsOpen={setGraphqlDocsIsOpen}
-          graphqlDocsIsOpen={graphqlDocsIsOpen}
-          isDocsAvailable
-        />
-      </NextIntlClientProvider>,
+    renderWithIntl(
+      <ClientTop
+        title='GraphiQL Client'
+        setGraphqlDocsIsOpen={setGraphqlDocsIsOpen}
+        graphqlDocsIsOpen={graphqlDocsIsOpen}
+        isDocsAvailable
+      />,
     );
 
     const docsBtn = screen.getByTestId('docsBtn');
@@ -121,15 +99,13 @@ describe('ClientTop', () => {
     const setGraphqlDocsIsOpen = vi.fn();
     const graphqlDocsIsOpen = true;
 
-    render(
-      <NextIntlClientProvider messages={messages} locale={locale}>
-        <ClientTop
-          title='GraphiQL Client'
-          setGraphqlDocsIsOpen={setGraphqlDocsIsOpen}
-          graphqlDocsIsOpen={graphqlDocsIsOpen}
-          isDocsAvailable
-        />
-      </NextIntlClientProvider>,
+    renderWithIntl(
+      <ClientTop
+        title='GraphiQL Client'
+        setGraphqlDocsIsOpen={setGraphqlDocsIsOpen}
+        graphqlDocsIsOpen={graphqlDocsIsOpen}
+        isDocsAvailable
+      />,
     );
 
     const docsBtn = screen.getByTestId('docsBtn');
