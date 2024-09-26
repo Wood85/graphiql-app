@@ -66,7 +66,7 @@ export default function GraphiQLClient({ graphqlDocsIsOpen, setIsDocsAvailable }
 
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
-
+    replaceInHistory('url', url);
     const { href } = window.location;
     const apiUrl = href.replace(/\/restapi\/|\/graphiql\//g, '/api/');
     dispatcher(loadingStarted());

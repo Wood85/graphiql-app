@@ -39,6 +39,9 @@ export default function RESTAPIClient(): JSX.Element {
 
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
+    replaceInHistory('method', method);
+    replaceInHistory('url', url);
+    replaceInHistory('body', body);
     const { href } = window.location;
     const apiUrl = href.replace(/\/restapi\/|\/graphiql\//g, '/api/');
     dispatcher(loadingStarted());
@@ -107,32 +110,8 @@ export default function RESTAPIClient(): JSX.Element {
       const currentData = JSON.parse(localStorage.getItem('current_request') ?? '') as IRequestLS;
 
       setUrl(currentData.url);
-
-      switch (currentData.method) {
-        case TRequestMethod.GET:
-          setMethod(TRequestMethod.GET);
-          break;
-        case TRequestMethod.POST:
-          setMethod(TRequestMethod.POST);
-          break;
-        case TRequestMethod.PUT:
-          setMethod(TRequestMethod.PUT);
-          break;
-        case TRequestMethod.PATCH:
-          setMethod(TRequestMethod.PATCH);
-          break;
-        case TRequestMethod.DELETE:
-          setMethod(TRequestMethod.DELETE);
-          break;
-        case TRequestMethod.HEAD:
-          setMethod(TRequestMethod.HEAD);
-          break;
-        case TRequestMethod.OPTIONS:
-          setMethod(TRequestMethod.OPTIONS);
-          break;
-
-        default:
-          break;
+      if ((currentData.method as TRequestMethod) in TRequestMethod) {
+        setMethod(currentData.method as TRequestMethod);
       }
       setBody(currentData.body);
       dispatcher(headers(currentData.headers));
