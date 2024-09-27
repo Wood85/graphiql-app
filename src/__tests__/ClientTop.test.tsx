@@ -1,8 +1,10 @@
-import { ClientTop } from '@/components/ClientTop/ClientTop';
 import { screen, fireEvent } from '@testing-library/react';
 import { usePathname } from 'next/navigation';
 import { describe, expect, it, vi } from 'vitest';
-import { renderWithIntl } from '../utils/testUtils';
+
+import type { Mock } from 'vitest';
+import { renderWithIntl } from '@/utils/testUtils';
+import { ClientTop } from '@/components/ClientTop/ClientTop';
 
 const ROUTES = {
   GRAPHQL: '/en/graphiql',
@@ -12,7 +14,7 @@ const ROUTES = {
 
 describe('ClientTop', () => {
   it('should render correctly for graphql', () => {
-    (usePathname as jest.Mock).mockReturnValueOnce(ROUTES.GRAPHQL);
+    (usePathname as Mock).mockReturnValueOnce(ROUTES.GRAPHQL);
 
     const setGraphqlDocsIsOpen = vi.fn();
 
@@ -38,7 +40,7 @@ describe('ClientTop', () => {
   });
 
   it('should render correctly for rest api', () => {
-    (usePathname as jest.Mock).mockReturnValueOnce(ROUTES.RESTAPI);
+    (usePathname as Mock).mockReturnValueOnce(ROUTES.RESTAPI);
 
     renderWithIntl(<ClientTop title='RestAPI Client' />);
 
@@ -52,7 +54,7 @@ describe('ClientTop', () => {
   });
 
   it('should render Docs button correctly', () => {
-    (usePathname as jest.Mock).mockReturnValue(ROUTES.GRAPHQL);
+    (usePathname as Mock).mockReturnValue(ROUTES.GRAPHQL);
 
     renderWithIntl(<ClientTop title='GraphiQL Client' isDocsAvailable />);
 
@@ -61,7 +63,7 @@ describe('ClientTop', () => {
   });
 
   it("shouldn't render Docs button", () => {
-    (usePathname as jest.Mock).mockReturnValue(ROUTES.GRAPHQL);
+    (usePathname as Mock).mockReturnValue(ROUTES.GRAPHQL);
 
     renderWithIntl(<ClientTop title='GraphiQL Client' isDocsAvailable={false} />);
 
@@ -71,7 +73,7 @@ describe('ClientTop', () => {
 
   it('should call setGraphqlDocsIsOpen', () => {
     const ONE = 1;
-    (usePathname as jest.Mock).mockReturnValue(ROUTES.GRAPHQL);
+    (usePathname as Mock).mockReturnValue(ROUTES.GRAPHQL);
 
     const setGraphqlDocsIsOpen = vi.fn();
     const graphqlDocsIsOpen = false;
@@ -93,7 +95,7 @@ describe('ClientTop', () => {
   });
 
   it('docs button should contain "docs_open" className', () => {
-    (usePathname as jest.Mock).mockReturnValue(ROUTES.GRAPHQL);
+    (usePathname as Mock).mockReturnValue(ROUTES.GRAPHQL);
 
     const setGraphqlDocsIsOpen = vi.fn();
     const graphqlDocsIsOpen = true;
