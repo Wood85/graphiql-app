@@ -2,13 +2,19 @@ import GraphiQLClient from '@/components/GraphiQLClient/GraphiQLClient';
 import { store } from '@/store/store';
 import '@testing-library/jest-dom';
 import { render, waitFor } from '@testing-library/react';
+import { NextIntlClientProvider } from 'next-intl';
 import { Provider } from 'react-redux';
+import messages from '../../messages/en.json';
+
+const locale = 'en';
 
 describe('GraphiQLClient', () => {
   it('should render correctly', () => {
     const { getByText } = render(
       <Provider store={store}>
-        <GraphiQLClient graphqlDocsIsOpen setIsDocsAvailable={() => {}} />
+        <NextIntlClientProvider messages={messages} locale={locale}>
+          <GraphiQLClient graphqlDocsIsOpen setIsDocsAvailable={() => {}} />
+        </NextIntlClientProvider>
       </Provider>,
     );
 
@@ -19,7 +25,9 @@ describe('GraphiQLClient', () => {
   it('display text', async () => {
     const { getByText } = render(
       <Provider store={store}>
-        <GraphiQLClient graphqlDocsIsOpen setIsDocsAvailable={() => {}} />
+        <NextIntlClientProvider messages={messages} locale={locale}>
+          <GraphiQLClient graphqlDocsIsOpen setIsDocsAvailable={() => {}} />
+        </NextIntlClientProvider>
       </Provider>,
     );
 
