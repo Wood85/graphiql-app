@@ -22,6 +22,7 @@ import {
 import { loadingFinished, loadingStarted } from '@/store/reducers/loadingStateSlice';
 import { GRAPHQL } from '@/utils/constants';
 import { replaceInHistory } from '@/utils/replaceHistory';
+import { useTranslations } from 'next-intl';
 import { Response } from '../Response/Response';
 import Button from '../UI/Button/Button';
 import { Docs } from './Docs/Docs';
@@ -31,6 +32,8 @@ import { RequestControl } from './RequestControl/RequestControl';
 import { VariablesEditor } from './VariablesEditor/VariablesEditor';
 
 import style from './GraphiQLClient.module.scss';
+
+export const dynamic = 'force-dynamic';
 
 interface IProps {
   graphqlDocsIsOpen?: boolean;
@@ -43,6 +46,7 @@ enum TTabs {
 }
 
 export default function GraphiQLClient({ graphqlDocsIsOpen, setIsDocsAvailable }: IProps): JSX.Element {
+  const t = useTranslations('Graphiql');
   const [url, setUrl] = useState('');
   const [sdlUrl, setSdlUrl] = useState('');
   const [queryFromLS, setQueryFromLS] = useState('#Query Editor');
@@ -153,7 +157,7 @@ export default function GraphiQLClient({ graphqlDocsIsOpen, setIsDocsAvailable }
                       setActiveTab(TTabs.VARIABLES);
                     }}
                   >
-                    Variables
+                    {t('variables')}
                   </Button>
                   <Button
                     className={clsx(style.button, activeTab === TTabs.HEADERS ? style.active : '')}
@@ -161,7 +165,7 @@ export default function GraphiQLClient({ graphqlDocsIsOpen, setIsDocsAvailable }
                       setActiveTab(TTabs.HEADERS);
                     }}
                   >
-                    Headers
+                    {t('headers')}
                   </Button>
                 </div>
               </div>

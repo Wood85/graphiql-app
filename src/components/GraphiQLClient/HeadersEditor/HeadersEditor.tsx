@@ -4,10 +4,11 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import type TRows from '@/interfaces/Rows';
 import { gqlHeaders } from '@/store/reducers/graphqlSlice';
 import { STEP_SIZE } from '@/utils/constants';
-
+import { useTranslations } from 'next-intl';
 import styles from './HeadersEditor.module.scss';
 
 function HeadersEditor(): JSX.Element {
+  const t = useTranslations('Graphiql');
   const graphqlHeadersSelector = useAppSelector((state) => state.graphql.headers);
 
   const dispatch = useAppDispatch();
@@ -30,8 +31,8 @@ function HeadersEditor(): JSX.Element {
   return (
     <div className={styles.table}>
       <div className={styles.table_heading}>
-        <div className={styles.table_heading_key}>Key</div>
-        <div>Value</div>
+        <div className={styles.table_heading_key}>{t('key')}</div>
+        <div>{t('value')}</div>
       </div>
       <div className={styles.container}>
         <table className={styles.table_header} role='grid'>

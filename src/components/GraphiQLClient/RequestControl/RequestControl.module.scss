@@ -9,6 +9,14 @@
   .url_control {
     display: grid;
     grid-template-columns: 1fr 15%;
+
+    @media screen and (max-width: 1000px) {
+      grid-template-columns: 1fr 25%;
+    }
+
+    @media screen and (max-width: 700px) {
+      grid-template-columns: 1fr 37%;
+    }
   }
 
   .endpoint_input,

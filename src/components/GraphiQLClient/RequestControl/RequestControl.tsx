@@ -1,10 +1,11 @@
 import { getIntrospectionQuery, type IntrospectionQuery } from 'graphql';
 
-import { replaceInHistory } from '@/utils/replaceHistory';
+import Button from '@/components/UI/Button/Button';
 import { useAppSelector } from '@/hooks/redux';
 import { selectVariableNotFound } from '@/store/reducers/graphqlSlice';
-import Button from '@/components/UI/Button/Button';
+import { replaceInHistory } from '@/utils/replaceHistory';
 
+import { useTranslations } from 'next-intl';
 import style from './RequestControl.module.scss';
 
 interface IProps {
@@ -17,6 +18,7 @@ interface IProps {
 }
 
 function RequestControl({ url, setUrl, sdlUrl, setSdlUrl, setDocs, setIsDocsAvailable }: IProps): JSX.Element {
+  const t = useTranslations('Graphiql');
   const variableNotFound = useAppSelector(selectVariableNotFound);
   const getSchema = async (): Promise<void> => {
     await fetch(sdlUrl, {
@@ -54,7 +56,7 @@ function RequestControl({ url, setUrl, sdlUrl, setSdlUrl, setDocs, setIsDocsAvai
         <input
           type='text'
           className={style.endpoint_input}
-          placeholder='Endpoint URL'
+          placeholder={t('endpointURL')}
           value={url}
           onChange={handleEndpointChange}
           onBlur={(e) => {
@@ -62,7 +64,7 @@ function RequestControl({ url, setUrl, sdlUrl, setSdlUrl, setDocs, setIsDocsAvai
           }}
         />
         <Button type='submit' className={style.button} disabled={url === '' || variableNotFound}>
-          Send
+          {t('send')}
         </Button>
       </div>
       <div className={style.sdl_control}>
@@ -76,7 +78,7 @@ function RequestControl({ url, setUrl, sdlUrl, setSdlUrl, setDocs, setIsDocsAvai
           }}
         />
         <Button type='button' className={style.button} disabled={sdlUrl === ''} onClick={getSchema}>
-          Set
+          {t('set')}
         </Button>
       </div>
     </div>

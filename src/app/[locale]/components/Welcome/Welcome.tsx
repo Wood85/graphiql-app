@@ -45,13 +45,13 @@ function Welcome(props: IWelcomeProps): JSX.Element {
             {isAuth && (
               <>
                 <Link href='/restapi' className={style.link}>
-                  REST Client
+                  {t('restClient')}
                 </Link>
                 <Link href='/graphiql' className={style.link}>
-                  GraphiQL Client
+                  {t('graphiqlClient')}
                 </Link>
                 <Link href='/history' className={style.link}>
-                  History
+                  {t('history')}
                 </Link>
               </>
             )}

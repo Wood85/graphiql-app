@@ -2,7 +2,10 @@
   "Welcome": {
     "title": "Добро пожаловать",
     "signIn": "Вход",
-    "signUp": "Регистрация"
+    "signUp": "Регистрация",
+    "restClient": "REST клиент",
+    "graphiqlClient": "GraphiQL клиент",
+    "history": "История"
   },
   "Header": {
     "home": "Главная",
@@ -95,5 +98,17 @@
   "History": {
     "title": "История запросов",
     "description": "Вы не выполнили ни одного запроса. Здесь пусто. Попробуйте:"
+  },
+  "Graphiql": {
+    "title": "GraphiQL клиент",
+    "send": "Отправить",
+    "set": "Установить",
+    "endpointURL": "URL конечной точки",
+    "copyTextSuccess": "Текст скопирован в буфер обмена",
+    "copyTextError": "Ошибка: текст не скопирован в буфер обмена",
+    "headers": "Заголовки",
+    "variables": "Переменные",
+    "key": "Ключ",
+    "value": "Значение"
   }
 }

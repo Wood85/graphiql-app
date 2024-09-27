@@ -101,6 +101,8 @@
 
 @media screen and (max-width: 940px) {
   .request_control {
+    grid-template-columns: 15% 1fr 20%;
+
     .method_selector {
       font-size: 18px;
     }
@@ -128,7 +130,7 @@
 
 @media screen and (max-width: 770px) {
   .request_control {
-    grid-template-columns: 25% 1fr 16%;
+    grid-template-columns: 25% 1fr 23%;
     .method_selector,
     .endpoint_input,
     .button {

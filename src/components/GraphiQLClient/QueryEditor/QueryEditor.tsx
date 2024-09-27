@@ -15,6 +15,7 @@ import prettierPluginGraphql from '@/utils/libs/prettier/graphql.mjs';
 import * as prettier from '@/utils/libs/prettier/standalone.mjs';
 import { replaceInHistory } from '@/utils/replaceHistory';
 
+import { useTranslations } from 'next-intl';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './QueryEditor.module.scss';
 
@@ -28,6 +29,7 @@ interface IProps {
   queryFromLS: string;
 }
 function QueryEditor({ setQueryFromLS, queryFromLS }: IProps): JSX.Element {
+  const t = useTranslations('Graphiql');
   const variables = useAppSelector(selectGraphQLVariables);
   const dispatcher = useAppDispatch();
 
@@ -45,10 +47,10 @@ function QueryEditor({ setQueryFromLS, queryFromLS }: IProps): JSX.Element {
     navigator.clipboard
       .writeText(queryFromLS)
       .then(() => {
-        toast.success('Text copied to clipboard');
+        toast.success(t('copyTextSuccess'));
       })
       .catch(() => {
-        toast.error(`Error: text not copied to clipboard`);
+        toast.error(t('copyTextError'));
       });
   }
 
