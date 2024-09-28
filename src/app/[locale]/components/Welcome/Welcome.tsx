@@ -4,8 +4,8 @@ import SignInIcon from '@/assets/images/icons/SignInIcon';
 import SignUpIcon from '@/assets/images/icons/SignUpIcon';
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
-import Button from '../../../../components/UI/Button/Button';
-import Spinner from '../../../../components/UI/Spinner/Spinner';
+import Button from '../UI/Button/Button';
+import Spinner from '../UI/Spinner/Spinner';
 import style from './Welcome.module.scss';
 
 interface IWelcomeProps {

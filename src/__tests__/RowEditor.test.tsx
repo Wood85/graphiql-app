@@ -1,4 +1,4 @@
-import RowEditor from '@/components/RowEditor/RowEditor';
+import RowEditor from '@/app/[locale]/components/RowEditor/RowEditor';
 import { headers } from '@/store/reducers/restFullSlice';
 import { store } from '@/store/store';
 import { act, render, screen } from '@testing-library/react';

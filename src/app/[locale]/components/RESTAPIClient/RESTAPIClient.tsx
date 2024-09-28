@@ -1,8 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
-import { Response } from '@/components/Response/Response';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import useHeaders from '@/hooks/useHeaders';
 import { type IHeadersVariables, type IRequestLS } from '@/interfaces/LocalStorage';
@@ -11,9 +8,10 @@ import type { IResponse } from '@/interfaces/Response';
 import { loadingFinished, loadingStarted } from '@/store/reducers/loadingStateSlice';
 import { headers, variables } from '@/store/reducers/restFullSlice';
 import { replaceInHistory } from '@/utils/replaceHistory';
+import { useEffect, useState } from 'react';
+import { Response } from '../Response/Response';
 import { BodyEditor } from './BodyEditor/BodyEditor';
 import { RequestControl } from './RequestControl/RequestControl';
-
 import style from './RESTAPIClient.module.scss';
 
 export const dynamic = 'force-dynamic';

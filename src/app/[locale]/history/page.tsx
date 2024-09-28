@@ -1,10 +1,10 @@
 'use client';
 
-import { ProtectedRouteWrapper } from '@/components/ProtectedRouteWrapper';
 import { Link } from '@/i18n/routing';
 import { type IRequestLS } from '@/interfaces/LocalStorage';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
+import { ProtectedRouteWrapper } from '../components/ProtectedRouteWrapper';
 import style from './page.module.scss';
 
 export const dynamic = 'force-dynamic';

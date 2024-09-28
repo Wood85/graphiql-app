@@ -1,0 +1,53 @@
+@import '../../../../../styles/variables.scss';
+
+.button {
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  border-radius: 4px;
+
+  color: $white;
+  font-size: 18px;
+
+  background-color: $blue;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:disabled {
+    border: 1px solid $blue;
+
+    color: $dark-gray;
+
+    background-color: $gray;
+
+    cursor: default;
+  }
+
+  &:not(:disabled):hover {
+    color: $dark-blue;
+
+    background-color: $light-blue;
+
+    & .signin_icon,
+    & .signup_icon,
+    & .signout_icon {
+      fill: $dark-blue;
+    }
+  }
+
+  &:not(:disabled):active {
+    color: $dark-blue;
+
+    background-color: $gray;
+
+    & .signin_icon,
+    & .signup_icon,
+    & .signout_icon {
+      fill: $dark-blue;
+    }
+  }
+}

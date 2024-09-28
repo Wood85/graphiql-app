@@ -1,14 +1,12 @@
 'use client';
 
+import { store } from '@/store/store';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { Provider } from 'react-redux';
-
-import { ClientTop } from '@/components/ClientTop/ClientTop';
-import GraphiQLClient from '@/components/GraphiQLClient/GraphiQLClient';
-import { ProtectedRouteWrapper } from '@/components/ProtectedRouteWrapper';
-import { store } from '@/store/store';
-
-import { useTranslations } from 'next-intl';
+import { ClientTop } from '../components/ClientTop/ClientTop';
+import GraphiQLClient from '../components/GraphiQLClient/GraphiQLClient';
+import { ProtectedRouteWrapper } from '../components/ProtectedRouteWrapper';
 import style from './page.module.scss';
 
 export const dynamic = 'force-dynamic';
