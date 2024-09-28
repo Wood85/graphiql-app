@@ -1,11 +1,9 @@
-import { useTranslations } from 'next-intl';
-import { useDispatch } from 'react-redux';
-
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 import { selectedMethod } from '@/store/reducers/restFullSlice';
 import { replaceInHistory } from '@/utils/replaceHistory';
-import Button from '@/components/UI/Button/Button';
-
+import { useTranslations } from 'next-intl';
+import { useDispatch } from 'react-redux';
+import Button from '../../UI/Button/Button';
 import style from './RequestControl.module.scss';
 
 interface IProps {

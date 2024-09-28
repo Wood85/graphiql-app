@@ -1,6 +1,5 @@
 'use client';
 
-import Button from '@/components/UI/Button/Button';
 import { auth } from '@/firebase/firebase';
 import { EMAIL_REGEXP, PASSWORD_LENGTH } from '@/utils/constants';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -13,6 +12,7 @@ import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import Button from '../components/UI/Button/Button';
 import styles from './page.module.scss';
 
 interface ISignInForm {

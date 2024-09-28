@@ -1,6 +1,5 @@
 import RestapiIcon from '@/assets/images/icons/RestapiIcon';
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
 
 describe('RestapiIcon', () => {
   it('should render correctly', () => {

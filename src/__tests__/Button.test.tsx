@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
-import Button from '../components/UI/Button/Button';
-import { renderWithIntl } from '../utils/testUtils';
+
+import { renderWithIntl } from '@/utils/testUtils';
+import Button from '@/app/[locale]/components/UI/Button/Button';
 
 describe('Button', () => {
   it('should render a button', () => {

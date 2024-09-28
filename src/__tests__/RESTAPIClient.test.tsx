@@ -1,7 +1,7 @@
 import RESTAPIClient from '@/app/[locale]/components/RESTAPIClient/RESTAPIClient';
 import { screen } from '@testing-library/react';
 
-import { renderWithStore } from '../utils/testUtils';
+import { renderWithStore } from '@/utils/testUtils';
 
 describe('RESTAPIClient', () => {
   it('renders the component', () => {

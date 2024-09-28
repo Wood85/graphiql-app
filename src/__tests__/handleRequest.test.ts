@@ -1,6 +1,5 @@
 import { type IUrlRouteParams } from '@/interfaces/UrlRouteParams';
 import handleRequest from '@/utils/handleRequest';
-import { describe, expect, it } from 'vitest';
 
 describe('handleRequest', () => {
   it('should handle errors correctly', async () => {

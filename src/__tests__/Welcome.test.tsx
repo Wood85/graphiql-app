@@ -1,7 +1,7 @@
 import Welcome from '@/app/[locale]/components/Welcome/Welcome';
 import { screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
-import { renderWithIntl } from '../utils/testUtils';
+
+import { renderWithIntl } from '@/utils/testUtils';
 
 describe('About', () => {
   it('should render correctly', async () => {

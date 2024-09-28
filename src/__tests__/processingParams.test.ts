@@ -1,5 +1,4 @@
 import processingParams from '@/utils/processingParams';
-import { expect } from 'vitest';
 
 describe('processingParams', () => {
   it('should return an object with the correct keys', () => {

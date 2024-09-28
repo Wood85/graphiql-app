@@ -1,10 +1,10 @@
 import { screen, fireEvent } from '@testing-library/react';
 import { usePathname } from 'next/navigation';
-import { describe, expect, it, vi } from 'vitest';
-
+import { vi } from 'vitest';
 import type { Mock } from 'vitest';
+
 import { renderWithIntl } from '@/utils/testUtils';
-import { ClientTop } from '@/components/ClientTop/ClientTop';
+import { ClientTop } from '@/app/[locale]/components/ClientTop/ClientTop';
 
 const ROUTES = {
   GRAPHQL: '/en/graphiql',

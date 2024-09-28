@@ -1,6 +1,5 @@
 import PrettifyIcon from '@/assets/images/icons/PrettifyIcon';
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
 
 describe('PrettifyIcon', () => {
   it('should render correctly', () => {

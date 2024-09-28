@@ -1,7 +1,8 @@
+import { Provider } from 'react-redux';
+import { render } from '@testing-library/react';
+
 import Footer from '@/app/[locale]/components/Footer/Footer';
 import { store } from '@/store/store';
-import { render } from '@testing-library/react';
-import { Provider } from 'react-redux';
 
 describe('store', () => {
   it('should render correctly', () => {

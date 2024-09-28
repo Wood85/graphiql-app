@@ -1,10 +1,10 @@
-import Row from '@/components/Row/Row';
-import RowEditor from '@/components/RowEditor/RowEditor';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import type TRows from '@/interfaces/Rows';
 import { variables } from '@/store/reducers/restFullSlice';
 import { STEP_SIZE } from '@/utils/constants';
 import { useTranslations } from 'next-intl';
+import Row from '../../Row/Row';
+import RowEditor from '../../RowEditor/RowEditor';
 import styles from './VariablesEditor.module.scss';
 
 export const dynamic = 'force-dynamic';

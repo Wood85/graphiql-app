@@ -1,0 +1,78 @@
+@import '../../../../../styles/variables.scss';
+
+.request_control {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .sdl_control,
+  .url_control {
+    display: grid;
+    grid-template-columns: 1fr 15%;
+
+    @media screen and (max-width: 1000px) {
+      grid-template-columns: 1fr 25%;
+    }
+
+    @media screen and (max-width: 700px) {
+      grid-template-columns: 1fr 37%;
+    }
+  }
+
+  .endpoint_input,
+  .sdl_input,
+  .button {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid $blue;
+    box-sizing: border-box;
+    outline: none;
+    border-radius: 4px;
+
+    font-size: 20px;
+    color: $dark-blue;
+
+    background-color: $white;
+
+    transition: all 0.3s ease-in;
+
+    &:focus {
+      border: 1px solid $dark-blue;
+    }
+
+    &:disabled {
+      border-color: $gray;
+
+      color: $gray;
+    }
+
+    &::placeholder {
+      color: $blue;
+    }
+  }
+
+  .sdl_input,
+  .endpoint_input {
+    border-radius: 4px 0 0 4px;
+    border-right: 1px solid transparent;
+  }
+
+  .button {
+    border-radius: 0 4px 4px 0;
+    border: 1px solid $blue;
+
+    color: $white;
+
+    background-color: $blue;
+
+    &:disabled {
+      border: 1px solid $blue;
+
+      color: $dark-gray;
+
+      background-color: $gray;
+
+      cursor: default;
+    }
+  }
+}

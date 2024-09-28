@@ -1,8 +1,7 @@
 import { screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
 
 import NotFoundPage from '@/app/[locale]/not-found';
-import { renderWithIntl } from '../utils/testUtils';
+import { renderWithIntl } from '@/utils/testUtils';
 
 describe('NotFoundPage', () => {
   it('should render correctly', () => {

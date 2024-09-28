@@ -1,0 +1,84 @@
+@import './../../../../styles/variables.scss';
+
+.td {
+  border: 1px solid $blue;
+  height: 35px;
+
+  color: $dark-blue;
+}
+
+.td.td_title {
+  font-weight: 700;
+}
+
+.td.td_1 {
+  width: 35px;
+  padding-left: 6px;
+}
+
+.td.td_2 {
+  width: 300px;
+  padding-left: 5px;
+
+  @media screen and (max-width: 800px) {
+    width: 40%;
+  }
+}
+
+.td.td_3 {
+  padding-left: 5px;
+  border-right: none;
+}
+
+.td.td_4 {
+  width: 50px;
+  border-left: none;
+}
+
+.input {
+  width: 289px;
+  height: 25px;
+  border: none;
+
+  outline-color: $blue;
+
+  @media screen and (max-width: 810px) {
+    width: 95%;
+  }
+}
+
+.save_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  height: 25px;
+  border: none;
+  border-radius: 4px;
+
+  background-color: $white;
+  cursor: pointer;
+
+  transition: all 0.3s ease-in;
+
+  &:hover {
+    background-color: $gray;
+
+    transition: all 0.3s ease-in;
+
+    .save_icon {
+      stroke: $blue;
+
+      transition: all 0.3s ease-in;
+    }
+  }
+}
+
+.save_icon {
+  width: 19px;
+  height: 19px;
+
+  stroke: $dark-gray;
+
+  transition: all 0.3s ease-in;
+}

@@ -1,6 +1,5 @@
 import DocsIcon from '@/assets/images/icons/DocsIcon';
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
 
 describe('DocsIcon', () => {
   it('should render correctly', () => {

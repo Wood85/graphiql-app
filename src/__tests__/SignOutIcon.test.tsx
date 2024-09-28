@@ -1,6 +1,5 @@
 import SignOutIcon from '@/assets/images/icons/SignOutIcon';
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
 
 describe('SignOutIcon', () => {
   it('should render correctly', () => {

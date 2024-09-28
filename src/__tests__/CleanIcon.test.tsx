@@ -1,6 +1,5 @@
 import CleanIcon from '@/assets/images/icons/CleanIcon';
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
 
 describe('CleanIcon', () => {
   it('should render correctly', () => {

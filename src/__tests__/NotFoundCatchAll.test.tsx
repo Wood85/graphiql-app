@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
 import { render } from '@testing-library/react';
-import { describe, vi } from 'vitest';
+import { vi } from 'vitest';
 
-import NotFoundCatchAll from '../app/[locale]/[...not_found]/page';
+import NotFoundCatchAll from '@/app/[locale]/[...not_found]/page';
 
 vi.mock('next/navigation', () => ({
   notFound: vi.fn(),

@@ -1,7 +1,7 @@
-import Row from '@/components/Row/Row';
 import { screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
-import { renderWithStore } from '../utils/testUtils';
+
+import { renderWithStore } from '@/utils/testUtils';
+import Row from '@/app/[locale]/components/Row/Row';
 
 const row = {
   key: 'Content-Type',

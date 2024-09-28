@@ -1,9 +1,8 @@
-import { HeadersEditor } from '@/components/GraphiQLClient/HeadersEditor/HeadersEditor';
+import { HeadersEditor } from '@/app/[locale]/components/GraphiQLClient/HeadersEditor/HeadersEditor';
 import { gqlHeaders } from '@/store/reducers/graphqlSlice';
 import { store } from '@/store/store';
 import { act, screen } from '@testing-library/react';
-import { describe, expect, test } from 'vitest';
-import { renderWithStore } from '../utils/testUtils';
+import { renderWithStore } from '@/utils/testUtils';
 
 const ARR_LENGTH = 2;
 const EMPTY_ARR = 0;
@@ -24,13 +23,13 @@ const newHeaders = [
 ];
 
 describe('HeadersEditor', () => {
-  test('should render HeadersEditor component', () => {
+  it('should render HeadersEditor component', () => {
     renderWithStore(<HeadersEditor />);
 
     expect(screen.getByTestId('headers_editor_gql')).toBeDefined();
   });
 
-  test('change the state when dispatching "headers"', () => {
+  it('change the state when dispatching "headers"', () => {
     renderWithStore(<HeadersEditor />);
 
     act(() => {

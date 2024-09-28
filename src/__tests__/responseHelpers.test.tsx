@@ -1,5 +1,4 @@
-import { describe, expect, it } from 'vitest';
-import { contentIsJSON, contentIsText, contentIsImage } from '../utils/responseHelpers';
+import { contentIsJSON, contentIsText, contentIsImage } from '@/utils/responseHelpers';
 
 describe('responseHelpers', () => {
   describe('contentIsJSON', () => {

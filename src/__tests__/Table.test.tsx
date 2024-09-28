@@ -1,6 +1,7 @@
-import { Table } from '@/components/Response/Table/Table';
+import { Table } from '@/app/[locale]/components/Response/Table/Table';
 import { screen } from '@testing-library/react';
-import { renderWithStore } from '../utils/testUtils';
+
+import { renderWithStore } from '@/utils/testUtils';
 
 describe('Table component', () => {
   it('renders table with headers and rows', () => {

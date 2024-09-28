@@ -1,7 +1,6 @@
 import Footer from '@/app/[locale]/components/Footer/Footer';
 import { screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
-import { renderWithIntl } from '../utils/testUtils';
+import { renderWithIntl } from '@/utils/testUtils';
 
 describe('Footer', () => {
   it('should render names and year correctly', () => {

@@ -1,6 +1,6 @@
 import createMiddleware from 'next-intl/middleware';
-import { routing } from '../i18n/routing';
-import { config } from '../middleware';
+import { routing } from '@/i18n/routing';
+import { config } from '@/middleware';
 
 expect(config.matcher).toEqual(['/', '/((?!_next|_vercel|.*\\..*).*)']);
 describe('middleware', () => {

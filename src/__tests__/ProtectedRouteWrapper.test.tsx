@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { screen, render } from '@testing-library/react';
 
-import { ProtectedRouteWrapper } from '../components/ProtectedRouteWrapper';
+import { ProtectedRouteWrapper } from '@/app/[locale]/components/ProtectedRouteWrapper';
 
 describe('ProtectedRouteWrapper', () => {
   it('should render protected child component correctly', () => {

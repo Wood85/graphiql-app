@@ -1,6 +1,5 @@
 import SelectArrowIcon from '@/assets/images/icons/SelectArrowIcon';
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
 
 describe('SelectArrowIcon', () => {
   it('should render correctly', () => {

@@ -1,8 +1,5 @@
-import DocsIcon from '@/assets/images/icons/DocsIcon';
-import GraphqlIcon from '@/assets/images/icons/GraphqlIcon';
 import HistoryIcon from '@/assets/images/icons/HistoryIcon';
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
 
 describe('HistoryIcon', () => {
   it('should render correctly', () => {

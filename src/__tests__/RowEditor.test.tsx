@@ -1,9 +1,8 @@
-import RowEditor from '@/components/RowEditor/RowEditor';
+import RowEditor from '@/app/[locale]/components/RowEditor/RowEditor';
 import { headers } from '@/store/reducers/restFullSlice';
 import { store } from '@/store/store';
 import { act, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
-import { renderWithStore } from '../utils/testUtils';
+import { renderWithStore } from '@/utils/testUtils';
 
 const ARR_LENGTH = 2;
 const EMPTY_ARR = 0;

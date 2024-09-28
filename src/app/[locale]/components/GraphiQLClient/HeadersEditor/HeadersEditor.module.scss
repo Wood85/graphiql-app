@@ -1,0 +1,96 @@
+@import '../../../../../styles/variables.scss';
+
+.table {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0 4px 4px;
+
+  .table_heading {
+    display: flex;
+    width: 100%;
+    border: 1px solid $blue;
+    border-bottom: none;
+    border-top-right-radius: 4px;
+    height: 45px;
+
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    color: $dark-blue;
+
+    & * {
+      padding: 13px;
+    }
+  }
+  .table_heading_key {
+    border-right: 1px solid $blue;
+    width: 335px;
+    @media screen and (max-width: 800px) {
+      width: calc(40% + 35px);
+    }
+  }
+}
+
+.container {
+  overflow-y: auto;
+
+  height: 141px;
+
+  scrollbar-color: $dark-blue $blue;
+  scrollbar-width: thin;
+
+  @media screen and (max-width: 500px) {
+    padding: 0;
+
+    font-size: 14px;
+  }
+}
+
+.container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+
+  background-color: $blue;
+}
+
+.container::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+
+  background-color: $dark-blue;
+}
+
+.container::-webkit-scrollbar-button:vertical:start:decrement {
+  background: linear-gradient(120deg, #02141a 40%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(240deg, #02141a 40%, rgba(0, 0, 0, 0) 41%), linear-gradient(0deg, #02141a 30%, rgba(0, 0, 0, 0) 31%);
+  background-color: $white;
+}
+
+.container::-webkit-scrollbar-button:vertical:end:increment {
+  background: linear-gradient(300deg, #02141a 40%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(60deg, #02141a 40%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(180deg, #02141a 30%, rgba(0, 0, 0, 0) 31%);
+  background-color: $white;
+}
+
+.container::-webkit-scrollbar-button:horizontal:start:decrement {
+  background: linear-gradient(30deg, #02141a 40%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(150deg, #02141a 40%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(270deg, #02141a 30%, rgba(0, 0, 0, 0) 31%);
+  background-color: $white;
+}
+
+.container::-webkit-scrollbar-button:horizontal:end:increment {
+  background: linear-gradient(210deg, #02141a 40%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(330deg, #02141a 40%, rgba(0, 0, 0, 0) 41%),
+    linear-gradient(90deg, #02141a 30%, rgba(0, 0, 0, 0) 31%);
+  background-color: $white;
+}
+
+.table_header {
+  width: 100%;
+  height: 35px;
+  border-left: none;
+  border-collapse: collapse;
+
+  color: $dark-blue;
+}

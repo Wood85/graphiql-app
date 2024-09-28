@@ -1,8 +1,7 @@
+import { screen } from '@testing-library/react';
+
+import { renderWithIntl } from '@/utils/testUtils';
 import About from '@/app/[locale]/components/About/About';
-import { render, screen } from '@testing-library/react';
-import { NextIntlClientProvider } from 'next-intl';
-import { describe, expect, it } from 'vitest';
-import { renderWithIntl } from '../utils/testUtils';
 
 describe('About', () => {
   it('should render correctly', () => {

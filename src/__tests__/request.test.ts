@@ -1,6 +1,6 @@
 import { vi } from 'vitest';
 
-import getRequestConfig from '../i18n/request';
+import getRequestConfig from '@/i18n/request';
 
 vi.mock('../i18n/request', () => ({
   default: vi.fn().mockImplementationOnce(() => ({

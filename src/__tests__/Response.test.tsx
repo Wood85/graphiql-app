@@ -1,6 +1,6 @@
-import { Response, type IProps } from '@/components/Response/Response';
+import { Response, type IProps } from '@/app/[locale]/components/Response/Response';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
-import { renderWithStore } from '../utils/testUtils';
+import { renderWithStore } from '@/utils/testUtils';
 
 describe('Response component', () => {
   const props: IProps = {

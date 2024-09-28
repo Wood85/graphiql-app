@@ -3,8 +3,6 @@ import { TRequestMethod } from '@/interfaces/RequestMethod';
 import { type IResponse } from '@/interfaces/Response';
 import { renderHook } from '@testing-library/react';
 
-import { expect } from 'vitest';
-
 const res: IResponse | null = null;
 const get: TRequestMethod = TRequestMethod.GET;
 

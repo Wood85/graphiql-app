@@ -1,8 +1,6 @@
-import { describe, expect, it } from 'vitest';
 import { screen } from '@testing-library/react';
 
 import { renderWithIntl } from '@/utils/testUtils';
-
 import SignUp from '@/app/[locale]/sign-up/page';
 
 describe('sign-in page', () => {

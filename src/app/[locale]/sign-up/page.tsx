@@ -1,19 +1,18 @@
 'use client';
 
-import Button from '@/components/UI/Button/Button';
 import { auth, db } from '@/firebase/firebase';
+import { Link } from '@/i18n/routing';
 import { EMAIL_REGEXP, EMPTY_ARR_LENGTH, PASSWORD_LENGTH } from '@/utils/constants';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
 import { useTranslations } from 'next-intl';
-
-import { Link } from '@/i18n/routing';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import Button from '../components/UI/Button/Button';
 import styles from './page.module.scss';
 
 interface ISignUpForm {

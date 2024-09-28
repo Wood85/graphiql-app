@@ -1,8 +1,7 @@
-import { describe, expect, it, vi } from 'vitest';
 import { screen } from '@testing-library/react';
 
 import History from '@/app/[locale]/history/page';
-import { renderWithIntl } from '../utils/testUtils';
+import { renderWithIntl } from '@/utils/testUtils';
 
 const mockRecord = {
   client: 'test_client',
