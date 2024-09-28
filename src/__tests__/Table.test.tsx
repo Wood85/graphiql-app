@@ -1,4 +1,4 @@
-import { Table } from '@/components/Response/Table/Table';
+import { Table } from '@/app/[locale]/components/Response/Table/Table';
 import { store } from '@/store/store';
 import { render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';

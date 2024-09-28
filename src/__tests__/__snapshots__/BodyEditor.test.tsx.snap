@@ -12,19 +12,19 @@ exports[`BodyEditor component > renders correctly 1`] = `
         class="_switcher_625087"
       >
         <button
-          class="_button_e7dbe0 _button_625087 _selected_625087"
+          class="_button_11d5ea _button_625087 _selected_625087"
           type="button"
         >
           Headers
         </button>
         <button
-          class="_button_e7dbe0 _button_625087 "
+          class="_button_11d5ea _button_625087 "
           type="button"
         >
           Body
         </button>
         <button
-          class="_button_e7dbe0 _button_625087 "
+          class="_button_11d5ea _button_625087 "
           type="button"
         >
           Variables
@@ -61,21 +61,21 @@ exports[`BodyEditor component > renders correctly 1`] = `
         <tbody>
           <tr>
             <td
-              class="_td_8562a9 _td_1_8562a9"
+              class="_td_8f4ee0 _td_1_8f4ee0"
             >
               <label>
                 <input
-                  class="_checkbox_hide_94586e"
+                  class="_checkbox_hide_808ba5"
                   data-testid="checkbox"
                   type="checkbox"
                 />
                 <div
-                  class="_checkbox_94586e _checkbox_active_94586e"
+                  class="_checkbox_808ba5 _checkbox_active_808ba5"
                 />
               </label>
             </td>
             <td
-              class="_td_8562a9 _td_2_8562a9 false"
+              class="_td_8f4ee0 _td_2_8f4ee0 false"
             >
               <label
                 for="Accept"
@@ -84,7 +84,7 @@ exports[`BodyEditor component > renders correctly 1`] = `
               </label>
             </td>
             <td
-              class="_td_8562a9 _td_3_8562a9 false"
+              class="_td_8f4ee0 _td_3_8f4ee0 false"
             >
               <label
                 for="Accept"
@@ -93,26 +93,26 @@ exports[`BodyEditor component > renders correctly 1`] = `
               </label>
             </td>
             <td
-              class="_td_8562a9 _td_4_8562a9"
+              class="_td_8f4ee0 _td_4_8f4ee0"
             />
           </tr>
           <tr>
             <td
-              class="_td_8562a9 _td_1_8562a9"
+              class="_td_8f4ee0 _td_1_8f4ee0"
             >
               <label>
                 <input
-                  class="_checkbox_hide_94586e"
+                  class="_checkbox_hide_808ba5"
                   data-testid="checkbox"
                   type="checkbox"
                 />
                 <div
-                  class="_checkbox_94586e _checkbox_active_94586e"
+                  class="_checkbox_808ba5 _checkbox_active_808ba5"
                 />
               </label>
             </td>
             <td
-              class="_td_8562a9 _td_2_8562a9 false"
+              class="_td_8f4ee0 _td_2_8f4ee0 false"
             >
               <label
                 for="Accept-Encoding"
@@ -121,7 +121,7 @@ exports[`BodyEditor component > renders correctly 1`] = `
               </label>
             </td>
             <td
-              class="_td_8562a9 _td_3_8562a9 false"
+              class="_td_8f4ee0 _td_3_8f4ee0 false"
             >
               <label
                 for="Accept-Encoding"
@@ -130,26 +130,26 @@ exports[`BodyEditor component > renders correctly 1`] = `
               </label>
             </td>
             <td
-              class="_td_8562a9 _td_4_8562a9"
+              class="_td_8f4ee0 _td_4_8f4ee0"
             />
           </tr>
           <tr>
             <td
-              class="_td_8562a9 _td_1_8562a9"
+              class="_td_8f4ee0 _td_1_8f4ee0"
             >
               <label>
                 <input
-                  class="_checkbox_hide_94586e"
+                  class="_checkbox_hide_808ba5"
                   data-testid="checkbox"
                   type="checkbox"
                 />
                 <div
-                  class="_checkbox_94586e _checkbox_active_94586e"
+                  class="_checkbox_808ba5 _checkbox_active_808ba5"
                 />
               </label>
             </td>
             <td
-              class="_td_8562a9 _td_2_8562a9 false"
+              class="_td_8f4ee0 _td_2_8f4ee0 false"
             >
               <label
                 for="Connection"
@@ -158,7 +158,7 @@ exports[`BodyEditor component > renders correctly 1`] = `
               </label>
             </td>
             <td
-              class="_td_8562a9 _td_3_8562a9 false"
+              class="_td_8f4ee0 _td_3_8f4ee0 false"
             >
               <label
                 for="Connection"
@@ -167,7 +167,7 @@ exports[`BodyEditor component > renders correctly 1`] = `
               </label>
             </td>
             <td
-              class="_td_8562a9 _td_4_8562a9"
+              class="_td_8f4ee0 _td_4_8f4ee0"
             />
           </tr>
         </tbody>
@@ -177,22 +177,22 @@ exports[`BodyEditor component > renders correctly 1`] = `
           >
             <td
               aria-label="checkbox"
-              class="_td_b1edd3 _td_1_b1edd3"
+              class="_td_f802ac _td_1_f802ac"
               role="gridcell"
             />
             <td
               aria-label="key"
-              class="_td_b1edd3 _td_2_b1edd3"
+              class="_td_f802ac _td_2_f802ac"
               role="gridcell"
             />
             <td
               aria-label="value"
-              class="_td_b1edd3 _td_3_b1edd3"
+              class="_td_f802ac _td_3_f802ac"
               role="gridcell"
             />
             <td
               aria-label="btns"
-              class="_td_b1edd3 _td_4_b1edd3"
+              class="_td_f802ac _td_4_f802ac"
               role="gridcell"
             />
           </tr>

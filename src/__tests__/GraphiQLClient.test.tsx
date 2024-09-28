@@ -1,4 +1,4 @@
-import GraphiQLClient from '@/components/GraphiQLClient/GraphiQLClient';
+import GraphiQLClient from '@/app/[locale]/components/GraphiQLClient/GraphiQLClient';
 import { store } from '@/store/store';
 import '@testing-library/jest-dom';
 import { render, waitFor } from '@testing-library/react';
