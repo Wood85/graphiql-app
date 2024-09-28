@@ -9,8 +9,6 @@ describe('sign-in page', () => {
   it('should render correctly', () => {
     renderWithIntl(<SignUp />);
 
-    screen.debug();
-
     expect(screen.getByRole('heading', { level: 1, name: 'Sign Up' })).toBeDefined();
     expect(screen.getByTestId('inputName')).toBeDefined();
     expect(screen.getByTestId('inputEmail')).toBeDefined();
