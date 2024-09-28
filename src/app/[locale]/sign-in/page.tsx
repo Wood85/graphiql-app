@@ -74,6 +74,7 @@ function SignIn(): JSX.Element {
               id='email'
               type='text'
               className={styles.email_input}
+              data-testid='inputEmail'
             />
           </label>
           <div className={styles.input_error}>{errors.email?.message}</div>
@@ -91,6 +92,7 @@ function SignIn(): JSX.Element {
               id='password'
               type='password'
               className={styles.password_input}
+              data-testid='inputPassword'
             />
           </label>
           <div className={styles.input_error}>{errors.password?.message}</div>
