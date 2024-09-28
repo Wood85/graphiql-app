@@ -1,8 +1,8 @@
+import Button from '@/app/[locale]/components/UI/Button/Button';
 import { render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { describe, expect, it } from 'vitest';
 import messages from '../../messages/en.json';
-import Button from '../components/UI/Button/Button';
 
 const locale = 'en';
 

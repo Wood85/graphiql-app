@@ -2,7 +2,10 @@
   "Welcome": {
     "title": "Welcome",
     "signIn": "Sign In",
-    "signUp": "Sign Up"
+    "signUp": "Sign Up",
+    "restClient": "REST Client",
+    "graphiqlClient": "GraphiQL Client",
+    "history": "History"
   },
   "Header": {
     "home": "Home",
@@ -94,5 +97,17 @@
   "History": {
     "title": "History requests",
     "description": "You haven’t executed any requests. It’s empty here. Try:"
+  },
+  "Graphiql": {
+    "title": "GraphiQL Client",
+    "send": "Send",
+    "set": "Set",
+    "endpointURL": "Endpoint URL",
+    "copyTextSuccess": "Text copied to clipboard",
+    "copyTextError": "Error: text not copied to clipboard",
+    "headers": "Headers",
+    "variables": "Variables",
+    "key": "Key",
+    "value": "Value"
   }
 }

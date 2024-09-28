@@ -1,4 +1,4 @@
-import { ClientTop } from '@/components/ClientTop/ClientTop';
+import { ClientTop } from '@/app/[locale]/components/ClientTop/ClientTop';
 import { render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { usePathname } from 'next/navigation';

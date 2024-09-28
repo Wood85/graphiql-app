@@ -4,8 +4,8 @@ import SignInIcon from '@/assets/images/icons/SignInIcon';
 import SignUpIcon from '@/assets/images/icons/SignUpIcon';
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
-import Button from '../../../../components/UI/Button/Button';
-import Spinner from '../../../../components/UI/Spinner/Spinner';
+import Button from '../UI/Button/Button';
+import Spinner from '../UI/Spinner/Spinner';
 import style from './Welcome.module.scss';
 
 interface IWelcomeProps {
@@ -45,13 +45,13 @@ function Welcome(props: IWelcomeProps): JSX.Element {
             {isAuth && (
               <>
                 <Link href='/restapi' className={style.link}>
-                  REST Client
+                  {t('restClient')}
                 </Link>
                 <Link href='/graphiql' className={style.link}>
-                  GraphiQL Client
+                  {t('graphiqlClient')}
                 </Link>
                 <Link href='/history' className={style.link}>
-                  History
+                  {t('history')}
                 </Link>
               </>
             )}

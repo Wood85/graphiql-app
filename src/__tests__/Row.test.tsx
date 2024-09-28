@@ -1,10 +1,10 @@
-import Row from '@/components/Row/Row';
+import Row from '@/app/[locale]/components/Row/Row';
 import { render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import { Provider } from 'react-redux';
 import { describe, expect, it } from 'vitest';
-import storeMock from './mockStore';
 import messages from '../../messages/en.json';
+import storeMock from './mockStore';
 
 const locale = 'en';
 

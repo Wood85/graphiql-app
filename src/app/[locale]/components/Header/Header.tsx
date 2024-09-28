@@ -7,7 +7,6 @@ import HomeIcon from '@/assets/images/icons/HomeIcon';
 import SignInIcon from '@/assets/images/icons/SignInIcon';
 import SignOutIcon from '@/assets/images/icons/SignOutIcon';
 import SignUpIcon from '@/assets/images/icons/SignUpIcon';
-import Button from '@/components/UI/Button/Button';
 import { auth, logout } from '@/firebase/firebase';
 import { Link } from '@/i18n/routing';
 import { useLocale, useTranslations } from 'next-intl';
@@ -15,6 +14,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useTransition } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import Button from '../UI/Button/Button';
 import style from './Header.module.scss';
 
 export const dynamic = 'force-dynamic';

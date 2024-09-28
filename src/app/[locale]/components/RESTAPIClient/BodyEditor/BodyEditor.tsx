@@ -1,15 +1,12 @@
 'use client';
 
+import { replaceInHistory } from '@/utils/replaceHistory';
+import Editor from '@monaco-editor/react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
-
-import Editor from '@monaco-editor/react';
-
-import Button from '@/components/UI/Button/Button';
-import { replaceInHistory } from '@/utils/replaceHistory';
+import Button from '../../UI/Button/Button';
 import HeadersEditor from '../HeadersEditor/HeadersEditor';
 import VariablesEditor from '../VariablesEditor/VariablesEditor';
-
 import styles from './BodyEditor.module.scss';
 
 interface IProps {

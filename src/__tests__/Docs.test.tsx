@@ -1,4 +1,4 @@
-import { Docs } from '@/components/GraphiQLClient/Docs/Docs';
+import { Docs } from '@/app/[locale]/components/GraphiQLClient/Docs/Docs';
 import { store } from '@/store/store';
 import { render, screen } from '@testing-library/react';
 import { type IntrospectionQuery } from 'graphql';

@@ -1,11 +1,11 @@
 'use client';
 
 import RestClient from '@/app/[locale]/components/RESTAPIClient/RESTAPIClient';
-import { ClientTop } from '@/components/ClientTop/ClientTop';
-import { ProtectedRouteWrapper } from '@/components/ProtectedRouteWrapper';
 import { store } from '@/store/store';
 import { useTranslations } from 'next-intl';
 import { Provider } from 'react-redux';
+import { ClientTop } from '../components/ClientTop/ClientTop';
+import { ProtectedRouteWrapper } from '../components/ProtectedRouteWrapper';
 import style from './page.module.scss';
 
 export const dynamic = 'force-dynamic';

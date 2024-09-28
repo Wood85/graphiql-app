@@ -1,4 +1,4 @@
-import { Response, type IProps } from '@/components/Response/Response';
+import { Response, type IProps } from '@/app/[locale]/components/Response/Response';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
 import { store } from '@/store/store';
 import { render } from '@testing-library/react';
