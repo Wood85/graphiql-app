@@ -39,11 +39,11 @@ describe('Header', () => {
   it('should render correctly with "ru" locale', () => {
     renderWithIntl(<Header />, 'ru');
 
-    const homeLink = screen.getAllByRole('link', { name: 'Home' })[0];
-    const enButton = screen.getAllByRole('button', { name: 'En' })[0];
-    const ruButton = screen.getAllByRole('button', { name: 'Ru' })[0];
-    const signInButton = screen.getAllByRole('link', { name: 'Sign In' })[0];
-    const signUpButton = screen.getAllByRole('link', { name: 'Sign Up' })[0];
+    const homeLink = screen.getAllByRole('link', { name: 'Главная' })[0];
+    const enButton = screen.getAllByRole('button', { name: 'Англ' })[0];
+    const ruButton = screen.getAllByRole('button', { name: 'Рус' })[0];
+    const signInButton = screen.getAllByRole('link', { name: 'Вход' })[0];
+    const signUpButton = screen.getAllByRole('link', { name: 'Регистрация' })[0];
 
     expect(homeLink).toBeDefined();
     expect(homeLink.getAttribute('href')).toBe('/ru');
@@ -69,7 +69,7 @@ describe('Header', () => {
   it('should call router.replace when en-locale button is clicked', () => {
     renderWithIntl(<Header />, 'ru');
 
-    const enButton = screen.getAllByRole('button', { name: 'En' })[0];
+    const enButton = screen.getAllByRole('button', { name: 'Англ' })[0];
 
     fireEvent.click(enButton);
 
