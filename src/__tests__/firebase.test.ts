@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, type Mock } from 'vitest';
+import { vi, type Mock } from 'vitest';
 import { getAuth, sendPasswordResetEmail, signOut } from 'firebase/auth';
 import { sendPasswordReset, logout } from '@/firebase/firebase';
 
