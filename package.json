@@ -61,6 +61,7 @@
     "husky": "^9.1.5",
     "jsdom": "^24.1.1",
     "lint-staged": "^15.2.9",
+    "msw": "^2.4.9",
     "prettier": "^3.3.3",
     "redux-mock-store": "^1.5.4",
     "sass": "^1.77.8",
