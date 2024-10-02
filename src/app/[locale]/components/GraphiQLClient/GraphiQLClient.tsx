@@ -135,7 +135,7 @@ export default function GraphiQLClient({ graphqlDocsIsOpen, setIsDocsAvailable }
       <div className={`${style.container} ${graphqlDocsIsOpen === true ? style.docsOpen : ''}`}>
         <div className={style.docs_wrapper}>{graphqlDocsIsOpen === true ? <Docs schema={docs} /> : null}</div>
         <div className={style.form_wrapper}>
-          <form className={style.form} onSubmit={handleSubmit}>
+          <form className={style.form} onSubmit={handleSubmit} data-testid='formElement'>
             <RequestControl
               url={url}
               setUrl={setUrl}
