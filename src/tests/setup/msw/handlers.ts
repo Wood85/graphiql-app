@@ -21,4 +21,8 @@ export const handlers = [
 
     return new Response(imageData, { status: 200, headers: { 'Content-Type': 'image/png' } });
   }),
+  http.head(
+    'http://localhost:3000///HEAD/aHR0cHM6Ly90ZXN0LmNvbQ==',
+    () => new Response(null, { status: 200, headers: new Headers() }),
+  ),
 ];

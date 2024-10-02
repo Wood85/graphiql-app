@@ -32,7 +32,7 @@ function RequestControl({ method, setMethod, url, setUrl, body }: IProps): JSX.E
 
   return (
     <div className={style.request_control}>
-      <select className={style.method_selector} value={method} onChange={handleOptionChange}>
+      <select className={style.method_selector} value={method} onChange={handleOptionChange} data-testid='methodInput'>
         <option value={TRequestMethod.GET}>{TRequestMethod.GET}</option>
         <option value={TRequestMethod.POST}>{TRequestMethod.POST}</option>
         <option value={TRequestMethod.PUT}>{TRequestMethod.PUT}</option>
@@ -52,6 +52,7 @@ function RequestControl({ method, setMethod, url, setUrl, body }: IProps): JSX.E
         onBlur={(e) => {
           replaceInHistory('url', e.target.value);
         }}
+        data-testid='urlInput'
       />
       <Button type='submit' className={style.button} disabled={url === ''}>
         {t('send')}
