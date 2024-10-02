@@ -85,7 +85,7 @@ function Header(): JSX.Element {
 
   return (
     <>
-      <header className={style.header} ref={headerElement}>
+      <header className={style.header} ref={headerElement} data-testid='header'>
         <Link href='/' className={style.app_link}>
           <Image src={appLogo} className={style.app_logo} width={70} height={70} alt='App logo' priority />
         </Link>
@@ -135,11 +135,11 @@ function Header(): JSX.Element {
             )}
           </div>
         </div>
-        <button type='button' onClick={openMenu} className={style.mobile_menu}>
-          <div ref={burgerIcon} className={`${style.burger_icon} ${style.active}`}>
+        <button type='button' onClick={openMenu} className={style.mobile_menu} data-testid='mobileMenu'>
+          <div ref={burgerIcon} className={`${style.burger_icon} ${style.active}`} data-testid='burgerIcon'>
             <BurgerMenuIcon /> Menu
           </div>
-          <div ref={closeIcon} className={style.close_icon}>
+          <div ref={closeIcon} className={style.close_icon} data-testid='closeIcon'>
             <CloseIcon /> Close
           </div>
         </button>

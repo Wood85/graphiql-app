@@ -1,18 +1,10 @@
 import Footer from '@/app/[locale]/components/Footer/Footer';
-import { render, screen } from '@testing-library/react';
-import { NextIntlClientProvider } from 'next-intl';
-import { describe, expect, it } from 'vitest';
-import messages from '../../messages/en.json';
-
-const locale = 'en';
+import { screen } from '@testing-library/react';
+import { renderWithIntl } from '@/utils/testUtils';
 
 describe('Footer', () => {
   it('should render names and year correctly', () => {
-    render(
-      <NextIntlClientProvider messages={messages} locale={locale}>
-        <Footer />
-      </NextIntlClientProvider>,
-    );
+    renderWithIntl(<Footer />);
 
     expect(screen.getByText('Wood85')).toBeDefined();
     expect(screen.getByText('doosterhere')).toBeDefined();
@@ -21,11 +13,7 @@ describe('Footer', () => {
   });
 
   it('should render image and link correctly', () => {
-    render(
-      <NextIntlClientProvider messages={messages} locale={locale}>
-        <Footer />
-      </NextIntlClientProvider>,
-    );
+    renderWithIntl(<Footer />);
 
     const link = screen.getByTestId('linkToRSS');
     const href = link.getAttribute('href');

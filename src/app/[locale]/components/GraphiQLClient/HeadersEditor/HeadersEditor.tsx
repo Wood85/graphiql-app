@@ -29,7 +29,7 @@ function HeadersEditor(): JSX.Element {
     dispatch(gqlHeaders(newHeaders));
   };
   return (
-    <div className={styles.table}>
+    <div className={styles.table} data-testid='headers_editor_gql'>
       <div className={styles.table_heading}>
         <div className={styles.table_heading_key}>{t('key')}</div>
         <div>{t('value')}</div>

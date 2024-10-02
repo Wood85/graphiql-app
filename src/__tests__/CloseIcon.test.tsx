@@ -1,6 +1,5 @@
 import CloseIcon from '@/assets/images/icons/CloseIcon';
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
 
 describe('CloseIcon', () => {
   it('should render correctly', () => {

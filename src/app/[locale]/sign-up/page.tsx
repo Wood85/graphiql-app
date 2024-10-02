@@ -99,6 +99,7 @@ function SignUp(): JSX.Element {
               id='name'
               type='text'
               className={styles.name_input}
+              data-testid='inputName'
             />
           </label>
           <div className={styles.input_error}>{errors.name?.message}</div>
@@ -115,6 +116,7 @@ function SignUp(): JSX.Element {
               id='email'
               type='text'
               className={styles.email_input}
+              data-testid='inputEmail'
             />
           </label>
           <div className={styles.input_error}>{errors.email?.message}</div>
@@ -132,6 +134,7 @@ function SignUp(): JSX.Element {
               id='password'
               type='password'
               className={styles.password_input}
+              data-testid='inputPassword'
             />
           </label>
           <div className={styles.input_error}>{errors.password?.message}</div>
@@ -149,6 +152,7 @@ function SignUp(): JSX.Element {
               id='confirmPassword'
               type='password'
               className={styles.confirm_password_input}
+              data-testid='inputConfirmPassword'
             />
           </label>
           <div className={styles.input_error}>{errors.confirmPassword?.message}</div>

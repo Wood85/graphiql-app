@@ -1,3 +1,3 @@
 export interface IUrlRouteParams {
-  params: { method: string; url: string; params: string[] | undefined };
+  params: { method: string; url: string; params?: string[] };
 }

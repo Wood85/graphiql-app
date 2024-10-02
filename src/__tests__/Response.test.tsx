@@ -1,12 +1,7 @@
 import { Response, type IProps } from '@/app/[locale]/components/Response/Response';
 import { TRequestMethod } from '@/interfaces/RequestMethod';
-import { store } from '@/store/store';
-import { render } from '@testing-library/react';
-import { NextIntlClientProvider } from 'next-intl';
-import { Provider } from 'react-redux';
-import messages from '../../messages/en.json';
+import { renderWithStore } from '@/utils/testUtils';
 
-const locale = 'en';
 describe('Response component', () => {
   const props: IProps = {
     method: TRequestMethod.GET,
@@ -21,13 +16,7 @@ describe('Response component', () => {
   };
 
   it('renders correctly', () => {
-    const { getByText } = render(
-      <Provider store={store}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <Response {...props} />
-        </NextIntlClientProvider>
-      </Provider>,
-    );
+    const { getByText } = renderWithStore(<Response {...props} />);
     expect(getByText('Loading...')).toBeDefined();
   });
 });

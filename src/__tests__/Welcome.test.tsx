@@ -1,20 +1,13 @@
 import Welcome from '@/app/[locale]/components/Welcome/Welcome';
-import { render, screen } from '@testing-library/react';
-import { NextIntlClientProvider } from 'next-intl';
-import { describe, expect, it } from 'vitest';
-import messages from '../../messages/en.json';
+import { screen } from '@testing-library/react';
 
-const locale = 'en';
+import { renderWithIntl } from '@/utils/testUtils';
 
 describe('About', () => {
   it('should render correctly', async () => {
     const isAuth = true;
 
-    render(
-      <NextIntlClientProvider messages={messages} locale={locale}>
-        <Welcome userName='John' isAuth={isAuth} isLoading={false} />
-      </NextIntlClientProvider>,
-    );
+    renderWithIntl(<Welcome userName='John' isAuth={isAuth} isLoading={false} />);
 
     expect(screen.getByText(/welcome/i)).toBeDefined();
   });
@@ -22,11 +15,7 @@ describe('About', () => {
   it('should render SignIn and SignUp buttons if user is not logged in', async () => {
     const isAuth = false;
 
-    render(
-      <NextIntlClientProvider messages={messages} locale={locale}>
-        <Welcome userName='John' isAuth={isAuth} isLoading={false} />
-      </NextIntlClientProvider>,
-    );
+    renderWithIntl(<Welcome userName='John' isAuth={isAuth} isLoading={false} />);
 
     expect(screen.getByText(/welcome!/i)).toBeDefined();
     expect(screen.getByRole('link', { name: 'Sign In' })).toBeDefined();
@@ -37,11 +26,7 @@ describe('About', () => {
     const expectedAnchorQuantity = 3;
     const isAuth = true;
 
-    render(
-      <NextIntlClientProvider messages={messages} locale={locale}>
-        <Welcome userName='John' isAuth={isAuth} isLoading={false} />
-      </NextIntlClientProvider>,
-    );
+    renderWithIntl(<Welcome userName='John' isAuth={isAuth} isLoading={false} />);
 
     const anchorElements = screen.getAllByRole('link');
 

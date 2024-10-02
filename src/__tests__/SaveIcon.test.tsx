@@ -1,6 +1,5 @@
 import SaveIcon from '@/assets/images/icons/SaveIcon';
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
 
 describe('SaveIcon', () => {
   it('should render correctly', () => {

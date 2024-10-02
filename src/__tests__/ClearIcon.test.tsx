@@ -1,6 +1,5 @@
 import ClearIcon from '@/assets/images/icons/ClearIcon';
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
 
 describe('ClearIcon', () => {
   it('should render correctly', () => {

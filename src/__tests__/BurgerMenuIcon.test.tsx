@@ -1,6 +1,6 @@
-import BurgerMenuIcon from '@/assets/images/icons/BurgerMenuIcon';
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+
+import BurgerMenuIcon from '@/assets/images/icons/BurgerMenuIcon';
 
 describe('BurgerMenuIcon', () => {
   it('should render correctly', () => {

@@ -1,6 +1,5 @@
 import SelectArrowBottomIcon from '@/assets/images/icons/SelectArrowBottomIcon';
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
 
 describe('SelectArrowBottomIcon', () => {
   it('should render correctly', () => {

@@ -30,6 +30,7 @@ function ClientTop({ title, setGraphqlDocsIsOpen, graphqlDocsIsOpen, isDocsAvail
               if (setGraphqlDocsIsOpen !== undefined && graphqlDocsIsOpen !== undefined)
                 setGraphqlDocsIsOpen(!graphqlDocsIsOpen);
             }}
+            data-testid='docsBtn'
           >
             <DocsIcon className={style.icon} />
           </Button>
@@ -38,7 +39,7 @@ function ClientTop({ title, setGraphqlDocsIsOpen, graphqlDocsIsOpen, isDocsAvail
       <h2 className={style.title}>{title}</h2>
       <div className={style.links}>
         {pathname.includes(ROUTES.RESTAPI) && (
-          <Button href={ROUTES.GRAPHQL} className={style.button}>
+          <Button href={ROUTES.GRAPHQL} className={style.button} data-testid='graphqlBtn'>
             <GraphqlIcon className={style.icon} />
           </Button>
         )}

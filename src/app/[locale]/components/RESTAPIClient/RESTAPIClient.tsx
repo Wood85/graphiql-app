@@ -120,7 +120,7 @@ export default function RESTAPIClient(): JSX.Element {
 
   return (
     <div className={style.container}>
-      <form className={style.form} onSubmit={handleSubmit}>
+      <form className={style.form} onSubmit={handleSubmit} data-testid='formElement'>
         <RequestControl method={method} setMethod={setMethod} url={url} setUrl={setUrl} body={body} />
         <BodyEditor setBody={setBody} body={body} />
       </form>

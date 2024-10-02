@@ -1,6 +1,5 @@
 import CopyIcon from '@/assets/images/icons/CopyIcon';
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
 
 describe('CopyIcon', () => {
   it('should render correctly', () => {
