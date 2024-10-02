@@ -80,6 +80,7 @@ function Header(): JSX.Element {
     burgerMenu.current?.classList.toggle(style.active);
     burgerIcon.current?.classList.toggle(style.active);
     closeIcon.current?.classList.toggle(style.active);
+    document.body.classList.toggle(style.burger_active);
   };
 
   return (
