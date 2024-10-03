@@ -45,6 +45,11 @@
         border-bottom-color: $orange;
         color: $orange;
       }
+
+      &:active {
+        color: $gray;
+        border-color: $gray;
+      }
     }
   }
 }
