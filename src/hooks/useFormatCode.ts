@@ -10,6 +10,7 @@ interface IFormatCodeReturnType {
 export default function useFormatCode(
   editorRef: React.MutableRefObject<editor.IStandaloneCodeEditor | null>,
   content: string,
+  keepReadOnlyFalse: boolean = false,
 ): IFormatCodeReturnType {
   const [formattedCode, setFormattedCode] = useState<string | null>(null);
 
@@ -17,7 +18,9 @@ export default function useFormatCode(
     if (editorRef.current !== null) {
       editorRef.current.updateOptions({ readOnly: false });
       await editorRef.current.getAction('editor.action.formatDocument')?.run();
-      editorRef.current.updateOptions({ readOnly: true });
+      if (!keepReadOnlyFalse) {
+        editorRef.current.updateOptions({ readOnly: true });
+      }
       const formattedValue = editorRef.current.getValue();
       setFormattedCode(formattedValue);
     }
