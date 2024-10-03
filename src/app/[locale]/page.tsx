@@ -17,8 +17,9 @@ function Page(): JSX.Element {
   const [user, loading] = useAuthState(auth);
   const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const toastId = 2;
-  const containerId = 'userRequest';
+  const ZERO = 0;
+  const ONE = 1;
+  const [toastId, setToastId] = useState(ZERO);
 
   useEffect(() => {
     const fetchUserName = async (): Promise<void> => {
@@ -32,12 +33,11 @@ function Page(): JSX.Element {
           setIsLoading(false);
         }
       } catch (err) {
-        if (!toast.isActive(toastId, containerId)) {
-          toast.error(err as string, {
-            type: 'error',
-            toastId,
-          });
-        }
+        toast(err as string, {
+          type: 'error',
+          toastId,
+        });
+        setToastId(toastId + ONE);
         setIsLoading(false);
       }
     };
@@ -51,7 +51,6 @@ function Page(): JSX.Element {
         <About />
       </div>
       <ToastContainer
-        containerId={containerId}
         position='bottom-right'
         autoClose={5000}
         hideProgressBar

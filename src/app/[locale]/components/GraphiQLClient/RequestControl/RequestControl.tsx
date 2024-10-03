@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { getIntrospectionQuery, type IntrospectionQuery } from 'graphql';
 import { Flip, toast, ToastContainer } from 'react-toastify';
@@ -22,8 +23,9 @@ interface IProps {
 function RequestControl({ url, setUrl, sdlUrl, setSdlUrl, setDocs, setIsDocsAvailable }: IProps): JSX.Element {
   const t = useTranslations('Graphiql');
   const variableNotFound = useAppSelector(selectVariableNotFound);
-  const toastId = 3;
-  const containerId = 'sdlRequest';
+  const ZERO = 0;
+  const ONE = 1;
+  const [toastId, setToastId] = useState(ZERO);
   const getSchema = async (): Promise<void> => {
     await fetch(sdlUrl, {
       method: 'POST',
@@ -39,12 +41,11 @@ function RequestControl({ url, setUrl, sdlUrl, setSdlUrl, setDocs, setIsDocsAvai
         return resData;
       })
       .catch((error: Error) => {
-        if (!toast.isActive(toastId, containerId)) {
-          toast.error(`Can not fetching this API schema. ${error.message}`, {
-            type: 'error',
-            toastId,
-          });
-        }
+        toast(`Can not fetching this API schema. ${error.message}`, {
+          type: 'error',
+          toastId,
+        });
+        setToastId(toastId + ONE);
         setDocs(null);
         setIsDocsAvailable(false);
       });
@@ -91,7 +92,6 @@ function RequestControl({ url, setUrl, sdlUrl, setSdlUrl, setDocs, setIsDocsAvai
         </Button>
       </div>
       <ToastContainer
-        containerId={containerId}
         position='bottom-right'
         autoClose={5000}
         hideProgressBar
