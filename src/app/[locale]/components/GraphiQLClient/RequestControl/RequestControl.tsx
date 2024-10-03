@@ -1,11 +1,13 @@
+import { useTranslations } from 'next-intl';
 import { getIntrospectionQuery, type IntrospectionQuery } from 'graphql';
+import { Flip, toast, ToastContainer } from 'react-toastify';
 
 import { useAppSelector } from '@/hooks/redux';
 import { selectVariableNotFound } from '@/store/reducers/graphqlSlice';
 import { replaceInHistory } from '@/utils/replaceHistory';
-
-import { useTranslations } from 'next-intl';
 import Button from '../../UI/Button/Button';
+
+import 'react-toastify/dist/ReactToastify.css';
 import style from './RequestControl.module.scss';
 
 interface IProps {
@@ -20,6 +22,8 @@ interface IProps {
 function RequestControl({ url, setUrl, sdlUrl, setSdlUrl, setDocs, setIsDocsAvailable }: IProps): JSX.Element {
   const t = useTranslations('Graphiql');
   const variableNotFound = useAppSelector(selectVariableNotFound);
+  const toastId = 3;
+  const containerId = 'sdlRequest';
   const getSchema = async (): Promise<void> => {
     await fetch(sdlUrl, {
       method: 'POST',
@@ -35,7 +39,12 @@ function RequestControl({ url, setUrl, sdlUrl, setSdlUrl, setDocs, setIsDocsAvai
         return resData;
       })
       .catch((error: Error) => {
-        console.error('Can not fetching this API schema.', error);
+        if (!toast.isActive(toastId, containerId)) {
+          toast.error(`Can not fetching this API schema. ${error.message}`, {
+            type: 'error',
+            toastId,
+          });
+        }
         setDocs(null);
         setIsDocsAvailable(false);
       });
@@ -81,6 +90,20 @@ function RequestControl({ url, setUrl, sdlUrl, setSdlUrl, setDocs, setIsDocsAvai
           {t('set')}
         </Button>
       </div>
+      <ToastContainer
+        containerId={containerId}
+        position='bottom-right'
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='light'
+        transition={Flip}
+      />
     </div>
   );
 }
