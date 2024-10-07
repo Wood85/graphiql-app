@@ -1,11 +1,14 @@
+import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { getIntrospectionQuery, type IntrospectionQuery } from 'graphql';
+import { Flip, toast, ToastContainer } from 'react-toastify';
 
 import { useAppSelector } from '@/hooks/redux';
 import { selectVariableNotFound } from '@/store/reducers/graphqlSlice';
 import { replaceInHistory } from '@/utils/replaceHistory';
-
-import { useTranslations } from 'next-intl';
 import Button from '../../UI/Button/Button';
+
+import 'react-toastify/dist/ReactToastify.css';
 import style from './RequestControl.module.scss';
 
 interface IProps {
@@ -20,6 +23,9 @@ interface IProps {
 function RequestControl({ url, setUrl, sdlUrl, setSdlUrl, setDocs, setIsDocsAvailable }: IProps): JSX.Element {
   const t = useTranslations('Graphiql');
   const variableNotFound = useAppSelector(selectVariableNotFound);
+  const ZERO = 0;
+  const ONE = 1;
+  const [toastId, setToastId] = useState(ZERO);
   const getSchema = async (): Promise<void> => {
     await fetch(sdlUrl, {
       method: 'POST',
@@ -35,7 +41,11 @@ function RequestControl({ url, setUrl, sdlUrl, setSdlUrl, setDocs, setIsDocsAvai
         return resData;
       })
       .catch((error: Error) => {
-        console.error('Can not fetching this API schema.', error);
+        toast(`Can not fetching this API schema. ${error.message}`, {
+          type: 'error',
+          toastId,
+        });
+        setToastId(toastId + ONE);
         setDocs(null);
         setIsDocsAvailable(false);
       });
@@ -81,6 +91,19 @@ function RequestControl({ url, setUrl, sdlUrl, setSdlUrl, setDocs, setIsDocsAvai
           {t('set')}
         </Button>
       </div>
+      <ToastContainer
+        position='bottom-right'
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='light'
+        transition={Flip}
+      />
     </div>
   );
 }

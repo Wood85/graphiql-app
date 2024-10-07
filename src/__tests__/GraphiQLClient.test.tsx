@@ -29,7 +29,5 @@ describe('GraphiQLClient', () => {
     await waitFor(() => {
       expect(screen.getByText(/Test error/)).toBeInTheDocument();
     });
-
-    screen.debug();
   });
 });
