@@ -21,7 +21,8 @@ You can take a look and try our **GraphiQL App** here - **[GraphiQL-app](https:/
 - **[React](https://react.dev/)** - a JavaScript library for building user interfaces.
 - **[Next.JS](https://nextjs.org/)** - a flexible and powerful React fremework.
 - **[Typescript](https://www.typescriptlang.org/)** - a superset of JavaScript that builds on top of JavaScript's power.
-- 🚧 **will be updated later** 🚧
+- **[Redux Toolkit](https://redux-toolkit.js.org/)** - a powerful library designed to simplify the process of managing state in JS apps.
+- **[SASS](https://sass-lang.com/)** - a CSS preprocessor that extends the capabilities of traditional CSS.
 
 ### Code quality:
 
@@ -31,11 +32,14 @@ You can take a look and try our **GraphiQL App** here - **[GraphiQL-app](https:/
 - **[Prettier](https://prettier.io/)** - a code formatter.
 - **[Husky](https://github.com/typicode/husky#readme)** - a Git hooks tool.
 - **[Lint-staged](https://github.com/okonet/lint-staged#readme)** - a tool for configuring Git hooks.
-- 🚧 **[clsx](https://github.com/lukeed/clsx#readme)** (or any other) - a tiny className constructor [maybe we don't need this one so this line will be removed]. 🚧
 
 ### Another libraries:
 
-🚧 Any libraries that will be used in the project 🚧
+- **[clsx](https://github.com/lukeed/clsx#readme)** - a tiny className constructor [maybe we don't need this one so this line will be removed].
+- **[Reack hook form](https://www.react-hook-form.com/)** - a library for managing forms in React applications.
+- **[Yup](https://github.com/jquense/yup)** - a JS schema builder for value parsing and validation.
+- **[Firebase](https://firebase.google.com/)** - a comprehensive platform that provides a suite of tools and services for building and managing web and mobile apps.
+- **[MSW](https://mswjs.io/)** - a library for mocking API requests in web apps during development and testing.
 
 # Getting started 🚀
 
@@ -68,6 +72,8 @@ npm install
 ```
 
 This command will install all the dependencies the project needed to run.
+
+Next, you need to create a `.env.local` file (based on the `.env.example` file) with the firebase settings and place it in the root of the project.
 
 You're all set! It's time to get started. Run the following command to start the development server:
 
@@ -150,7 +156,6 @@ _Team-lead. Frontend development._
 <img src="./src/assets/images/team/Aleksandr.png" alt="Aleksandr Krivoshein" width="300">
 
 - [Aleksandr's GitHub](https://github.com/wood85)
-- 🚧 Any other information 🚧
 
 #
 
@@ -161,7 +166,6 @@ _Frontend development._
 <img src="./src/assets/images/team/Ekaterina.png" alt="Ekaterina Kotliarenko" width="300">
 
 - [Ekaterina's GitHub](https://github.com/kagerka)
-- 🚧 Any other information 🚧
 
 #
 
@@ -172,4 +176,3 @@ _Frontend development._
 <img src="./src/assets/images/team/Mikalai.png" alt="Mikalai Shcharbakou" width="300">
 
 - [Mikalai's GitHub](https://github.com/doosterhere)
-- 🚧 Any other information 🚧
