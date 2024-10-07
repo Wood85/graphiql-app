@@ -4,8 +4,11 @@ import Editor from '@monaco-editor/react';
 import type { editor } from 'monaco-editor/esm/vs/editor/editor.api';
 
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import useFormatCode from '@/hooks/useFormatCode';
 import { selectGraphQLVariables, setGraphQLVariables } from '@/store/reducers/graphqlSlice';
 import type { TGraphQLVars } from '@/store/reducers/graphqlSlice';
+import Button from '@/app/[locale]/components/UI/Button/Button';
+import PrettifyIcon from '@/assets/images/icons/PrettifyIcon';
 
 import style from './VariablesEditor.module.scss';
 
@@ -15,6 +18,7 @@ function VariablesEditor(): JSX.Element {
   const [variablesString, setVariablesString] = useState(JSON.stringify(variablesObject, null, INDENT));
   const editorRef = useRef<editor.IStandaloneCodeEditor | null>(null);
   const dispatcher = useAppDispatch();
+  const { formattedCode, formatCode } = useFormatCode(editorRef, variablesString, true);
 
   const onEditorMountHandler = async (editor: editor.IStandaloneCodeEditor): Promise<void> => {
     editorRef.current = editor;
@@ -29,6 +33,14 @@ function VariablesEditor(): JSX.Element {
       } finally {
         setVariablesString(value);
       }
+    }
+  };
+
+  const handlePrettify = (): void => {
+    formatCode();
+
+    if (formattedCode !== null) {
+      setVariablesString(formattedCode);
     }
   };
 
@@ -47,6 +59,9 @@ function VariablesEditor(): JSX.Element {
           minimap: { enabled: false },
           padding: { top: 5, bottom: 5 },
           renderLineHighlight: 'none',
+          scrollbar: {
+            verticalScrollbarSize: 0,
+          },
           scrollBeyondLastLine: false,
           tabSize: 2,
           wordWrap: 'on',
@@ -56,6 +71,9 @@ function VariablesEditor(): JSX.Element {
         onChange={onHandleEditorChange}
         onMount={onEditorMountHandler}
       />
+      <Button className={style.button} onClick={handlePrettify}>
+        <PrettifyIcon />
+      </Button>
     </div>
   );
 }
