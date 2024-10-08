@@ -1,0 +1,52 @@
+@use 'normalize';
+@import './variables.scss';
+
+html {
+  overflow-y: scroll;
+}
+
+html::-webkit-scrollbar {
+  width: 4px;
+
+  background-color: #f9f9fd;
+}
+
+html::-webkit-scrollbar-track {
+  border-radius: 4px;
+
+  -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.2);
+  background-color: $white;
+}
+
+html::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+
+  background-color: $blue;
+}
+
+.body {
+  .body-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100dvh;
+
+    .body-content {
+      flex: 1 1 auto;
+    }
+  }
+
+  & * {
+    box-sizing: border-box;
+  }
+}
+
+.ͼ1.cm-focused {
+  outline: none;
+}
+
+.monaco-editor {
+  &.no-user-select {
+    width: 200px !important;
+  }
+}

@@ -1,0 +1,204 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`BodyEditor component > renders correctly 1`] = `
+<div>
+  <div
+    class="_container_625087"
+  >
+    <div
+      class="_switchers_container_625087"
+    >
+      <div
+        class="_switcher_625087"
+      >
+        <button
+          class="_button_11d5ea _button_625087 _selected_625087"
+          type="button"
+        >
+          Headers
+        </button>
+        <button
+          class="_button_11d5ea _button_625087 "
+          type="button"
+        >
+          Body
+        </button>
+        <button
+          class="_button_11d5ea _button_625087 "
+          type="button"
+        >
+          Variables
+        </button>
+      </div>
+    </div>
+    <div
+      class="_container_30778c"
+    >
+      <table
+        class="_table_30778c"
+        role="grid"
+      >
+        <thead>
+          <tr>
+            <td
+              class="_td_30778c _td_1_30778c"
+            />
+            <td
+              class="_td_30778c _td_2_30778c _td_title_30778c"
+            >
+              Key
+            </td>
+            <td
+              class="_td_30778c _td_3_30778c _td_title_30778c"
+            >
+              Value
+            </td>
+            <td
+              class="_td_30778c _td_4_30778c _td_title_30778c"
+            />
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td
+              class="_td_8f4ee0 _td_1_8f4ee0"
+            >
+              <label>
+                <input
+                  class="_checkbox_hide_808ba5"
+                  data-testid="checkbox"
+                  type="checkbox"
+                />
+                <div
+                  class="_checkbox_808ba5 _checkbox_active_808ba5"
+                />
+              </label>
+            </td>
+            <td
+              class="_td_8f4ee0 _td_2_8f4ee0 false"
+            >
+              <label
+                for="Accept"
+              >
+                Accept
+              </label>
+            </td>
+            <td
+              class="_td_8f4ee0 _td_3_8f4ee0 false"
+            >
+              <label
+                for="Accept"
+              >
+                */*
+              </label>
+            </td>
+            <td
+              class="_td_8f4ee0 _td_4_8f4ee0"
+            />
+          </tr>
+          <tr>
+            <td
+              class="_td_8f4ee0 _td_1_8f4ee0"
+            >
+              <label>
+                <input
+                  class="_checkbox_hide_808ba5"
+                  data-testid="checkbox"
+                  type="checkbox"
+                />
+                <div
+                  class="_checkbox_808ba5 _checkbox_active_808ba5"
+                />
+              </label>
+            </td>
+            <td
+              class="_td_8f4ee0 _td_2_8f4ee0 false"
+            >
+              <label
+                for="Accept-Encoding"
+              >
+                Accept-Encoding
+              </label>
+            </td>
+            <td
+              class="_td_8f4ee0 _td_3_8f4ee0 false"
+            >
+              <label
+                for="Accept-Encoding"
+              >
+                gzip, deflate, br
+              </label>
+            </td>
+            <td
+              class="_td_8f4ee0 _td_4_8f4ee0"
+            />
+          </tr>
+          <tr>
+            <td
+              class="_td_8f4ee0 _td_1_8f4ee0"
+            >
+              <label>
+                <input
+                  class="_checkbox_hide_808ba5"
+                  data-testid="checkbox"
+                  type="checkbox"
+                />
+                <div
+                  class="_checkbox_808ba5 _checkbox_active_808ba5"
+                />
+              </label>
+            </td>
+            <td
+              class="_td_8f4ee0 _td_2_8f4ee0 false"
+            >
+              <label
+                for="Connection"
+              >
+                Connection
+              </label>
+            </td>
+            <td
+              class="_td_8f4ee0 _td_3_8f4ee0 false"
+            >
+              <label
+                for="Connection"
+              >
+                keep-alive
+              </label>
+            </td>
+            <td
+              class="_td_8f4ee0 _td_4_8f4ee0"
+            />
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr
+            data-testid="row_editor"
+          >
+            <td
+              aria-label="checkbox"
+              class="_td_f802ac _td_1_f802ac"
+              role="gridcell"
+            />
+            <td
+              aria-label="key"
+              class="_td_f802ac _td_2_f802ac"
+              role="gridcell"
+            />
+            <td
+              aria-label="value"
+              class="_td_f802ac _td_3_f802ac"
+              role="gridcell"
+            />
+            <td
+              aria-label="btns"
+              class="_td_f802ac _td_4_f802ac"
+              role="gridcell"
+            />
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+`;

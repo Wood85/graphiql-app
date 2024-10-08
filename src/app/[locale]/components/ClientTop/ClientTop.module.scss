@@ -1,0 +1,74 @@
+@import '../../../../styles/variables.scss';
+
+.top {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 100px 1fr 100px;
+  align-items: center;
+
+  @media screen and (max-width: 425px) {
+    grid-template-columns: 50px 1fr 50px;
+  }
+
+  .button {
+    width: 45px;
+    height: 45px;
+
+    background-color: $white;
+
+    transition: all 0.3s ease-in;
+
+    & .icon path {
+      transition: all 0.3s ease-in;
+    }
+
+    &.docs_open .icon path {
+      fill: $dark-blue;
+    }
+
+    &:hover {
+      background-color: $gray;
+    }
+
+    @media screen and (max-width: 425px) {
+      width: 35px;
+      height: 35px;
+    }
+
+    @media screen and (max-width: 374px) {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  .graphql_docs {
+    justify-self: start;
+  }
+
+  .title {
+    margin: 0;
+    align-self: center;
+
+    font-size: 38px;
+    color: $dark-blue;
+    line-height: 38px;
+    text-align: center;
+
+    transition: all 0.3s ease-in;
+
+    @media screen and (max-width: 425px) {
+      font-size: 24px;
+    }
+  }
+
+  .links {
+    display: flex;
+    flex-direction: row;
+    justify-self: end;
+    gap: 10px;
+
+    @media screen and (max-width: 425px) {
+      gap: 0;
+    }
+  }
+}

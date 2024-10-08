@@ -1,0 +1,136 @@
+@import '../../../styles/variables.scss';
+
+.page {
+  display: flex;
+  padding-top: 60px;
+  justify-content: center;
+
+  transition: all 0.3s ease-in;
+
+  @media screen and (max-width: 425px) {
+    padding: 20px 0;
+  }
+}
+
+.form {
+  width: 650px;
+  height: 489px;
+  border: 1px solid $blue;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  @media screen and (max-width: 710px) {
+    width: 100%;
+    margin: 0 30px;
+  }
+
+  @media screen and (max-width: 425px) {
+    margin: 0 20px;
+  }
+
+  @media screen and (max-width: 387px) {
+    height: 507px;
+  }
+}
+
+.title {
+  margin: 40px 0 0 0;
+
+  font-weight: 700;
+  font-size: 38px;
+  color: $dark-blue;
+}
+
+.input_container {
+  @media screen and (max-width: 585px) {
+    width: 100%;
+    padding: 0 35px;
+  }
+}
+
+.email_input,
+.password_input {
+  width: 484px;
+  height: 45px;
+  border: 1px solid $blue;
+  border-radius: 4px;
+  padding-left: 10px;
+
+  font-size: 18px;
+
+  @media screen and (max-width: 585px) {
+    width: 100%;
+  }
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  height: 65px;
+
+  font-size: 18px;
+
+  @media screen and (max-width: 585px) {
+    width: 100%;
+  }
+}
+
+.input_error {
+  height: 20px;
+}
+
+.sign_up_link {
+  font-weight: 700;
+  font-size: 18px;
+  text-decoration: none;
+  color: $dark-blue;
+}
+
+.sign_up_text {
+  margin: -20px 20px 0 20px;
+
+  font-size: 18px;
+
+  @media screen and (max-width: 387px) {
+    width: 200px;
+    text-align: center;
+  }
+}
+
+.submit {
+  margin-bottom: 40px;
+  width: 200px;
+  height: 50px;
+
+  transition: all 0.3s ease-in;
+
+  &:hover {
+    color: $dark-blue;
+    background-color: $light-blue;
+    transition: all 0.3s ease-in;
+  }
+
+  &:disabled {
+    background-color: $dark-gray;
+    cursor: default;
+
+    transition: all 0.3s ease-in;
+    &:hover {
+      color: $white;
+    }
+  }
+}
+
+.input_error {
+  color: $red;
+}
+
+.error {
+  height: 20px;
+
+  font-size: 18px;
+  color: $red;
+}

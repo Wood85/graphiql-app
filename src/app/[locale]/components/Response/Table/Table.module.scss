@@ -1,0 +1,62 @@
+@import '../../../../../styles/variables.scss';
+
+.wrapper {
+  height: 100%;
+  overflow: auto;
+  scrollbar-color: $dark-blue $blue;
+  scrollbar-width: thin;
+
+  font-size: 16px;
+  color: $dark-blue;
+
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+
+    tr {
+      .td {
+        height: 35px;
+        padding: 1px 6px;
+        border: 1px solid $blue;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        &.td_1 {
+          width: 35px;
+        }
+
+        &.td_2 {
+          width: 300px;
+
+          @media screen and (max-width: 768px) {
+            width: 150px;
+          }
+        }
+
+        &.td_3 {
+          max-width: 0;
+
+          @media screen and (max-width: 768px) {
+            max-width: none;
+          }
+        }
+
+        &.td_title {
+          font-weight: 700;
+        }
+      }
+    }
+  }
+
+  .no_headers {
+    padding: 0 20px;
+
+    font-size: 18px;
+  }
+}

@@ -1,0 +1,169 @@
+@import './../../../../../styles/variables.scss';
+
+.request_control {
+  display: grid;
+  grid-template-columns: 15% 1fr 15%;
+
+  .method_selector,
+  .endpoint_input,
+  .button {
+    width: 100%;
+    height: 45px;
+    padding: 7px 10px;
+    border: 1px solid $blue;
+    border-right: 1px solid transparent;
+    box-sizing: border-box;
+    outline: none;
+
+    font-size: 20px;
+    color: $dark-blue;
+
+    background-color: $white;
+
+    transition: all 0.3s ease-in;
+
+    &:focus {
+      border: 1px solid $dark-blue;
+    }
+
+    &:disabled {
+      border-color: $gray;
+
+      color: $gray;
+    }
+
+    &::placeholder {
+      color: $blue;
+    }
+  }
+
+  .method_selector {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    padding-right: 20px;
+    border-radius: 4px 0 0 4px;
+
+    background: url(../../../../../assets/images/select-arrow.svg) no-repeat 98% center;
+
+    cursor: pointer;
+
+    &::-ms-expand {
+      display: none;
+    }
+  }
+
+  .button {
+    border-radius: 0 4px 4px 0;
+    border: 1px solid $blue;
+
+    color: $white;
+
+    background-color: $blue;
+
+    cursor: pointer;
+
+    &:disabled {
+      border: 1px solid $blue;
+
+      color: $dark-gray;
+
+      background-color: $gray;
+
+      cursor: default;
+    }
+
+    &:not(:disabled):hover {
+      color: $dark-blue;
+
+      background-color: $light-blue;
+
+      & .signin_icon,
+      & .signup_icon,
+      & .signout_icon {
+        fill: $dark-blue;
+      }
+    }
+
+    &:not(:disabled):active {
+      color: $dark-blue;
+
+      background-color: $gray;
+
+      & .signin_icon,
+      & .signup_icon,
+      & .signout_icon {
+        fill: $dark-blue;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 940px) {
+  .request_control {
+    grid-template-columns: 15% 1fr 20%;
+
+    .method_selector {
+      font-size: 18px;
+    }
+  }
+}
+
+@media screen and (max-width: 860px) {
+  .request_control {
+    .method_selector {
+      font-size: 16px;
+    }
+  }
+}
+
+@media screen and (max-width: 834px) {
+  .request_control {
+    .method_selector,
+    .endpoint_input,
+    .button {
+      height: 40px;
+      padding: 5px;
+    }
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .request_control {
+    grid-template-columns: 25% 1fr 23%;
+    .method_selector,
+    .endpoint_input,
+    .button {
+      padding: 5px 2px;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .request_control {
+    .method_selector,
+    .endpoint_input,
+    .button {
+      height: 30px;
+      font-size: 14px;
+    }
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .request_control {
+    .method_selector {
+      padding: 5px 2px;
+    }
+  }
+}
+
+@media screen and (max-width: 465px) {
+  .request_control {
+    .method_selector {
+      width: 100%;
+      background-image: none;
+      text-align: center;
+    }
+  }
+}

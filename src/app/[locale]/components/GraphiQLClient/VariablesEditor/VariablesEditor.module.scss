@@ -1,0 +1,32 @@
+@import '../../../../../styles/variables.scss';
+
+.wrapper {
+  position: relative;
+
+  height: 250px;
+
+  .variables_editor {
+    height: 100%;
+  }
+
+  .button {
+    position: absolute;
+    top: 10px;
+    right: 35px;
+
+    width: 45px;
+    height: 45px;
+    padding: 0;
+
+    background-color: $white;
+    transition: all 0.3s ease-in;
+
+    &:hover {
+      background-color: $gray;
+    }
+
+    &.active {
+      border: 2px solid $gray;
+    }
+  }
+}

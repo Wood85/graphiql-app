@@ -1,0 +1,113 @@
+{
+  "Welcome": {
+    "title": "Welcome",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "restClient": "REST Client",
+    "graphiqlClient": "GraphiQL Client",
+    "history": "History"
+  },
+  "Header": {
+    "home": "Home",
+    "signOut": "Sign Out",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "en": "En",
+    "ru": "Ru"
+  },
+  "About": {
+    "title": "About us",
+    "description": "This application is a result of our work as a team while studying at RS School, React 2024 Q3 course. We created a light-weight versions of Postman and GraphiQL, combined in one app.",
+    "aleksandr": "Aleksandr Krivoshein",
+    "ekaterina": "Ekaterina Kotliarenko",
+    "mikalai": "Mikalai Shcharbakou",
+    "teamLead": "Team-lead",
+    "developer": "Frontend developer"
+  },
+  "SignIn": {
+    "title": "Sign In",
+    "email": "E-mail",
+    "password": "Password",
+    "submit": "Submit",
+    "description": "Don't have an account",
+    "signUp": "Sign Up",
+    "emailRequired": "Enter your email",
+    "invalidEmail": "Invalid email",
+    "enterPassword": "Enter your password",
+    "passwordLength": "Password must be at least {passwordLength} symbol",
+    "passwordNumber": "Password must contain at least one number",
+    "passwordUppercase": "Must contain at least one uppercase letter",
+    "passwordLowercase": "Must contain at least one lowercase letter",
+    "passwordSpecialChar": "Must contain at least one special character",
+    "invalidCredential": "Invalid credential"
+  },
+  "SignUp": {
+    "title": "Sign Up",
+    "name": "Name",
+    "email": "E-mail",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "submit": "Submit",
+    "description": "Already have an account",
+    "signIn": "Sign In",
+    "nameUppercase": "The first letter must be uppercased",
+    "nameRequired": "Enter your name",
+    "emailRequired": "Enter your email",
+    "invalidEmail": "Invalid email",
+    "enterPassword": "Enter your password",
+    "passwordLength": "Password must be at least {passwordLength} symbol",
+    "passwordNumber": "Password must contain at least one number",
+    "passwordUppercase": "Must contain at least one uppercase letter",
+    "passwordLowercase": "Must contain at least one lowercase letter",
+    "passwordSpecialChar": "Must contain at least one special character",
+    "passwordMatch": "Password must match",
+    "passwordRequired": "Confirm password is required",
+    "userAlreadyExist": "A user with this email already exists",
+    "userWasNotCreated": "Error! User was not created"
+  },
+  "Restapi": {
+    "title": "RESTful Client",
+    "endpointURL": "Endpoint URL",
+    "send": "Send",
+    "key": "Key",
+    "value": "Value",
+    "headers": "Headers",
+    "body": "Body",
+    "variables": "Variables",
+    "text": "Text",
+    "variable": "Variable",
+    "currentValue": "Current Value"
+  },
+  "Response": {
+    "body": "Body",
+    "headers": "Headers",
+    "pretty": "Pretty",
+    "raw": "Raw",
+    "sendingRequest": "Sending request..."
+  },
+  "Table": {
+    "noHeaders": "There are no headers...",
+    "key": "Key",
+    "value": "Value"
+  },
+  "NotFound": {
+    "notFound": "Page not found. You can go to the",
+    "mainPage": "Main\u00a0page"
+  },
+  "History": {
+    "title": "History requests",
+    "description": "You haven’t executed any requests. It’s empty here. Try:"
+  },
+  "Graphiql": {
+    "title": "GraphiQL Client",
+    "send": "Send",
+    "set": "Set",
+    "endpointURL": "Endpoint URL",
+    "copyTextSuccess": "Text copied to clipboard",
+    "copyTextError": "Error: text not copied to clipboard",
+    "headers": "Headers",
+    "variables": "Variables",
+    "key": "Key",
+    "value": "Value"
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "Welcome": {
+    "title": "Добро пожаловать",
+    "signIn": "Вход",
+    "signUp": "Регистрация",
+    "restClient": "REST клиент",
+    "graphiqlClient": "GraphiQL клиент",
+    "history": "История"
+  },
+  "Header": {
+    "home": "Главная",
+    "signOut": "Выход",
+    "signIn": "Вход",
+    "signUp": "Регистрация",
+    "en": "Англ",
+    "ru": "Рус"
+  },
+  "About": {
+    "title": "О нас",
+    "description": "Это приложение - результат нашей совместной работы во время обучения в RS School на курсе React 2024 Q3. Мы создали облегченные версии Postman и GraphiQL, объединенные в одном приложении.",
+    "aleksandr": "Александр Кривошеин",
+    "ekaterina": "Екатерина Котляренко",
+    "mikalai": "Николай Щербаков",
+    "teamLead": "Лидер группы",
+    "developer": "Фронтенд разработчик"
+  },
+  "SignIn": {
+    "title": "Вход",
+    "email": "Почта",
+    "password": "Пароль",
+    "submit": "Отправить",
+    "description": "Пока что нет аккаунта",
+    "signUp": "Зарегистрироваться",
+    "developer": "Frontend developer",
+    "emailRequired": "Введите свой адрес эл. почты",
+    "invalidEmail": "Неверный адрес эл. почты",
+    "enterPassword": "Введите ваш пароль",
+    "passwordLength": "Пароль должен быть не менее {passwordLength} символов",
+    "passwordNumber": "Пароль должен содержать хотя бы одну цифру",
+    "passwordUppercase": "Должна содержать хотя бы одну заглавную букву",
+    "passwordLowercase": "Должна содержать хотя бы одну строчную букву",
+    "passwordSpecialChar": "Должен содержать хотя бы один специальный символ",
+    "invalidCredential": "Недействительная учетная запись"
+  },
+  "SignUp": {
+    "title": "Регистрация",
+    "name": "Имя",
+    "email": "Почта",
+    "password": "Пароль",
+    "confirmPassword": "Подтвердите пароль",
+    "submit": "Отправить",
+    "description": "Уже есть аккаунт",
+    "signIn": "Войти",
+    "nameUppercase": "Первая буква должна быть заглавной",
+    "nameRequired": "Введите свое имя",
+    "emailRequired": "Введите свой адрес эл. почты",
+    "invalidEmail": "Неверный адрес эл. почты",
+    "enterPassword": "Введите ваш пароль",
+    "passwordLength": "Пароль должен быть не менее {passwordLength} символов",
+    "passwordNumber": "Пароль должен содержать хотя бы одну цифру",
+    "passwordUppercase": "Должна содержать хотя бы одну заглавную букву",
+    "passwordLowercase": "Должна содержать хотя бы одну строчную букву",
+    "passwordSpecialChar": "Должен содержать хотя бы один специальный символ",
+    "passwordMatch": "Пароль должен совпадать",
+    "passwordRequired": "Требуется подтверждение пароля",
+    "userAlreadyExist": "Пользователь с таким электронным адресом уже существует",
+    "userWasNotCreated": "Ошибка! Пользователь не был создан"
+  },
+  "Restapi": {
+    "title": "RESTful Клиент",
+    "endpointURL": "URL конечной точки",
+    "send": "Отправить",
+    "key": "Ключ",
+    "value": "Значение",
+    "headers": "Заголовки",
+    "body": "Тело",
+    "variables": "Переменные",
+    "text": "Текст",
+    "variable": "Переменная",
+    "currentValue": "Текущее значение"
+  },
+  "Response": {
+    "body": "Тело",
+    "headers": "Заголовки",
+    "pretty": "Формат.",
+    "raw": "Необраб.",
+    "sendingRequest": "Отправка запроса..."
+  },
+  "Table": {
+    "noHeaders": "Нет заголовков...",
+    "key": "Ключ",
+    "value": "Значение"
+  },
+  "NotFound": {
+    "notFound": "Страница не найдена. Вы можете перейти на",
+    "mainPage": "Главную\u00a0страницу"
+  },
+  "History": {
+    "title": "История запросов",
+    "description": "Вы не выполнили ни одного запроса. Здесь пусто. Попробуйте:"
+  },
+  "Graphiql": {
+    "title": "GraphiQL клиент",
+    "send": "Отправить",
+    "set": "Установить",
+    "endpointURL": "URL конечной точки",
+    "copyTextSuccess": "Текст скопирован в буфер обмена",
+    "copyTextError": "Ошибка: текст не скопирован в буфер обмена",
+    "headers": "Заголовки",
+    "variables": "Переменные",
+    "key": "Ключ",
+    "value": "Значение"
+  }
+}

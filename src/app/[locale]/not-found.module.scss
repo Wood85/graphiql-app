@@ -1,0 +1,55 @@
+@import '../../styles/variables.scss';
+
+.wrapper {
+  margin: 60px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+
+  color: $dark-blue;
+
+  @media screen and (max-width: 767px) {
+    padding: 0 30px;
+  }
+
+  @media screen and (max-width: 424px) {
+    margin-top: 30px;
+    gap: 30px;
+  }
+
+  .image {
+    max-width: 500px;
+  }
+
+  .caption {
+    text-align: center;
+    font-size: 22px;
+
+    @media screen and (max-width: 424px) {
+      font-size: 18px;
+      text-wrap: wrap;
+    }
+
+    .link {
+      border-bottom: 1px solid $dark-blue;
+
+      font-weight: bold;
+      color: inherit;
+
+      text-decoration: none;
+
+      transition: all 0.3s ease-in;
+
+      &:hover {
+        border-bottom-color: $orange;
+        color: $orange;
+      }
+
+      &:active {
+        color: $gray;
+        border-color: $gray;
+      }
+    }
+  }
+}

@@ -1,0 +1,136 @@
+@import '../../../../styles/variables.scss';
+
+.absolute {
+  position: absolute;
+  top: 85px;
+
+  border: none;
+
+  color: $dark-blue;
+
+  background-color: $gray;
+}
+
+.wrapper {
+  width: 100%;
+  padding: 40px 20px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  border: 1px solid $blue;
+  border-radius: 8px;
+
+  transition: all 0.3s ease-in;
+
+  @media screen and (max-width: 425px) {
+    padding-bottom: 30px;
+  }
+
+  .mock_height {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 130px;
+
+    @media screen and (max-width: 767px) {
+      height: 210px;
+    }
+
+    @media screen and (max-width: 567px) {
+      height: 257px;
+    }
+
+    @media screen and (max-width: 425px) {
+      font-size: 219px;
+    }
+
+    @media screen and (max-width: 400px) {
+      font-size: 257px;
+    }
+  }
+
+  .title {
+    margin: 0;
+
+    font-size: 38px;
+    color: $dark-blue;
+    line-height: 38px;
+    text-align: center;
+
+    transition: all 0.3s ease-in;
+
+    @media screen and (max-width: 425px) {
+      font-size: 30px;
+    }
+  }
+
+  .actions {
+    min-height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+
+    transition: all 0.3s ease-in;
+
+    @media screen and (max-width: 767px) {
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .button {
+      min-width: 200px;
+
+      transition: all 0.3s ease-in;
+
+      & .sign_in_icon,
+      & .sign_up_icon {
+        transition: all 0.3s ease-in;
+      }
+
+      &:hover,
+      &:active {
+        color: $dark-blue;
+
+        background-color: $light-blue;
+
+        & .sign_in_icon,
+        & .sign_up_icon {
+          fill: $dark-blue;
+        }
+      }
+
+      &:active {
+        background-color: $gray;
+      }
+    }
+
+    .link {
+      margin: 0 10px;
+      border-bottom: 1px solid $dark-blue;
+
+      color: $dark-blue;
+      font-size: 22px;
+
+      text-decoration: none;
+
+      transition: all 0.3s ease-in;
+
+      &:hover {
+        color: $orange;
+        border-color: $orange;
+      }
+
+      &:active {
+        color: $gray;
+        border-color: $gray;
+      }
+
+      @media screen and (max-width: 767px) {
+        margin: 0;
+      }
+    }
+  }
+}

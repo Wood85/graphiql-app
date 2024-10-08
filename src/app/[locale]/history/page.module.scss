@@ -1,0 +1,137 @@
+@import '../../../styles/variables.scss';
+
+.wrapper {
+  width: 100%;
+  padding: 60px;
+
+  .content {
+    max-width: 1320px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid $blue;
+    border-radius: 8px;
+    font-size: 22px;
+    transition: all 0.3s ease-in;
+
+    .title {
+      margin: 0;
+
+      font-size: 38px;
+      color: $dark-blue;
+      line-height: 38px;
+
+      transition: all 0.3s ease-in;
+
+      @media screen and (max-width: 425px) {
+        font-size: 30px;
+        line-height: 30px;
+      }
+    }
+
+    .info {
+      padding-top: 30px;
+
+      .empty_history {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .description {
+          margin: 0;
+          margin-bottom: 30px;
+
+          line-height: 38px;
+          text-align: justify;
+          hyphens: auto;
+
+          transition: all 0.3s ease-in;
+
+          @media screen and (max-width: 425px) {
+            font-size: 18px;
+            line-height: 30px;
+          }
+        }
+
+        .link {
+          margin: 0 10px;
+          border-bottom: 1px solid $dark-blue;
+
+          color: $dark-blue;
+          font-size: 22px;
+
+          text-decoration: none;
+
+          transition: all 0.3s ease-in;
+
+          &:hover {
+            color: $orange;
+            border-color: $orange;
+          }
+
+          &:active {
+            color: $gray;
+            border-color: $gray;
+          }
+
+          @media screen and (max-width: 767px) {
+            margin: 0;
+          }
+        }
+      }
+
+      .history_links {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: left;
+        text-align: left;
+
+        .history_request {
+          display: flex;
+          gap: 20px;
+
+          .method {
+            background-color: $light-blue;
+            padding: 4px 10px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+          }
+
+          .link {
+            display: flex;
+            align-items: center;
+            margin: 0;
+
+            overflow-wrap: break-word;
+            overflow-wrap: anywhere;
+            color: $dark-blue;
+            font-size: 22px;
+
+            text-decoration: none;
+
+            transition: all 0.3s ease-in;
+
+            &:hover {
+              color: $orange;
+              border-color: $orange;
+            }
+
+            &:active {
+              color: $gray;
+              border-color: $gray;
+            }
+
+            @media screen and (max-width: 767px) {
+              margin: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}

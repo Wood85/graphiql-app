@@ -1,0 +1,287 @@
+@import '../../../../styles/variables.scss';
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+
+  display: flex;
+  gap: 60px;
+  min-height: 80px;
+  padding: 10px 60px;
+  align-items: center;
+  justify-content: space-between;
+
+  color: $white;
+  font-size: 20px;
+  font-weight: 300;
+
+  background-color: $dark-blue;
+
+  transition: all 0.3s ease-in;
+
+  &.sticked {
+    min-height: 60px;
+    height: 60px;
+
+    & .app_logo {
+      width: 40px;
+      height: 40px;
+    }
+
+    & .nav_link {
+      font-size: 22px;
+    }
+
+    & .signin_button,
+    & .signup_button,
+    & .signout_button {
+      width: 40px;
+      min-width: 40px;
+      height: 40px;
+      gap: 0;
+
+      font-size: 0;
+      padding: 0;
+    }
+  }
+}
+
+.app_link {
+  font-size: 0;
+}
+
+.app_logo {
+  width: 50px;
+  height: 50px;
+
+  transition: all 0.3s ease-in;
+}
+
+.nav_link {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  color: $white;
+  font-size: 22px;
+  text-decoration: none;
+
+  transition: all 0.3s ease-in;
+
+  .home_icon {
+    transition: all 0.3s ease-in;
+  }
+
+  &:hover {
+    color: $orange;
+
+    & .home_icon {
+      fill: $orange;
+    }
+  }
+}
+
+.auth_wrapper {
+  display: flex;
+  gap: 30px;
+}
+
+.signin_button,
+.signup_button,
+.signout_button {
+  display: flex;
+  gap: 5px;
+  min-width: 120px;
+  padding: 0 15px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 4px;
+
+  font-size: 18px;
+  color: $white;
+  text-decoration: none;
+
+  background-color: $blue;
+
+  transition: all 0.3s ease-in;
+
+  & .signin_icon,
+  & .signup_icon,
+  & .signout_icon {
+    transition: all 0.3s ease-in;
+  }
+
+  &:hover {
+    color: $dark-blue;
+
+    background-color: $light-blue;
+
+    & .signin_icon,
+    & .signup_icon,
+    & .signout_icon {
+      fill: $dark-blue;
+    }
+  }
+
+  &:active {
+    color: $dark-blue;
+
+    background-color: $gray;
+
+    & .signin_icon,
+    & .signup_icon,
+    & .signout_icon {
+      fill: $dark-blue;
+    }
+  }
+}
+
+.lang_wrapper {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+}
+
+.lang_line {
+  width: 1px;
+  height: 40px;
+
+  background-color: $white;
+}
+
+.lang {
+  border: none;
+
+  font-weight: 700;
+  font-size: 22px;
+  color: $blue;
+
+  background-color: transparent;
+
+  cursor: pointer;
+
+  &.active {
+    color: $white;
+
+    pointer-events: none;
+    cursor: default;
+  }
+}
+
+.options_wrapper {
+  display: flex;
+  gap: 60px;
+}
+
+.mobile_menu {
+  display: none;
+  border: none;
+
+  font-size: 0;
+
+  background-color: transparent;
+
+  transition: all 0.3s ease-in;
+}
+
+.burger_icon {
+  display: none;
+}
+
+.close_icon {
+  display: none;
+
+  transition: all 0.3s ease-in;
+}
+
+.burger_menu {
+  display: none;
+
+  transition: all 0.3s ease-in;
+}
+
+.burger_wrapper {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: $dark-blue;
+  overflow: hidden;
+  padding: 120px 30px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+}
+
+@media screen and (max-width: 900px) {
+  .header {
+    min-height: 80px;
+    padding: 10px 30px;
+  }
+
+  .app_logo {
+    width: 50px;
+    height: 50px;
+  }
+
+  .options_wrapper {
+    display: none;
+  }
+
+  .nav_link {
+    display: none;
+  }
+
+  .nav_mobile {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    color: $white;
+    font-size: 22px;
+    text-decoration: none;
+
+    transition: all 0.3s ease-in;
+
+    .home_icon {
+      transition: all 0.3s ease-in;
+    }
+
+    &:hover {
+      color: $orange;
+
+      & .home_icon {
+        fill: $orange;
+      }
+    }
+  }
+
+  .mobile_menu {
+    display: block;
+  }
+
+  .burger_menu.active {
+    display: block;
+  }
+
+  .burger_icon.active {
+    display: block;
+    cursor: pointer;
+  }
+
+  .close_icon.active {
+    display: block;
+    cursor: pointer;
+  }
+}
+
+body.burger_active {
+  height: 100dvh;
+  overflow: hidden;
+}
